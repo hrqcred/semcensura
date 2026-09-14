@@ -1930,7 +1930,7 @@ function showLimitOverlay(username, avatarSrc) {
 
 function goToLimitCTA() {
   var username = document.getElementById('usernameInput').value.trim();
-  window.location.href = 'cta.html?username=' + encodeURIComponent(username);
+  window.location.href = '/cta?username=' + encodeURIComponent(username);
 }
 
 function getSearchedUsers() {
@@ -2123,7 +2123,7 @@ function confirmProfile() {
 
   // Redirect after all steps complete
   setTimeout(function() {
-    window.location.href = 'feed.html?username=' + encodeURIComponent(username);
+    window.location.href = '/feed?username=' + encodeURIComponent(username);
   }, 11300);
 }
 
