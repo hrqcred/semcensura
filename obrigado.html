@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>DescobreAqui - Parabéns pela sua compra!</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --font-inter: "Inter","Inter Fallback",system-ui,-apple-system,sans-serif;
+  --bg-dark: #040607;
+  --bg-card: #0d1117;
+  --border: #30363d;
+  --green: #3fb950;
+  --red: #f85149;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  color: #f9f9f9;
+  font-family: var(--font-inter);
+  -webkit-font-smoothing: antialiased;
+  background: var(--bg-dark);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 440px;
+  margin: 0 auto;
+  padding: 24px 16px 120px;
+}
+
+/* ===== CONFIRMACAO ===== */
+.confirm-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.confirm-icon {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, #3fb950, #2ea043);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+
+.confirm-icon svg { width: 32px; height: 32px; fill: #fff; }
+
+.confirm-title {
+  font-size: 22px;
+  font-weight: 800;
+  margin-bottom: 8px;
+  color: #fff;
+}
+
+.confirm-sub {
+  font-size: 14px;
+  color: #8b949e;
+  line-height: 1.5;
+}
+
+.confirm-email {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 8px 16px;
+  background: #161b22;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--green);
+}
+
+/* ===== UPSELL ===== */
+.upsell-section {
+  margin-top: 8px;
+}
+
+.upsell-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.upsell-tag {
+  display: inline-block;
+  background: linear-gradient(135deg, #f97316, #ef4444);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 14px;
+  border-radius: 20px;
+  letter-spacing: .5px;
+  margin-bottom: 10px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.upsell-headline {
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+
+.upsell-subtext {
+  font-size: 14px;
+  color: #8b949e;
+  line-height: 1.5;
+}
+
+.upsell-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px 20px;
+  margin-bottom: 16px;
+  position: relative;
+  overflow: hidden;
+  animation: slideUp .4s ease;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.upsell-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #f97316, #ef4444, #f97316);
+  background-size: 200% 100%;
+  animation: shimmer 2s linear infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.upsell-features {
+  list-style: none;
+  margin: 16px 0 20px;
+}
+
+.upsell-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: #c9d1d9;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.upsell-features li svg {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  fill: var(--green);
+  margin-top: 1px;
+}
+
+.upsell-pricing {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.upsell-old-price {
+  color: var(--red);
+  text-decoration: line-through;
+  font-size: 15px;
+  margin-right: 8px;
+}
+
+.upsell-new-price {
+  color: var(--green);
+  font-size: 32px;
+  font-weight: 800;
+}
+
+.upsell-installment {
+  display: block;
+  font-size: 12px;
+  color: #8b949e;
+  margin-top: 4px;
+}
+
+.upsell-btn-accept {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #3fb950, #2ea043);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-bottom: 12px;
+  transition: transform .15s, box-shadow .15s;
+  text-transform: uppercase;
+  letter-spacing: .3px;
+}
+
+.upsell-btn-accept:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 20px rgba(63,185,80,.3);
+}
+
+.upsell-btn-decline {
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  color: #484f58;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 10px;
+  transition: color .2s;
+}
+
+.upsell-btn-decline:hover {
+  color: #8b949e;
+}
+
+.upsell-timer {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.upsell-timer span {
+  display: inline-block;
+  background: #161b22;
+  border: 1px solid var(--border);
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #f97316;
+}
+
+.upsell-guarantee {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #484f58;
+  margin-top: 8px;
+}
+
+.upsell-guarantee svg {
+  width: 14px;
+  height: 14px;
+  fill: #484f58;
+}
+
+.hidden { display: none; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- CONFIRMACAO DE COMPRA -->
+  <div class="confirm-card">
+    <div class="confirm-icon">
+      <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+    </div>
+    <h1 class="confirm-title">Compra confirmada!</h1>
+    <p class="confirm-sub">Seu acesso foi liberado com sucesso. Verifique seu e-mail para instruções de acesso.</p>
+    <span class="confirm-email">Verifique sua caixa de entrada e spam</span>
+  </div>
+
+  <!-- UPSELL AREA -->
+  <div class="upsell-section" id="upsell-section">
+    <div class="upsell-header">
+      <div class="upsell-tag" id="upsell-tag"></div>
+      <h2 class="upsell-headline" id="upsell-headline"></h2>
+      <p class="upsell-subtext" id="upsell-subtext"></p>
+    </div>
+
+    <div class="upsell-timer">
+      <span>Oferta expira em <b id="upsell-countdown">04:59</b></span>
+    </div>
+
+    <div class="upsell-card" id="upsell-card">
+      <ul class="upsell-features" id="upsell-features"></ul>
+      <div class="upsell-pricing">
+        <span class="upsell-old-price" id="upsell-old"></span>
+        <span class="upsell-new-price" id="upsell-new"></span>
+        <span class="upsell-installment" id="upsell-installment"></span>
+      </div>
+      <button type="button" class="upsell-btn-accept" id="upsell-accept">SIM, EU QUERO!</button>
+      <button type="button" class="upsell-btn-decline" id="upsell-decline">Não, obrigado. Continuar sem essa oferta.</button>
+      <div class="upsell-guarantee">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span>Garantia de 7 dias - Risco zero</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var username = new URLSearchParams(window.location.search).get('username') || '';
+
+// =====================================================
+// CONFIGURE SUAS OFERTAS AQUI
+// Adicione quantas quiser — o loop repete infinitamente
+// =====================================================
+var offers = [
+  // ---- OFERTA 1: DMs - R$29,90 ----
+  {
+    tag: 'OFERTA EXCLUSIVA POS-COMPRA',
+    headline: 'Desbloqueie as MENSAGENS DIRETAS!',
+    subtext: 'Leia todas as conversas privadas, mensagens apagadas e audios enviados.',
+    features: [
+      'Acesso a todas as DMs enviadas e recebidas',
+      'Mensagens apagadas recuperadas automaticamente',
+      'Audios e fotos que desaparecem',
+      'Atualizacao em tempo real'
+    ],
+    oldPrice: 'R$ 197,00',
+    newPrice: 'R$ 29,90',
+    installment: 'ou 3x de R$ 10,63',
+    btnText: 'QUERO ACESSAR AS MENSAGENS',
+    declineText: 'Nao, nao quero ver as mensagens.',
+    link: 'https://pay.hotmart.com/UPSELL_DMS'
+  },
+  // ---- OFERTA 2: Rastreamento - R$39,90 ----
+  {
+    tag: 'ULTIMA CHANCE - 80% OFF',
+    headline: 'Rastreamento em TEMPO REAL!',
+    subtext: 'Receba alertas instantaneos toda vez que a pessoa postar, curtir ou seguir alguem.',
+    features: [
+      'Notificacao instantanea de novas postagens',
+      'Alerta quando seguir/deixar de seguir alguem',
+      'Historico de curtidas e comentarios',
+      'Relatorio semanal automatico por e-mail'
+    ],
+    oldPrice: 'R$ 247,00',
+    newPrice: 'R$ 39,90',
+    installment: 'ou 3x de R$ 14,20',
+    btnText: 'ATIVAR RASTREAMENTO AGORA',
+    declineText: 'Nao preciso de rastreamento.',
+    link: 'https://pay.hotmart.com/UPSELL_TRACKING'
+  },
+  // ---- OFERTA 3: Historico - R$19,90 ----
+  {
+    tag: 'SUPER DESCONTO RELAMPAGO',
+    headline: 'Historico COMPLETO do perfil!',
+    subtext: 'Acesse tudo que a pessoa ja postou e apagou desde a criacao da conta.',
+    features: [
+      'Fotos e stories apagados recuperados',
+      'Reels removidos disponiveis',
+      'Comentarios deletados visiveis',
+      'Linha do tempo completa desde o inicio'
+    ],
+    oldPrice: 'R$ 297,00',
+    newPrice: 'R$ 19,90',
+    installment: 'ou 2x de R$ 10,45',
+    btnText: 'VER HISTORICO COMPLETO',
+    declineText: 'Nao quero ver o historico.',
+    link: 'https://pay.hotmart.com/UPSELL_HISTORY'
+  },
+  // ---- OFERTA 4: Ranking - R$14,90 ----
+  {
+    tag: 'OFERTA IMPERDIVEL',
+    headline: 'Descubra com quem ELA(E) mais conversa!',
+    subtext: 'Ranking secreto de interacoes: quem mais curte, comenta e troca mensagens.',
+    features: [
+      'Top 10 perfis que mais interagem',
+      'Ranking de curtidas trocadas',
+      'Frequencia de mensagens por contato',
+      'Alerta de novos contatos frequentes'
+    ],
+    oldPrice: 'R$ 147,00',
+    newPrice: 'R$ 14,90',
+    installment: 'pagamento unico',
+    btnText: 'REVELAR RANKING SECRETO',
+    declineText: 'Nao quero saber o ranking.',
+    link: 'https://pay.hotmart.com/UPSELL_RANKING'
+  },
+  // ---- OFERTA 5: Vitalicio - R$49,90 ----
+  {
+    tag: 'OFERTA FINAL - SO AGORA',
+    headline: 'Pacote VITALICIO com TUDO incluso!',
+    subtext: 'Acesso permanente a TODAS as funcionalidades sem mensalidade. Nunca mais pague de novo.',
+    features: [
+      'Todas as funcionalidades desbloqueadas',
+      'Acesso vitalicio sem mensalidade',
+      'Atualizacoes futuras incluidas',
+      'Suporte prioritario para sempre'
+    ],
+    oldPrice: 'R$ 497,00',
+    newPrice: 'R$ 49,90',
+    installment: 'ou 5x de R$ 10,98',
+    btnText: 'GARANTIR ACESSO VITALICIO',
+    declineText: 'Nao quero acesso vitalicio.',
+    link: 'https://pay.hotmart.com/UPSELL_LIFETIME'
+  },
+  // ---- OFERTA 6: WhatsApp - R$24,90 ----
+  {
+    tag: 'NOVIDADE - ACESSO LIBERADO',
+    headline: 'Espione o WhatsApp completo!',
+    subtext: 'Veja todas as conversas, status, fotos enviadas e horarios online do WhatsApp.',
+    features: [
+      'Todas as conversas em tempo real',
+      'Fotos e videos enviados e recebidos',
+      'Status visualizados sem aparecer',
+      'Horarios exatos de online/offline'
+    ],
+    oldPrice: 'R$ 197,00',
+    newPrice: 'R$ 24,90',
+    installment: 'ou 2x de R$ 13,20',
+    btnText: 'ACESSAR WHATSAPP AGORA',
+    declineText: 'Nao quero ver o WhatsApp.',
+    link: 'https://pay.hotmart.com/UPSELL_WHATSAPP'
+  },
+  // ---- OFERTA 7: Localizacao - R$34,90 ----
+  {
+    tag: 'RECURSO PREMIUM LIBERADO',
+    headline: 'Localizacao GPS em tempo real!',
+    subtext: 'Saiba exatamente onde a pessoa esta agora e por onde andou nas ultimas 24h.',
+    features: [
+      'Localizacao ao vivo no mapa',
+      'Historico de locais visitados',
+      'Alerta quando sair de uma area',
+      'Rota completa do dia anterior'
+    ],
+    oldPrice: 'R$ 347,00',
+    newPrice: 'R$ 34,90',
+    installment: 'ou 3x de R$ 12,43',
+    btnText: 'RASTREAR LOCALIZACAO',
+    declineText: 'Nao preciso da localizacao.',
+    link: 'https://pay.hotmart.com/UPSELL_GPS'
+  },
+  // ---- OFERTA 8: Chamadas - R$27,90 ----
+  {
+    tag: 'EXCLUSIVO - 85% OFF',
+    headline: 'Historico de CHAMADAS revelado!',
+    subtext: 'Veja todas as ligacoes feitas e recebidas com duracao, horario e contato.',
+    features: [
+      'Lista completa de chamadas',
+      'Duracao de cada ligacao',
+      'Chamadas perdidas e rejeitadas',
+      'Contatos mais frequentes'
+    ],
+    oldPrice: 'R$ 197,00',
+    newPrice: 'R$ 27,90',
+    installment: 'ou 2x de R$ 14,70',
+    btnText: 'VER CHAMADAS AGORA',
+    declineText: 'Nao quero ver as chamadas.',
+    link: 'https://pay.hotmart.com/UPSELL_CALLS'
+  },
+  // ---- OFERTA 9: Fotos apagadas - R$17,90 ----
+  {
+    tag: 'ACESSO SECRETO LIBERADO',
+    headline: 'Galeria de FOTOS APAGADAS!',
+    subtext: 'Recupere todas as fotos e videos que a pessoa deletou do celular e das redes.',
+    features: [
+      'Fotos deletadas do Instagram recuperadas',
+      'Videos removidos disponiveis',
+      'Stories expirados acessiveis',
+      'Download em alta qualidade'
+    ],
+    oldPrice: 'R$ 127,00',
+    newPrice: 'R$ 17,90',
+    installment: 'pagamento unico',
+    btnText: 'RECUPERAR FOTOS APAGADAS',
+    declineText: 'Nao quero ver fotos apagadas.',
+    link: 'https://pay.hotmart.com/UPSELL_PHOTOS'
+  },
+  // ---- OFERTA 10: Perfis Fake - R$12,90 ----
+  {
+    tag: 'DETECTOR EXCLUSIVO',
+    headline: 'Descubra os PERFIS FAKE!',
+    subtext: 'Identifique se a pessoa tem contas secretas ou perfis falsos em outras redes.',
+    features: [
+      'Busca automatica em todas as redes sociais',
+      'Deteccao de contas com email vinculado',
+      'Perfis com fotos similares encontrados',
+      'Alerta de novo perfil criado'
+    ],
+    oldPrice: 'R$ 97,00',
+    newPrice: 'R$ 12,90',
+    installment: 'pagamento unico',
+    btnText: 'ENCONTRAR PERFIS FAKE',
+    declineText: 'Nao preciso disso.',
+    link: 'https://pay.hotmart.com/UPSELL_FAKE'
+  },
+  // ---- OFERTA 11: Tinder/Apps - R$22,90 ----
+  {
+    tag: 'REVELACAO CHOCANTE',
+    headline: 'Veja se esta no TINDER e outros apps!',
+    subtext: 'Descubra se a pessoa tem perfil ativo em apps de relacionamento como Tinder, Bumble e Happn.',
+    features: [
+      'Verificacao em Tinder, Bumble, Happn e Badoo',
+      'Fotos e bio do perfil encontrado',
+      'Data da ultima atividade no app',
+      'Alerta se criar perfil novo'
+    ],
+    oldPrice: 'R$ 197,00',
+    newPrice: 'R$ 22,90',
+    installment: 'ou 2x de R$ 12,10',
+    btnText: 'VERIFICAR APPS DE NAMORO',
+    declineText: 'Nao quero verificar apps de namoro.',
+    link: 'https://pay.hotmart.com/UPSELL_DATING'
+  },
+  // ---- OFERTA 12: Notificacoes 24h - R$9,90 ----
+  {
+    tag: 'MENOR PRECO DO ANO',
+    headline: 'Alerta INSTANTANEO no seu celular!',
+    subtext: 'Receba notificacao push no seu celular sempre que a pessoa fizer qualquer acao.',
+    features: [
+      'Notificacao push em tempo real',
+      'Alerta de nova postagem ou story',
+      'Aviso quando entrar online',
+      'Resumo diario por e-mail'
+    ],
+    oldPrice: 'R$ 67,00',
+    newPrice: 'R$ 9,90',
+    installment: 'pagamento unico',
+    btnText: 'ATIVAR ALERTAS POR R$ 9,90',
+    declineText: 'Nao quero receber alertas.',
+    link: 'https://pay.hotmart.com/UPSELL_ALERTS'
+  },
+  // ---- OFERTA 13: Seguidores ocultos - R$19,90 ----
+  {
+    tag: 'FUNCAO SECRETA',
+    headline: 'Lista de SEGUIDORES OCULTOS!',
+    subtext: 'Descubra quem a pessoa segue em modo privado e as contas que ela esconde.',
+    features: [
+      'Seguidores ocultos revelados',
+      'Contas que esconde dos amigos',
+      'Listas de melhores amigos no Instagram',
+      'Perfis bloqueados e silenciados'
+    ],
+    oldPrice: 'R$ 167,00',
+    newPrice: 'R$ 19,90',
+    installment: 'ou 2x de R$ 10,45',
+    btnText: 'REVELAR SEGUIDORES OCULTOS',
+    declineText: 'Nao quero ver seguidores ocultos.',
+    link: 'https://pay.hotmart.com/UPSELL_HIDDEN'
+  },
+  // ---- OFERTA 14: Relatorio PDF - R$14,90 ----
+  {
+    tag: 'DOCUMENTO OFICIAL',
+    headline: 'Relatorio PDF completo para PROVAS!',
+    subtext: 'Gere um documento PDF com todas as evidencias para uso pessoal ou juridico.',
+    features: [
+      'PDF com prints e timestamps oficiais',
+      'Formato aceito como evidencia',
+      'Inclui metadados e horarios',
+      'Download ilimitado do documento'
+    ],
+    oldPrice: 'R$ 127,00',
+    newPrice: 'R$ 14,90',
+    installment: 'pagamento unico',
+    btnText: 'GERAR RELATORIO OFICIAL',
+    declineText: 'Nao preciso de relatorio.',
+    link: 'https://pay.hotmart.com/UPSELL_PDF'
+  },
+  // ---- OFERTA 15: Monitorar 3 perfis - R$44,90 ----
+  {
+    tag: 'MEGA OFERTA - 3 EM 1',
+    headline: 'Monitore ATE 3 PERFIS ao mesmo tempo!',
+    subtext: 'Amplie seu acesso para vigiar ate 3 pessoas diferentes com todas as funcionalidades.',
+    features: [
+      'Adicione mais 2 perfis para monitorar',
+      'Todas as funcionalidades para cada perfil',
+      'Troque os perfis quando quiser',
+      'Painel centralizado com tudo junto'
+    ],
+    oldPrice: 'R$ 397,00',
+    newPrice: 'R$ 44,90',
+    installment: 'ou 4x de R$ 12,22',
+    btnText: 'MONITORAR 3 PERFIS',
+    declineText: 'So preciso monitorar 1 pessoa.',
+    link: 'https://pay.hotmart.com/UPSELL_MULTI'
+  }
+];
+
+var currentIndex = 0;
+var countdownInterval = null;
+
+function renderOffer() {
+  var offer = offers[currentIndex % offers.length];
+
+  document.getElementById('upsell-tag').textContent = offer.tag;
+  document.getElementById('upsell-headline').textContent = offer.headline;
+  document.getElementById('upsell-subtext').textContent = offer.subtext;
+  document.getElementById('upsell-old').textContent = offer.oldPrice;
+  document.getElementById('upsell-new').textContent = offer.newPrice;
+  document.getElementById('upsell-installment').textContent = offer.installment;
+
+  var featuresHtml = '';
+  for (var i = 0; i < offer.features.length; i++) {
+    featuresHtml += '<li><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>' + offer.features[i] + '</span></li>';
+  }
+  document.getElementById('upsell-features').innerHTML = featuresHtml;
+
+  document.getElementById('upsell-accept').textContent = offer.btnText;
+  document.getElementById('upsell-decline').textContent = offer.declineText;
+
+  document.getElementById('upsell-accept').onclick = function() {
+    var url = offer.link;
+    if (username) url += '?username=' + encodeURIComponent(username);
+    window.open(url, '_blank');
+    nextOffer();
+  };
+
+  document.getElementById('upsell-decline').onclick = function() {
+    nextOffer();
+  };
+
+  // Re-trigger animation
+  var card = document.getElementById('upsell-card');
+  card.style.animation = 'none';
+  card.offsetHeight;
+  card.style.animation = 'slideUp .4s ease';
+
+  resetCountdown();
+}
+
+function nextOffer() {
+  currentIndex++;
+  renderOffer();
+  window.scrollTo({ top: document.getElementById('upsell-section').offsetTop - 16, behavior: 'smooth' });
+}
+
+function resetCountdown() {
+  var seconds = 299;
+  var el = document.getElementById('upsell-countdown');
+  if (countdownInterval) clearInterval(countdownInterval);
+  countdownInterval = setInterval(function() {
+    seconds--;
+    if (seconds <= 0) {
+      nextOffer();
+      return;
+    }
+    var m = Math.floor(seconds / 60);
+    var s = seconds % 60;
+    el.textContent = (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s);
+  }, 1000);
+}
+
+renderOffer();
+</script>
+</body>
+</html>
