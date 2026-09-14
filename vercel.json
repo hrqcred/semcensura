@@ -1,8 +1,5 @@
 {
   "version": 2,
-  "framework": null,
-  "buildCommand": "",
-  "outputDirectory": "",
   "builds": [
     { "src": "api/proxy.js", "use": "@vercel/node" },
     { "src": "api/img-proxy.js", "use": "@vercel/node" },
