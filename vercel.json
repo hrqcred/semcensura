@@ -3,11 +3,14 @@
   "builds": [
     { "src": "api/proxy.js", "use": "@vercel/node" },
     { "src": "api/img-proxy.js", "use": "@vercel/node" },
-    { "src": "*.html", "use": "@vercel/static" }
+    { "src": "index.html", "use": "@vercel/static" },
+    { "src": "feed.html", "use": "@vercel/static" },
+    { "src": "cta.html", "use": "@vercel/static" },
+    { "src": "obrigado.html", "use": "@vercel/static" }
   ],
   "routes": [
-    { "src": "/api/img-proxy(.*)", "dest": "/api/img-proxy$1" },
-    { "src": "/api/proxy(.*)", "dest": "/api/proxy$1" },
+    { "src": "/api/img-proxy(.*)", "dest": "/api/img-proxy.js" },
+    { "src": "/api/proxy(.*)", "dest": "/api/proxy.js" },
     { "src": "/feed", "dest": "/feed.html" },
     { "src": "/cta", "dest": "/cta.html" },
     { "src": "/obrigado", "dest": "/obrigado.html" },
