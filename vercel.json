@@ -1,9 +1,5 @@
 {
   "version": 2,
-  "functions": {
-    "api/proxy.js": { "runtime": "@vercel/node@3" },
-    "api/img-proxy.js": { "runtime": "@vercel/node@3" }
-  },
   "rewrites": [
     { "source": "/feed", "destination": "/feed.html" },
     { "source": "/cta", "destination": "/cta.html" },
