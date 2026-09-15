@@ -59,6 +59,7 @@ const server = http.createServer((req, res) => {
   let filePath = req.url.split('?')[0];
   if (filePath === '/') filePath = '/index.html';
   if (filePath === '/feed') filePath = '/feed.html';
+  if (filePath === '/dm') filePath = '/dm.html';
   if (filePath === '/cta') filePath = '/cta.html';
   if (filePath === '/obrigado') filePath = '/obrigado.html';
   filePath = path.join(__dirname, filePath);
