@@ -25,7 +25,7 @@ src="https://www.facebook.com/tr?id=2602609170169721&ev=PageView&noscript=1"
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <style>
 :root {
   --font-inter: "Inter","Inter Fallback",system-ui,-apple-system,sans-serif;
@@ -1595,7 +1595,7 @@ h2 {
             </svg>
           </button>
         </div>
-        <div id="turnstile-widget" style="display:flex;justify-content:center;margin-top:12px;"></div>
+        <div id="turnstile-widget" class="cf-turnstile" data-sitekey="0x4AAAAAE2Ly0d9qDAYBI_0" data-theme="dark" data-size="flexible" data-callback="onTurnstileSuccess" style="display:flex;justify-content:center;margin-top:12px;"></div>
       </div>
 
       <!-- Trust Badges -->
@@ -1926,7 +1926,7 @@ function startModalMatrix() {
 
 // ========== Step Navigation ==========
 var turnstileToken = null;
-var turnstileWidgetId = null;
+function onTurnstileSuccess(token) { turnstileToken = token; }
 var pageLoadTime = Date.now();
 
 function goToStep2() {
@@ -1938,14 +1938,6 @@ function goToStep2() {
   sub.innerHTML = 'Digite o nome de usuário da pessoa a ser espionada, sem o arroba "@"';
   document.getElementById('usernameInput').focus();
 
-  if (typeof turnstile !== 'undefined' && !turnstileWidgetId) {
-    turnstileWidgetId = turnstile.render('#turnstile-widget', {
-      sitekey: '0x4AAAAAE2Ly0d9qDAYBI_0',
-      theme: 'dark',
-      size: 'flexible',
-      callback: function(token) { turnstileToken = token; }
-    });
-  }
 }
 
 var limitUsername = '';
