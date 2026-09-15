@@ -25,6 +25,7 @@ src="https://www.facebook.com/tr?id=2602609170169721&ev=PageView&noscript=1"
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
 <style>
 :root {
   --font-inter: "Inter","Inter Fallback",system-ui,-apple-system,sans-serif;
@@ -1586,12 +1587,15 @@ h2 {
         <div class="input-group">
           <span class="input-at">@</span>
           <input id="usernameInput" type="text" placeholder="Ex: nomedoconjuge_10" class="input-dark" autocomplete="off">
+          <!-- Honeypot -->
+          <input type="text" name="website" id="hp-field" autocomplete="off" tabindex="-1" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;pointer-events:none;">
           <button type="button" class="submit-btn" onclick="submitUsername()">
             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
             </svg>
           </button>
         </div>
+        <div id="turnstile-widget" style="display:flex;justify-content:center;margin-top:12px;"></div>
       </div>
 
       <!-- Trust Badges -->
@@ -1921,6 +1925,10 @@ function startModalMatrix() {
 })();
 
 // ========== Step Navigation ==========
+var turnstileToken = null;
+var turnstileWidgetId = null;
+var pageLoadTime = Date.now();
+
 function goToStep2() {
   document.getElementById('step1-btn').style.display = 'none';
   document.getElementById('step2-input').classList.add('show');
@@ -1929,6 +1937,15 @@ function goToStep2() {
   sub.style.marginBottom = '16px';
   sub.innerHTML = 'Digite o nome de usuário da pessoa a ser espionada, sem o arroba "@"';
   document.getElementById('usernameInput').focus();
+
+  if (typeof turnstile !== 'undefined' && !turnstileWidgetId) {
+    turnstileWidgetId = turnstile.render('#turnstile-widget', {
+      sitekey: '1x00000000000000000000AA',
+      theme: 'dark',
+      size: 'compact',
+      callback: function(token) { turnstileToken = token; }
+    });
+  }
 }
 
 function showLimitOverlay(username, avatarSrc) {
@@ -1971,6 +1988,21 @@ function submitUsername() {
     document.getElementById('usernameInput').focus();
     return;
   }
+
+  // Honeypot check
+  if (document.getElementById('hp-field').value) return;
+
+  // Timing check (bot fills in <2s)
+  if (Date.now() - pageLoadTime < 2000) return;
+
+  // Turnstile check
+  if (!turnstileToken) {
+    var tw = document.getElementById('turnstile-widget');
+    tw.style.animation = 'shake 0.4s ease';
+    setTimeout(function() { tw.style.animation = ''; }, 500);
+    return;
+  }
+
   if (window._tk) window._tk('arroba', username);
 
   var searched = getSearchedUsers();
