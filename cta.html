@@ -1446,7 +1446,7 @@ html, body {
 
   <!-- HERO -->
   <h1 class="hero-title">
-    Com a DescobreAqui<br>você acha <span class="highlight">o que procura</span>
+    Você conseguirá ter acesso a todo o conteúdo de <span class="highlight">@<span id="hero-username"></span></span>
   </h1>
 
   <!-- PROFILE CARD -->
@@ -1866,6 +1866,7 @@ var profileData = null;
       document.getElementById('cta-fullname').textContent = fullName;
       document.getElementById('cta-handle').textContent = '@' + (data.username || username);
       document.getElementById('cta-handle-loc').textContent = '@' + (data.username || username);
+      document.getElementById('hero-username').textContent = data.username || username;
 
       // Stats
       document.getElementById('cta-posts').textContent = formatNumber(data.media_count || 0);
@@ -1894,6 +1895,7 @@ var profileData = null;
       document.getElementById('cta-fullname').textContent = username;
       document.getElementById('cta-handle').textContent = '@' + username;
       document.getElementById('cta-handle-loc').textContent = '@' + username;
+      document.getElementById('hero-username').textContent = username;
       var els = ['feat-name-1','feat-name-2','feat-name-3','feat-name-4','feat-name-5','dm-name','pricing-name','check-name-1','check-name-2','sticky-name','danger-name'];
       for (var i = 0; i < els.length; i++) {
         var el = document.getElementById(els[i]);
