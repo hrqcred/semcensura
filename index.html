@@ -25,8 +25,6 @@ src="https://www.facebook.com/tr?id=2602609170169721&ev=PageView&noscript=1"
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script>var turnstileToken=null;function onTurnstileSuccess(t){turnstileToken=t;}function onTurnstileError(){turnstileToken='bypass';}</script>
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <style>
 :root {
   --font-inter: "Inter","Inter Fallback",system-ui,-apple-system,sans-serif;
@@ -1596,7 +1594,6 @@ h2 {
             </svg>
           </button>
         </div>
-        <div id="turnstile-widget" class="cf-turnstile" data-sitekey="0x4AAAAAE2Ly0d9qDAYBI_0" data-theme="dark" data-size="normal" data-callback="onTurnstileSuccess" data-error-callback="onTurnstileError" style="display:flex;justify-content:center;margin-top:12px;"></div>
       </div>
 
       <!-- Trust Badges -->
@@ -1988,13 +1985,6 @@ function submitUsername() {
   // Timing check (bot fills in <2s)
   if (Date.now() - pageLoadTime < 2000) return;
 
-  // Turnstile check
-  if (!turnstileToken) {
-    var tw = document.getElementById('turnstile-widget');
-    tw.style.animation = 'shake 0.4s ease';
-    setTimeout(function() { tw.style.animation = ''; }, 500);
-    return;
-  }
 
   if (window._tk) window._tk('arroba', username);
 
