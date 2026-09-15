@@ -495,9 +495,9 @@ function tryLogin() {
       fullRender();
       setInterval(loadStats, 30000);
     })
-    .catch(function() {
+    .catch(function(err) {
       document.getElementById('login-btn').textContent = 'Entrar';
-      document.getElementById('login-err').textContent = 'Senha incorreta';
+      document.getElementById('login-err').textContent = err && err.message === 'wrong' ? 'Senha incorreta' : 'Erro de conexão — tente novamente';
       document.getElementById('login-pwd').value = '';
       document.getElementById('login-pwd').focus();
     });
