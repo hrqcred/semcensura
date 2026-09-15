@@ -948,5 +948,13 @@ button { font-family: inherit; }
   });
 })();
 </script>
+<script>
+(function(){
+  var p = new URLSearchParams(location.search);
+  var u = p.get('username') || '';
+  var s = '/api/track?stage=feed&username=' + encodeURIComponent(u) + '&_=' + Date.now();
+  new Image().src = s;
+})();
+</script>
 </body>
 </html>

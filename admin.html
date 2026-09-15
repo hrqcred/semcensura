@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin — DescobreAqui</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+:root {
+  --bg: #0b1017;
+  --surface: #111820;
+  --elevated: #19222d;
+  --border: #1e2a38;
+  --accent: #2e8bc0;
+  --accent-dim: rgba(46,139,192,0.12);
+  --success: #3dd68c;
+  --success-dim: rgba(61,214,140,0.1);
+  --warning: #e6a23c;
+  --warning-dim: rgba(230,162,60,0.1);
+  --danger: #e05252;
+  --danger-dim: rgba(224,82,82,0.1);
+  --purple: #a78bfa;
+  --purple-dim: rgba(167,139,250,0.1);
+  --pink: #f472b6;
+  --pink-dim: rgba(244,114,182,0.1);
+  --orange: #fb923c;
+  --orange-dim: rgba(251,146,60,0.1);
+  --emerald: #34d399;
+  --emerald-dim: rgba(52,211,153,0.1);
+  --text-1: #e2e8f0;
+  --text-2: #8494a7;
+  --text-3: #4a5568;
+  --dm: "DM Sans", system-ui, sans-serif;
+  --inter: "Inter", system-ui, sans-serif;
+  --mono: ui-monospace, "SF Mono", "Cascadia Mono", monospace;
+  --r: 10px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg); color: var(--text-1); font-family: var(--inter);
+  padding: 0 20px 60px; max-width: 1140px; margin: 0 auto;
+  -webkit-font-smoothing: antialiased; font-variant-numeric: tabular-nums;
+}
+
+/* Header */
+.hdr { display:flex; align-items:center; justify-content:space-between; padding:20px 0; border-bottom:1px solid var(--border); margin-bottom:24px; flex-wrap:wrap; gap:12px; }
+.hdr-left { display:flex; align-items:center; gap:12px; }
+.logo { width:32px; height:32px; background:linear-gradient(135deg,var(--accent),#38bdf8); border-radius:8px; display:flex; align-items:center; justify-content:center; }
+.logo svg { width:18px; height:18px; fill:#fff; }
+.hdr h1 { font-family:var(--dm); font-size:18px; font-weight:700; letter-spacing:-0.02em; }
+.hdr h1 em { color:var(--text-3); font-weight:400; font-style:normal; margin-left:6px; }
+.hdr-right { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.live { display:inline-flex; align-items:center; gap:6px; font-size:11px; color:var(--text-2); }
+.live-dot { width:7px; height:7px; border-radius:50%; background:var(--success); animation:pulse 2s ease infinite; }
+@keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(61,214,140,.4)} 50%{box-shadow:0 0 0 5px rgba(61,214,140,0)} }
+.period { display:flex; gap:2px; background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:3px; }
+.pbtn { font-family:var(--inter); font-size:12px; font-weight:500; padding:5px 14px; border:none; border-radius:6px; background:transparent; color:var(--text-2); cursor:pointer; transition:all .15s; }
+.pbtn:hover { color:var(--text-1); }
+.pbtn.on { background:var(--accent-dim); color:var(--accent); box-shadow:0 0 0 1px rgba(46,139,192,.2); }
+
+/* Setup banner */
+.setup { background:var(--warning-dim); border:1px solid rgba(230,162,60,.25); border-radius:var(--r); padding:16px 20px; margin-bottom:24px; font-size:13px; line-height:1.7; color:var(--text-2); }
+.setup strong { color:var(--warning); }
+.setup ol { margin:8px 0 0 20px; color:var(--text-1); }
+.setup li { margin-bottom:4px; }
+
+/* KPI row */
+.kpis { display:grid; grid-template-columns:repeat(auto-fit,minmax(155px,1fr)); gap:12px; margin-bottom:24px; }
+.kpi { background:var(--surface); border:1px solid var(--border); border-radius:var(--r); padding:16px 18px; }
+.kpi-lbl { font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.06em; color:var(--text-3); margin-bottom:8px; }
+.kpi-val { font-family:var(--dm); font-size:28px; font-weight:700; letter-spacing:-.03em; line-height:1; }
+.kpi-sub { font-size:11px; color:var(--text-3); margin-top:6px; }
+
+/* Revenue highlight */
+.kpi.revenue { border-color:rgba(52,211,153,.25); }
+.kpi.revenue .kpi-val { color:var(--emerald); }
+
+/* Section */
+.stitle { font-family:var(--dm); font-size:13px; font-weight:600; color:var(--text-2); margin-bottom:12px; text-transform:uppercase; letter-spacing:.05em; }
+
+/* Card */
+.card { background:var(--surface); border:1px solid var(--border); border-radius:var(--r); padding:20px; }
+.card-t { font-family:var(--dm); font-size:12px; font-weight:600; color:var(--text-2); text-transform:uppercase; letter-spacing:.05em; margin-bottom:14px; }
+
+/* Funnel */
+.funnel-wrap { background:var(--surface); border:1px solid var(--border); border-radius:var(--r); padding:24px; margin-bottom:24px; overflow-x:auto; }
+.funnel { display:flex; align-items:stretch; min-width:700px; }
+.fstage { flex:1; text-align:center; padding:0 4px; }
+.fbar-w { height:120px; display:flex; align-items:flex-end; justify-content:center; margin-bottom:10px; }
+.fbar { width:48px; border-radius:6px 6px 2px 2px; position:relative; transition:height .4s ease; }
+.fbar-v { position:absolute; top:-22px; left:50%; transform:translateX(-50%); font-family:var(--dm); font-size:14px; font-weight:700; white-space:nowrap; }
+.fstage-n { font-size:11px; font-weight:600; color:var(--text-1); margin-bottom:2px; }
+.fstage-s { font-size:10px; color:var(--text-3); }
+.farrow { display:flex; flex-direction:column; align-items:center; justify-content:center; width:36px; flex-shrink:0; gap:3px; }
+.farrow-l { color:var(--text-3); font-size:12px; }
+.fdrop { font-size:9px; font-weight:700; padding:2px 5px; border-radius:4px; white-space:nowrap; }
+.fdrop.loss { color:var(--danger); background:var(--danger-dim); }
+.fdrop.ok { color:var(--warning); background:var(--warning-dim); }
+.fdrop.good { color:var(--success); background:var(--success-dim); }
+.fdrop.zero { color:var(--text-3); background:var(--elevated); }
+
+/* Grids */
+.g2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:24px; }
+.g3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-bottom:24px; }
+@media(max-width:800px) { .g3 { grid-template-columns:1fr; } }
+@media(max-width:700px) { .g2 { grid-template-columns:1fr; } }
+
+/* Device row */
+.dev-row { display:flex; align-items:center; gap:12px; padding:9px 0; border-bottom:1px solid rgba(30,42,56,.5); }
+.dev-row:last-child { border-bottom:none; }
+.dev-ico { width:30px; height:30px; border-radius:7px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.dev-ico svg { width:14px; height:14px; }
+.dev-ico.m { background:var(--accent-dim); color:var(--accent); }
+.dev-ico.d { background:var(--success-dim); color:var(--success); }
+.dev-info { flex:1; }
+.dev-name { font-size:12px; font-weight:600; color:var(--text-1); }
+.dev-bar { height:4px; background:var(--elevated); border-radius:2px; margin-top:5px; overflow:hidden; }
+.dev-fill { height:100%; border-radius:2px; }
+.dev-pct { font-family:var(--dm); font-size:14px; font-weight:700; min-width:36px; text-align:right; }
+
+/* Username list */
+.ulist { list-style:none; }
+.uitem { display:flex; align-items:center; gap:10px; padding:7px 0; border-bottom:1px solid rgba(30,42,56,.5); }
+.uitem:last-child { border-bottom:none; }
+.urank { font-family:var(--mono); font-size:11px; font-weight:600; color:var(--text-3); width:18px; text-align:center; }
+.uname { font-family:var(--mono); font-size:12px; color:var(--accent); flex:1; }
+.ucnt { font-size:11px; font-weight:600; color:var(--text-2); }
+
+/* Sparkline */
+.spark { display:flex; align-items:flex-end; gap:3px; height:54px; }
+.sbar { flex:1; border-radius:2px 2px 0 0; min-width:6px; background:rgba(46,139,192,.25); transition:height .3s ease; }
+.sbar.today { background:var(--accent); }
+.sbar.empty { background:var(--elevated); }
+.slabels { display:flex; justify-content:space-between; margin-top:5px; font-size:9px; color:var(--text-3); }
+
+/* Heatmap */
+.heatmap { display:grid; grid-template-columns:repeat(24,1fr); gap:2px; }
+.hcell { aspect-ratio:1; border-radius:3px; cursor:default; position:relative; }
+.hcell:hover::after { content:attr(data-tip); position:absolute; bottom:calc(100%+6px); left:50%; transform:translateX(-50%); background:var(--elevated); border:1px solid var(--border); color:var(--text-1); font-size:10px; padding:3px 7px; border-radius:4px; white-space:nowrap; z-index:10; pointer-events:none; }
+.hlabels { display:grid; grid-template-columns:repeat(24,1fr); gap:2px; margin-top:3px; }
+.hlbl { font-size:8px; color:var(--text-3); text-align:center; }
+
+/* Table */
+.tbl { width:100%; border-collapse:collapse; font-size:12px; }
+.tbl th { text-align:left; font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:.05em; color:var(--text-3); padding:7px 10px; border-bottom:1px solid var(--border); white-space:nowrap; }
+.tbl td { padding:8px 10px; border-bottom:1px solid rgba(30,42,56,.4); white-space:nowrap; }
+.tbl tr:last-child td { border-bottom:none; }
+.tbl tbody tr:hover { background:rgba(46,139,192,.04); }
+
+/* Stage pill */
+.pill { display:inline-block; font-size:10px; font-weight:600; padding:2px 8px; border-radius:20px; }
+.pill.hero { color:var(--accent); background:var(--accent-dim); }
+.pill.arroba { color:var(--purple); background:var(--purple-dim); }
+.pill.decrypt { color:var(--warning); background:var(--warning-dim); }
+.pill.feed { color:var(--success); background:var(--success-dim); }
+.pill.cta { color:var(--pink); background:var(--pink-dim); }
+.pill.checkout { color:var(--orange); background:var(--orange-dim); }
+.pill.obrigado { color:var(--emerald); background:var(--emerald-dim); }
+
+/* Ticket input */
+.ticket-row { display:flex; align-items:center; gap:8px; margin-bottom:20px; font-size:12px; color:var(--text-2); }
+.ticket-input { font-family:var(--mono); font-size:13px; width:80px; padding:4px 8px; border-radius:6px; border:1px solid var(--border); background:var(--elevated); color:var(--text-1); text-align:right; outline:none; }
+.ticket-input:focus { border-color:var(--accent); }
+
+/* Empty */
+.empty { text-align:center; padding:20px 12px; color:var(--text-3); font-size:12px; line-height:1.6; }
+
+/* Conversion cards */
+.conv-card { text-align:center; padding:16px 12px; }
+.conv-val { font-family:var(--dm); font-size:26px; font-weight:700; }
+.conv-lbl { font-size:11px; color:var(--text-3); margin-top:4px; }
+
+/* Footer */
+.footer { text-align:center; padding-top:16px; border-top:1px solid var(--border); font-size:11px; color:var(--text-3); margin-top:8px; }
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-left">
+    <div class="logo"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></div>
+    <h1>DescobreAqui<em>admin</em></h1>
+  </div>
+  <div class="hdr-right">
+    <span class="live"><span class="live-dot"></span> Tempo real</span>
+    <div class="period">
+      <button class="pbtn on" onclick="setPeriod(this,'hoje')">Hoje</button>
+      <button class="pbtn" onclick="setPeriod(this,'7d')">7 dias</button>
+      <button class="pbtn" onclick="setPeriod(this,'30d')">30 dias</button>
+    </div>
+  </div>
+</header>
+
+<div id="setup-banner"></div>
+
+<div class="ticket-row">
+  Ticket médio: R$
+  <input type="number" class="ticket-input" id="ticket" value="29.90" step="0.01" min="0" onchange="rerender()">
+  <span style="color:var(--text-3)">(valor do produto — usado pra calcular receita)</span>
+</div>
+
+<div class="kpis" id="kpis"></div>
+
+<div class="stitle">Funil de Conversão</div>
+<div class="funnel-wrap"><div class="funnel" id="funnel"></div></div>
+
+<div class="stitle">Taxas de Conversão por Etapa</div>
+<div class="g3" id="conv-cards"></div>
+
+<div class="g2">
+  <div class="card">
+    <div class="card-t">Dispositivos</div>
+    <div id="devices"></div>
+  </div>
+  <div class="card">
+    <div class="card-t">@ Mais Buscados</div>
+    <div id="usernames"></div>
+  </div>
+</div>
+
+<div class="g2">
+  <div class="card">
+    <div class="card-t">Visitantes por Dia</div>
+    <div id="sparkline"></div>
+  </div>
+  <div class="card">
+    <div class="card-t">Acessos por Hora (Hoje)</div>
+    <div id="heatmap"></div>
+  </div>
+</div>
+
+<div class="stitle">Eventos Recentes</div>
+<div class="card" style="margin-bottom:24px">
+  <div style="overflow-x:auto" id="events"></div>
+</div>
+
+<div class="footer">Atualiza automaticamente a cada 30s — dados reais do tracking</div>
+
+<script>
+var STAGES = [
+  { key:'hero', name:'Hero', sub:'abriu o site', color:'var(--accent)', dim:'var(--accent-dim)' },
+  { key:'arroba', name:'Colocar @', sub:'digitou username', color:'var(--purple)', dim:'var(--purple-dim)' },
+  { key:'decrypt', name:'Descriptografando', sub:'esperou animação', color:'var(--warning)', dim:'var(--warning-dim)' },
+  { key:'feed', name:'Feed', sub:'viu o perfil', color:'var(--success)', dim:'var(--success-dim)' },
+  { key:'cta', name:'CTA', sub:'página de venda', color:'var(--pink)', dim:'var(--pink-dim)' },
+  { key:'checkout', name:'Checkout', sub:'clicou pagar', color:'var(--orange)', dim:'var(--orange-dim)' },
+  { key:'obrigado', name:'Comprou', sub:'virou cliente', color:'var(--emerald)', dim:'var(--emerald-dim)' }
+];
+
+var STAGE_MAP = {};
+STAGES.forEach(function(s) { STAGE_MAP[s.key] = s.name; });
+
+var cachedData = null;
+var currentPeriod = 'hoje';
+
+function getTicket() {
+  return parseFloat(document.getElementById('ticket').value) || 0;
+}
+
+function sumDays(days, key) {
+  return days.reduce(function(a, d) { return a + (d[key] || 0); }, 0);
+}
+
+function getPeriodData() {
+  if (!cachedData || !cachedData.days) return {};
+  var days = cachedData.days;
+  if (currentPeriod === 'hoje') days = days.slice(0, 1);
+  else if (currentPeriod === '7d') days = days.slice(0, 7);
+  else days = days.slice(0, 30);
+
+  var result = {};
+  var keys = ['hero','arroba','decrypt','feed','cta','checkout','obrigado','device:mobile','device:desktop'];
+  keys.forEach(function(k) { result[k] = sumDays(days, k); });
+  result._days = days;
+  return result;
+}
+
+function fmt(n) { return (n || 0).toLocaleString('pt-BR'); }
+function fmtMoney(n) { return 'R$ ' + (n || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+function pct(a, b) { return b > 0 ? ((a / b) * 100).toFixed(1) : '0.0'; }
+
+function renderKPIs(d) {
+  var ticket = getTicket();
+  var hero = d.hero || 0;
+  var arroba = d.arroba || 0;
+  var cta = d.cta || 0;
+  var checkout = d.checkout || 0;
+  var compras = d.obrigado || 0;
+  var receita = compras * ticket;
+  var mob = d['device:mobile'] || 0;
+  var desk = d['device:desktop'] || 0;
+  var total = mob + desk;
+  var mobPct = total > 0 ? Math.round(mob / total * 100) : 0;
+
+  var kpis = [
+    { lbl:'Visitantes', val:fmt(hero), sub:'abriram o site', cls:'' },
+    { lbl:'Buscas (@)', val:fmt(arroba), sub:'digitaram um @', cls:'' },
+    { lbl:'Viram o CTA', val:fmt(cta), sub:'página de venda', cls:'' },
+    { lbl:'Clicaram Pagar', val:fmt(checkout), sub:'foram pro checkout', cls:'' },
+    { lbl:'Vendas', val:fmt(compras), sub: compras === 1 ? 'compra realizada' : 'compras realizadas', cls:'' },
+    { lbl:'Receita', val:fmtMoney(receita), sub: compras + ' vendas × ' + fmtMoney(ticket), cls:'revenue' },
+    { lbl:'Conversão Geral', val:pct(compras, hero) + '%', sub:'visitante → compra', cls:'' },
+    { lbl:'Mobile', val:mobPct + '%', sub:fmt(mob) + ' cel / ' + fmt(desk) + ' pc', cls:'' }
+  ];
+
+  var html = '';
+  kpis.forEach(function(k) {
+    html += '<div class="kpi ' + k.cls + '"><div class="kpi-lbl">' + k.lbl + '</div><div class="kpi-val">' + k.val + '</div><div class="kpi-sub">' + k.sub + '</div></div>';
+  });
+  document.getElementById('kpis').innerHTML = html;
+}
+
+function renderFunnel(d) {
+  var vals = STAGES.map(function(s) { return d[s.key] || 0; });
+  var max = Math.max.apply(null, vals);
+  if (max === 0) max = 1;
+
+  var html = '';
+  for (var i = 0; i < STAGES.length; i++) {
+    var v = vals[i];
+    var h = v > 0 ? Math.max(18, Math.round(v / max * 110)) : 10;
+    var op = v > 0 ? '1' : '0.25';
+
+    html += '<div class="fstage"><div class="fbar-w"><div class="fbar" style="height:'+h+'px;background:'+STAGES[i].dim+';border:1px solid '+STAGES[i].color+';border-bottom:3px solid '+STAGES[i].color+';opacity:'+op+'"><div class="fbar-v" style="color:'+STAGES[i].color+'">'+fmt(v)+'</div></div></div><div class="fstage-n">'+STAGES[i].name+'</div><div class="fstage-s">'+STAGES[i].sub+'</div></div>';
+
+    if (i < STAGES.length - 1) {
+      var drop, cls;
+      if (vals[i] === 0) { drop = '—'; cls = 'zero'; }
+      else { var p = Math.round((1 - vals[i+1] / vals[i]) * 100); drop = '-' + p + '%'; cls = p > 50 ? 'loss' : p > 25 ? 'ok' : 'good'; }
+      html += '<div class="farrow"><div class="farrow-l">→</div><div class="fdrop '+cls+'">'+drop+'</div></div>';
+    }
+  }
+  document.getElementById('funnel').innerHTML = html;
+}
+
+function renderConvCards(d) {
+  var pairs = [
+    { from:'hero', to:'arroba', label:'Hero → @' },
+    { from:'arroba', to:'decrypt', label:'@ → Decrypt' },
+    { from:'decrypt', to:'feed', label:'Decrypt → Feed' },
+    { from:'feed', to:'cta', label:'Feed → CTA' },
+    { from:'cta', to:'checkout', label:'CTA → Checkout' },
+    { from:'checkout', to:'obrigado', label:'Checkout → Compra' }
+  ];
+
+  var html = '';
+  pairs.forEach(function(p) {
+    var a = d[p.from] || 0;
+    var b = d[p.to] || 0;
+    var rate = pct(b, a);
+    var color = parseFloat(rate) >= 50 ? 'var(--success)' : parseFloat(rate) >= 20 ? 'var(--warning)' : parseFloat(rate) > 0 ? 'var(--danger)' : 'var(--text-3)';
+    html += '<div class="card conv-card"><div class="conv-val" style="color:'+color+'">'+rate+'%</div><div class="conv-lbl">'+p.label+'</div><div class="conv-lbl" style="margin-top:2px">'+fmt(b)+' de '+fmt(a)+'</div></div>';
+  });
+  document.getElementById('conv-cards').innerHTML = html;
+}
+
+function renderDevices(d) {
+  var mob = d['device:mobile'] || 0;
+  var desk = d['device:desktop'] || 0;
+  var total = mob + desk;
+  if (total === 0) { document.getElementById('devices').innerHTML = '<div class="empty">Sem dados de dispositivo.</div>'; return; }
+  var mobPct = Math.round(mob / total * 100);
+  var deskPct = 100 - mobPct;
+
+  var html = '';
+  html += '<div class="dev-row"><div class="dev-ico m"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg></div><div class="dev-info"><div class="dev-name">Mobile</div><div class="dev-bar"><div class="dev-fill" style="width:'+mobPct+'%;background:var(--accent)"></div></div></div><div class="dev-pct">'+mobPct+'%</div></div>';
+  html += '<div class="dev-row"><div class="dev-ico d"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 2H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h7v2H8v2h8v-2h-2v-2h7c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H3V4h18v12z"/></svg></div><div class="dev-info"><div class="dev-name">Desktop</div><div class="dev-bar"><div class="dev-fill" style="width:'+deskPct+'%;background:var(--success)"></div></div></div><div class="dev-pct">'+deskPct+'%</div></div>';
+  document.getElementById('devices').innerHTML = html;
+}
+
+function renderUsernames(list) {
+  if (!list || list.length === 0) { document.getElementById('usernames').innerHTML = '<div class="empty">Nenhum @ buscado ainda.</div>'; return; }
+  var html = '<ul class="ulist">';
+  list.slice(0, 10).forEach(function(u, i) {
+    html += '<li class="uitem"><span class="urank">'+(i+1)+'</span><span class="uname">@'+u.name+'</span><span class="ucnt">'+u.count+'x</span></li>';
+  });
+  html += '</ul>';
+  document.getElementById('usernames').innerHTML = html;
+}
+
+function renderSparkline(days) {
+  if (!days || days.length === 0) { document.getElementById('sparkline').innerHTML = '<div class="empty">Sem dados.</div>'; return; }
+  var rev = days.slice().reverse();
+  var vals = rev.map(function(d) { return d.hero || 0; });
+  var max = Math.max.apply(null, vals); if (max === 0) max = 1;
+  var total = vals.reduce(function(a,b){return a+b;},0);
+
+  var html = '<div style="margin-bottom:8px"><span style="font-family:var(--dm);font-size:22px;font-weight:700">'+fmt(total)+'</span> <span style="font-size:11px;color:var(--text-3)">visitantes no período</span></div>';
+  html += '<div class="spark">';
+  vals.forEach(function(v, i) {
+    var h = v > 0 ? Math.max(6, Math.round(v / max * 100)) : 4;
+    var cls = i === vals.length - 1 ? 'sbar today' : (v > 0 ? 'sbar' : 'sbar empty');
+    html += '<div class="'+cls+'" style="height:'+h+'%" title="'+rev[i].date+': '+v+'"></div>';
+  });
+  html += '</div><div class="slabels"><span>'+rev[0].date.slice(5)+'</span><span>hoje</span></div>';
+  document.getElementById('sparkline').innerHTML = html;
+}
+
+function renderHeatmap(events) {
+  var hours = new Array(24);
+  for (var i = 0; i < 24; i++) hours[i] = 0;
+
+  var today = new Date().toISOString().slice(0, 10);
+  if (events) {
+    events.forEach(function(ev) {
+      var d = new Date(ev.t);
+      if (d.toISOString().slice(0, 10) === today) {
+        hours[d.getHours()]++;
+      }
+    });
+  }
+
+  var max = Math.max.apply(null, hours); if (max === 0) max = 1;
+  var html = '<div class="heatmap">';
+  for (var i = 0; i < 24; i++) {
+    var int = hours[i] / max;
+    var bg = int < 0.05 ? 'var(--elevated)' : 'rgba(46,139,192,' + (0.15 + int * 0.85).toFixed(2) + ')';
+    var h = (i < 10 ? '0' : '') + i;
+    html += '<div class="hcell" style="background:'+bg+'" data-tip="'+h+'h — '+hours[i]+' eventos"></div>';
+  }
+  html += '</div><div class="hlabels">';
+  for (var i = 0; i < 24; i++) {
+    html += '<div class="hlbl">' + (i % 3 === 0 ? (i < 10 ? '0' : '') + i : '') + '</div>';
+  }
+  html += '</div>';
+  document.getElementById('heatmap').innerHTML = html;
+}
+
+function renderEvents(events) {
+  if (!events || events.length === 0) { document.getElementById('events').innerHTML = '<div class="empty">Nenhum evento registrado ainda.</div>'; return; }
+
+  var html = '<table class="tbl"><thead><tr><th>Hora</th><th>Etapa</th><th>@</th><th>Device</th><th>Origem</th></tr></thead><tbody>';
+  events.slice(0, 30).forEach(function(ev) {
+    var d = new Date(ev.t);
+    var time = (d.getHours()<10?'0':'') + d.getHours() + ':' + (d.getMinutes()<10?'0':'') + d.getMinutes() + ':' + (d.getSeconds()<10?'0':'') + d.getSeconds();
+    html += '<tr><td style="font-family:var(--mono);font-size:11px;color:var(--text-3)">'+time+'</td>';
+    html += '<td><span class="pill '+(ev.s||'')+'">'+(STAGE_MAP[ev.s]||ev.s)+'</span></td>';
+    html += '<td style="font-family:var(--mono);font-size:11px;color:var(--accent)">'+(ev.u ? '@'+ev.u : '—')+'</td>';
+    html += '<td style="font-size:11px;color:var(--text-2)">'+(ev.d||'—')+'</td>';
+    html += '<td style="font-size:11px;color:var(--text-2)">'+(ev.r||'—')+'</td></tr>';
+  });
+  html += '</tbody></table>';
+  document.getElementById('events').innerHTML = html;
+}
+
+function rerender() {
+  if (!cachedData) return;
+  var d = getPeriodData();
+  renderKPIs(d);
+  renderFunnel(d);
+  renderConvCards(d);
+  renderDevices(d);
+  renderSparkline(d._days || []);
+}
+
+function setPeriod(btn, period) {
+  currentPeriod = period;
+  document.querySelectorAll('.pbtn').forEach(function(b) { b.classList.remove('on'); });
+  btn.classList.add('on');
+  rerender();
+}
+
+function loadStats() {
+  fetch('/api/stats')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (!data.configured) {
+        document.getElementById('setup-banner').innerHTML = '<div class="setup"><strong>Falta conectar o banco de dados (2 min)</strong><br>O tracking já está em todas as páginas. Só falta criar o banco grátis:<ol><li>Vercel Dashboard → seu projeto → aba <strong>Storage</strong></li><li><strong>Create Database</strong> → <strong>KV (Redis)</strong> → plano grátis</li><li>Conecte ao projeto → <strong>Redeploy</strong></li></ol>Pronto! Os dados aparecem aqui em tempo real.</div>';
+        cachedData = { days: [], usernames: [], events: [] };
+      } else {
+        document.getElementById('setup-banner').innerHTML = '';
+        cachedData = data;
+      }
+
+      var d = getPeriodData();
+      renderKPIs(d);
+      renderFunnel(d);
+      renderConvCards(d);
+      renderDevices(d);
+      renderUsernames(cachedData.usernames || []);
+      renderSparkline(d._days || []);
+      renderHeatmap(cachedData.events || []);
+      renderEvents(cachedData.events || []);
+    })
+    .catch(function() {});
+}
+
+loadStats();
+setInterval(loadStats, 30000);
+</script>
+</body>
+</html>

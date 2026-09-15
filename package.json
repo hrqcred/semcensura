@@ -3,5 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "node server.js"
+  },
+  "dependencies": {
+    "redis": "^6.2.1"
   }
 }

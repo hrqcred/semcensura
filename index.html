@@ -1971,6 +1971,7 @@ function submitUsername() {
     document.getElementById('usernameInput').focus();
     return;
   }
+  if (window._tk) window._tk('arroba', username);
 
   var searched = getSearchedUsers();
   if (searched[username.toLowerCase()]) {
@@ -2046,6 +2047,7 @@ function closeModal() {
 function confirmProfile() {
   var username = document.getElementById('usernameInput').value.trim();
   if (!username) return;
+  if (window._tk) window._tk('decrypt', username);
 
   var avatarImg = document.getElementById('profile-avatar-img').querySelector('img');
   saveSearchedUser(username, avatarImg ? avatarImg.src : '');
@@ -2191,6 +2193,19 @@ function startCryptoText() {
     el.textContent = text;
   }, 80);
 }
+</script>
+<script>
+(function(){
+  var ref = '';
+  try { var u = new URL(document.referrer); ref = u.hostname; } catch(e) {}
+  function tk(stage, username) {
+    var s = '/api/track?stage=' + stage + '&ref=' + encodeURIComponent(ref);
+    if (username) s += '&username=' + encodeURIComponent(username);
+    new Image().src = s + '&_=' + Date.now();
+  }
+  tk('hero');
+  window._tk = tk;
+})();
 </script>
 </body>
 </html>

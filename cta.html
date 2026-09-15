@@ -2307,8 +2307,17 @@ function randomizeNotifications() {
 
 // ========== CHECKOUT ==========
 function checkout() {
+  new Image().src = '/api/track?stage=checkout&_=' + Date.now();
   window.location.href = 'https://link.syncpayments.com.br/EPbeyV';
 }
+</script>
+<script>
+(function(){
+  var p = new URLSearchParams(location.search);
+  var u = p.get('username') || '';
+  var s = '/api/track?stage=cta&username=' + encodeURIComponent(u) + '&_=' + Date.now();
+  new Image().src = s;
+})();
 </script>
 </body>
 </html>

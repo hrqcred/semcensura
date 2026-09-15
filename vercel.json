@@ -4,6 +4,7 @@
     { "source": "/feed", "destination": "/feed.html" },
     { "source": "/dm", "destination": "/dm.html" },
     { "source": "/cta", "destination": "/cta.html" },
-    { "source": "/obrigado", "destination": "/obrigado.html" }
+    { "source": "/obrigado", "destination": "/obrigado.html" },
+    { "source": "/admin", "destination": "/admin.html" }
   ]
 }

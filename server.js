@@ -47,6 +47,19 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  if (req.url.startsWith('/api/track')) {
+    res.status = (code) => { res.statusCode = code; return res; };
+    res.json = (data) => { res.setHeader('Content-Type', 'application/json'); res.end(JSON.stringify(data)); };
+    res.end = res.end.bind(res);
+    return require('./api/track')(req, res);
+  }
+
+  if (req.url.startsWith('/api/stats')) {
+    res.status = (code) => { res.statusCode = code; return res; };
+    res.json = (data) => { res.setHeader('Content-Type', 'application/json'); res.end(JSON.stringify(data)); };
+    return require('./api/stats')(req, res);
+  }
+
   if (req.url.startsWith('/api/proxy')) {
     res.status = (code) => { res.statusCode = code; return res; };
     res.json = (data) => {
@@ -62,6 +75,7 @@ const server = http.createServer((req, res) => {
   if (filePath === '/dm') filePath = '/dm.html';
   if (filePath === '/cta') filePath = '/cta.html';
   if (filePath === '/obrigado') filePath = '/obrigado.html';
+  if (filePath === '/admin') filePath = '/admin.html';
   filePath = path.join(__dirname, filePath);
 
   const ext = path.extname(filePath);
