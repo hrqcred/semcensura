@@ -1373,17 +1373,18 @@ html, body {
   background: linear-gradient(180deg, transparent 0%, rgba(4,6,7,0.95) 30%, var(--bg-dark) 100%);
   padding: 16px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
+  text-align: center;
 }
 
 .sticky-info {
-  flex: 1;
   min-width: 0;
 }
 
 .sticky-title {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   color: #fff;
   margin-bottom: 2px;
@@ -1409,7 +1410,8 @@ html, body {
   font-weight: 700;
   cursor: pointer;
   white-space: nowrap;
-  flex-shrink: 0;
+  width: 100%;
+  max-width: 420px;
   font-family: var(--font-inter);
   position: relative;
   overflow: hidden;
@@ -1424,6 +1426,146 @@ html, body {
   height: 100%;
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
   animation: shimmerCTA 2s ease infinite;
+}
+
+/* ===== EXIT POPUP ===== */
+.exit-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.85);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s;
+}
+.exit-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+.exit-popup {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  border: 1px solid rgba(56,163,212,.4);
+  border-radius: 16px;
+  max-width: 380px;
+  width: 100%;
+  padding: 28px 22px;
+  text-align: center;
+  position: relative;
+  animation: popIn .35s ease;
+}
+@keyframes popIn {
+  from { transform: scale(.85); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.exit-popup-close {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 22px;
+  cursor: pointer;
+  line-height: 1;
+}
+.exit-popup-tag {
+  display: inline-block;
+  background: linear-gradient(135deg, #ef4444, #f97316);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: .5px;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+.exit-popup h3 {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 800;
+  margin: 0 0 8px;
+  line-height: 1.3;
+}
+.exit-popup .exit-sub {
+  color: #94a3b8;
+  font-size: 13px;
+  margin: 0 0 18px;
+  line-height: 1.5;
+}
+.exit-popup .exit-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 18px;
+  text-align: left;
+}
+.exit-popup .exit-features li {
+  color: #cbd5e1;
+  font-size: 13px;
+  padding: 5px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.exit-popup .exit-features li::before {
+  content: '✅';
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.exit-popup .exit-prices {
+  margin-bottom: 16px;
+}
+.exit-popup .exit-old {
+  color: #64748b;
+  text-decoration: line-through;
+  font-size: 14px;
+}
+.exit-popup .exit-new {
+  color: #22c55e;
+  font-size: 32px;
+  font-weight: 800;
+  display: block;
+  margin-top: 2px;
+}
+.exit-popup .exit-installment {
+  color: #94a3b8;
+  font-size: 12px;
+}
+.exit-popup .exit-btn {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: .3px;
+  margin-bottom: 10px;
+  position: relative;
+  overflow: hidden;
+}
+.exit-popup .exit-btn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.2), transparent);
+  animation: shimmerCTA 2s ease infinite;
+}
+.exit-popup .exit-decline {
+  background: none;
+  border: none;
+  color: #64748b;
+  font-size: 12px;
+  cursor: pointer;
+  text-decoration: underline;
 }
 </style>
 </head>
@@ -1490,6 +1632,45 @@ html, body {
   <!-- ARROW -->
   <div class="arrow-divider">
     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+  </div>
+
+  <!-- PRICING -->
+  <div class="pricing-card">
+    <p class="pricing-text">Com o DescobreAqui você vai ter <span class="emphasis">acesso completo</span> ao instagram <span id="pricing-name-wrap" hidden>de <span class="name" id="pricing-name"></span> </span>por apenas:</p>
+    <p class="price-old">De: R$ 99,90</p>
+    <p class="price-new"><span class="currency">R$</span> 37,00</p>
+
+    <div class="badges">
+      <span class="badge-item badge-pulse" style="--bd:0"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Acesso imediato</span>
+      <span class="badge-item badge-pulse" style="--bd:1"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Pagamento seguro</span>
+      <span class="badge-item badge-pulse" style="--bd:2"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Garantia de 7 dias (CDC)</span>
+    </div>
+
+    <div class="checklist">
+      <div class="check-item" style="--ci:0">
+        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span>Todas as mensagens do direct de <span id="check-name-1" class="highlight-name"></span></span>
+      </div>
+      <div class="check-item" style="--ci:1">
+        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span>Todas as fotos sem censura (incluindo apagadas)</span>
+      </div>
+      <div class="check-item" style="--ci:2">
+        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span>Localização em tempo real e locais que esteve</span>
+      </div>
+      <div class="check-item" style="--ci:3">
+        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span>Alerta sempre que <span id="check-name-2" class="highlight-name"></span> interagir com alguém</span>
+      </div>
+      <div class="check-item" style="--ci:4">
+        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span>2 bônus surpresa avaliados em R$120,00</span>
+      </div>
+    </div>
+
+    <button type="button" class="cta-btn" onclick="checkout()">🔓 DESBLOQUEAR RESULTADO COMPLETO</button>
+    <p class="cta-sub" style="line-height:1.6">Acesso imediato · Pagamento seguro · Sem necessidade de fornecer sua senha<br>Você será direcionado automaticamente após a confirmação</p>
   </div>
 
   <!-- FEATURE: MIDIAS -->
@@ -1706,45 +1887,6 @@ html, body {
       <div style="padding:8px 0"></div>
     </div>
     <p class="ig-grid-counter">+ 83 interações nas últimas 24h</p>
-  </div>
-
-  <!-- PRICING -->
-  <div class="pricing-card">
-    <p class="pricing-text">Com o DescobreAqui você vai ter <span class="emphasis">acesso completo</span> ao instagram <span id="pricing-name-wrap" hidden>de <span class="name" id="pricing-name"></span> </span>por apenas:</p>
-    <p class="price-old">De: R$ 99,90</p>
-    <p class="price-new"><span class="currency">R$</span> 37,00</p>
-
-    <div class="badges">
-      <span class="badge-item badge-pulse" style="--bd:0"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Acesso imediato</span>
-      <span class="badge-item badge-pulse" style="--bd:1"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Pagamento seguro</span>
-      <span class="badge-item badge-pulse" style="--bd:2"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Garantia de 7 dias (CDC)</span>
-    </div>
-
-    <div class="checklist">
-      <div class="check-item" style="--ci:0">
-        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-        <span>Todas as mensagens do direct de <span id="check-name-1" class="highlight-name"></span></span>
-      </div>
-      <div class="check-item" style="--ci:1">
-        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-        <span>Todas as fotos sem censura (incluindo apagadas)</span>
-      </div>
-      <div class="check-item" style="--ci:2">
-        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-        <span>Localização em tempo real e locais que esteve</span>
-      </div>
-      <div class="check-item" style="--ci:3">
-        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-        <span>Alerta sempre que <span id="check-name-2" class="highlight-name"></span> interagir com alguém</span>
-      </div>
-      <div class="check-item" style="--ci:4">
-        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-        <span>2 bônus surpresa avaliados em R$120,00</span>
-      </div>
-    </div>
-
-    <button type="button" class="cta-btn" onclick="checkout()">🔓 DESBLOQUEAR RESULTADO COMPLETO</button>
-    <p class="cta-sub" style="line-height:1.6">Acesso imediato · Pagamento seguro · Sem necessidade de fornecer sua senha<br>Você será direcionado automaticamente após a confirmação</p>
   </div>
 
   <!-- TESTIMONIALS -->
@@ -2319,6 +2461,117 @@ function checkout() {
   var u = p.get('username') || '';
   var s = '/api/track?stage=cta&username=' + encodeURIComponent(u) + '&_=' + Date.now();
   new Image().src = s;
+})();
+</script>
+
+<!-- EXIT POPUP -->
+<div class="exit-overlay" id="exit-overlay">
+  <div class="exit-popup">
+    <button type="button" class="exit-popup-close" onclick="closeExitPopup()">&times;</button>
+    <div class="exit-popup-tag" id="exit-tag"></div>
+    <h3 id="exit-headline"></h3>
+    <p class="exit-sub" id="exit-sub"></p>
+    <ul class="exit-features" id="exit-features"></ul>
+    <div class="exit-prices">
+      <span class="exit-old" id="exit-old"></span>
+      <span class="exit-new" id="exit-new"></span>
+      <span class="exit-installment" id="exit-installment"></span>
+    </div>
+    <button type="button" class="exit-btn" id="exit-btn"></button>
+    <button type="button" class="exit-decline" id="exit-decline"></button>
+  </div>
+</div>
+
+<script>
+(function() {
+  var exitOffers = [
+    {
+      tag: 'OFERTA IMPERDIVEL',
+      headline: 'Descubra com quem ELE(A) mais conversa!',
+      sub: 'Ranking secreto de interações: quem mais curte, comenta e troca mensagens.',
+      features: ['Top 10 perfis que mais interagem', 'Ranking de curtidas trocadas', 'Frequência de mensagens por contato', 'Alerta de novos contatos frequentes'],
+      oldPrice: 'R$ 147,00',
+      newPrice: 'R$ 14,90',
+      installment: 'pagamento único',
+      btn: 'REVELAR RANKING SECRETO',
+      decline: 'Não, não quero saber o ranking.',
+      link: 'https://link.syncpayments.com.br/IvusMo'
+    },
+    {
+      tag: 'ACESSO SECRETO LIBERADO',
+      headline: 'Galeria de FOTOS APAGADAS!',
+      sub: 'Recupere todas as fotos e vídeos que a pessoa deletou do celular e das redes.',
+      features: ['Fotos deletadas do Instagram recuperadas', 'Vídeos removidos disponíveis', 'Stories expirados acessíveis', 'Download em alta qualidade'],
+      oldPrice: 'R$ 127,00',
+      newPrice: 'R$ 17,90',
+      installment: 'pagamento único',
+      btn: 'RECUPERAR FOTOS APAGADAS',
+      decline: 'Não quero ver fotos apagadas.',
+      link: 'https://link.syncpayments.com.br/dsaScv'
+    },
+    {
+      tag: 'SUPER DESCONTO RELÂMPAGO',
+      headline: 'Histórico COMPLETO do perfil!',
+      sub: 'Acesse tudo que a pessoa já postou e apagou desde a criação da conta.',
+      features: ['Fotos e stories apagados recuperados', 'Reels removidos disponíveis', 'Comentários deletados visíveis', 'Linha do tempo completa desde o início'],
+      oldPrice: 'R$ 297,00',
+      newPrice: 'R$ 19,90',
+      installment: 'ou 2x de R$ 10,45',
+      btn: 'VER HISTÓRICO COMPLETO',
+      decline: 'Não quero ver o histórico.',
+      link: 'https://link.syncpayments.com.br/pF594A'
+    }
+  ];
+
+  var shown = false;
+  var offer = exitOffers[Math.floor(Math.random() * exitOffers.length)];
+
+  function renderPopup() {
+    document.getElementById('exit-tag').textContent = offer.tag;
+    document.getElementById('exit-headline').textContent = offer.headline;
+    document.getElementById('exit-sub').textContent = offer.sub;
+    var ul = document.getElementById('exit-features');
+    ul.innerHTML = '';
+    for (var i = 0; i < offer.features.length; i++) {
+      var li = document.createElement('li');
+      li.textContent = offer.features[i];
+      ul.appendChild(li);
+    }
+    document.getElementById('exit-old').textContent = offer.oldPrice;
+    document.getElementById('exit-new').textContent = offer.newPrice;
+    document.getElementById('exit-installment').textContent = offer.installment;
+    document.getElementById('exit-btn').textContent = offer.btn;
+    document.getElementById('exit-decline').textContent = offer.decline;
+
+    document.getElementById('exit-btn').onclick = function() {
+      new Image().src = '/api/track?stage=exit_popup_click&_=' + Date.now();
+      window.location.href = offer.link;
+    };
+    document.getElementById('exit-decline').onclick = closeExitPopup;
+  }
+
+  function showPopup() {
+    if (shown) return;
+    shown = true;
+    renderPopup();
+    document.getElementById('exit-overlay').classList.add('show');
+    new Image().src = '/api/track?stage=exit_popup_show&_=' + Date.now();
+  }
+
+  window.closeExitPopup = function() {
+    document.getElementById('exit-overlay').classList.remove('show');
+  };
+
+  var faqEl = document.querySelector('.faq-title');
+  if (faqEl) {
+    var observer = new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting) {
+        setTimeout(showPopup, 800);
+        observer.disconnect();
+      }
+    }, { threshold: 0.3 });
+    observer.observe(faqEl);
+  }
 })();
 </script>
 </body>
