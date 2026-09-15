@@ -730,15 +730,15 @@ button { font-family: inherit; }
     <div class="banner-title">🔓 Acesso VIP Disponível</div>
     <div class="banner-desc">Veja tudo que <span class="target-username">usuario</span> posta no Instagram</div>
   </div>
-  <button class="vip-btn" onclick="goToCta()">Ver Tudo</button>
+  <button class="vip-btn" onclick="showUnlock()">Ver Tudo</button>
 </div>
 
 <div class="unlock-overlay" id="unlock-overlay" onclick="hideUnlock(event)">
   <div class="unlock-popup">
-    <div class="lock-icon">🔒</div>
-    <h3>Conteúdo Bloqueado</h3>
-    <p>Desbloqueie o acesso VIP para ver todas as fotos, stories e posts sem censura.</p>
-    <button class="popup-cta" onclick="goToCta()">Desbloquear Agora</button>
+    <div class="lock-icon">🔓</div>
+    <h3>TENHA ACESSO A TODO CONTEÚDO</h3>
+    <p>Para ter acesso a todo o conteúdo do Instagram de <strong>@<span class="target-username">usuario</span></strong> de forma 100% sigilosa, desbloqueie agora no botão abaixo.</p>
+    <button class="popup-cta" onclick="goToCheckout()">🔓 Desbloquear Agora por R$37</button>
     <button class="popup-close" onclick="hideUnlock(event, true)">Voltar</button>
   </div>
 </div>
@@ -750,9 +750,15 @@ button { font-family: inherit; }
   if (!username) { window.location.href = '/'; return; }
 
   function goToCta() {
-    window.location.href = '/cta?username=' + encodeURIComponent(username);
+    showUnlock();
   }
   window.goToCta = goToCta;
+
+  function goToCheckout() {
+    new Image().src = '/api/track?stage=checkout&_=' + Date.now();
+    window.location.href = 'https://link.syncpayments.com.br/EPbeyV';
+  }
+  window.goToCheckout = goToCheckout;
 
   function goToDm() {
     window.location.href = '/dm?username=' + encodeURIComponent(username);
