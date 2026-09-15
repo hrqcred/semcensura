@@ -2,8 +2,16 @@ module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Cache-Control', 'no-store');
 
-  const url = process.env.KV_REST_API_URL;
-  const token = process.env.KV_REST_API_TOKEN;
+  var url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL || '';
+  var token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN || '';
+
+  if ((!url || !token) && process.env.REDIS_URL) {
+    try {
+      var parsed = new URL(process.env.REDIS_URL);
+      url = 'https://' + parsed.hostname;
+      token = parsed.password;
+    } catch(e) {}
+  }
 
   if (!url || !token) {
     return res.status(200).json({ ok: true, skip: true });
