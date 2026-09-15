@@ -1948,7 +1948,9 @@ function goToStep2() {
   }
 }
 
+var limitUsername = '';
 function showLimitOverlay(username, avatarSrc) {
+  limitUsername = username;
   document.getElementById('limit-username').textContent = '@' + username;
   var displayName = username.charAt(0).toUpperCase() + username.slice(1);
   document.getElementById('limit-warn-name').textContent = displayName;
@@ -1963,7 +1965,7 @@ function showLimitOverlay(username, avatarSrc) {
 }
 
 function goToLimitCTA() {
-  var username = document.getElementById('usernameInput').value.trim();
+  var username = limitUsername || document.getElementById('usernameInput').value.trim();
   window.location.href = '/cta?username=' + encodeURIComponent(username);
 }
 
