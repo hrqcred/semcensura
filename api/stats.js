@@ -2,6 +2,12 @@ module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Cache-Control', 'no-store');
 
+  var params = new URL('https://x' + req.url).searchParams;
+  var pwd = params.get('pwd');
+  if (pwd !== '1897') {
+    return res.status(401).json({ error: 'unauthorized' });
+  }
+
   var url = process.env.KV_REST_API_URL;
   var token = process.env.KV_REST_API_TOKEN;
 
@@ -27,10 +33,10 @@ module.exports = async (req, res) => {
     return r.json();
   }
 
-  var today = new Date().toISOString().slice(0, 10);
+  var NUM_DAYS = 30;
 
   var dayKeys = [];
-  for (var i = 0; i < 7; i++) {
+  for (var i = 0; i < NUM_DAYS; i++) {
     var d = new Date();
     d.setDate(d.getDate() - i);
     dayKeys.push('day:' + d.toISOString().slice(0, 10));
@@ -38,13 +44,13 @@ module.exports = async (req, res) => {
 
   var commands = dayKeys.map(function(k) { return ['HGETALL', k]; });
   commands.push(['ZREVRANGEBYSCORE', 'usernames', '+inf', '-inf', 'WITHSCORES', 'LIMIT', '0', '10']);
-  commands.push(['LRANGE', 'events', '0', '29']);
+  commands.push(['LRANGE', 'events', '0', '49']);
 
   try {
     var results = await redis(...commands);
 
     var days = [];
-    for (var i = 0; i < 7; i++) {
+    for (var i = 0; i < NUM_DAYS; i++) {
       var raw = results[i].result || {};
       var obj = {};
       if (Array.isArray(raw)) {
@@ -58,7 +64,7 @@ module.exports = async (req, res) => {
       });
     }
 
-    var usernamesRaw = results[7].result || [];
+    var usernamesRaw = results[NUM_DAYS].result || [];
     var usernames = [];
     if (Array.isArray(usernamesRaw)) {
       for (var i = 0; i < usernamesRaw.length; i += 2) {
@@ -66,7 +72,7 @@ module.exports = async (req, res) => {
       }
     }
 
-    var eventsRaw = results[8].result || [];
+    var eventsRaw = results[NUM_DAYS + 1].result || [];
     var events = eventsRaw.map(function(e) {
       try { return JSON.parse(e); } catch(x) { return null; }
     }).filter(Boolean);

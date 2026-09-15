@@ -176,6 +176,17 @@ body {
 </head>
 <body>
 
+<div id="login-gate" style="position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center;">
+  <div style="text-align:center;width:320px;padding:0 20px;">
+    <div class="logo" style="width:48px;height:48px;margin:0 auto 16px;border-radius:12px;"><svg viewBox="0 0 24 24" style="width:24px;height:24px;fill:#fff"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></div>
+    <h1 style="font-family:var(--dm);font-size:20px;font-weight:700;margin-bottom:4px;">DescobreAqui<em style="color:var(--text-3);font-weight:400;font-style:normal;margin-left:6px;">admin</em></h1>
+    <p style="font-size:12px;color:var(--text-3);margin-bottom:24px;">Digite a senha para acessar o painel</p>
+    <input type="password" id="login-pwd" placeholder="Senha" style="width:100%;padding:10px 14px;border-radius:8px;border:1px solid var(--border);background:var(--elevated);color:var(--text-1);font-family:var(--inter);font-size:14px;outline:none;margin-bottom:12px;text-align:center;" autofocus>
+    <div id="login-err" style="color:var(--danger);font-size:12px;margin-bottom:12px;min-height:18px;"></div>
+    <button id="login-btn" onclick="tryLogin()" style="width:100%;padding:10px;border-radius:8px;border:none;background:linear-gradient(135deg,var(--accent),#38bdf8);color:#fff;font-family:var(--inter);font-size:13px;font-weight:600;cursor:pointer;">Entrar</button>
+  </div>
+</div>
+
 <header class="hdr">
   <div class="hdr-left">
     <div class="logo"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></div>
@@ -460,10 +471,66 @@ function setPeriod(btn, period) {
   rerender();
 }
 
-function loadStats() {
-  fetch('/api/stats')
-    .then(function(r) { return r.json(); })
+
+var adminPwd = sessionStorage.getItem('admin_pwd') || '';
+
+function tryLogin() {
+  var pwd = document.getElementById('login-pwd').value;
+  if (!pwd) return;
+  document.getElementById('login-btn').textContent = 'Verificando…';
+  document.getElementById('login-err').textContent = '';
+  fetch('/api/stats?pwd=' + encodeURIComponent(pwd))
+    .then(function(r) {
+      if (r.status === 401) throw new Error('wrong');
+      return r.json();
+    })
     .then(function(data) {
+      adminPwd = pwd;
+      sessionStorage.setItem('admin_pwd', pwd);
+      document.getElementById('login-gate').style.display = 'none';
+      cachedData = data.configured ? data : { days: [], usernames: [], events: [] };
+      if (!data.configured) {
+        document.getElementById('setup-banner').innerHTML = '<div class="setup"><strong>Falta conectar o banco de dados (2 min)</strong><br>O tracking já está em todas as páginas. Só falta criar o banco grátis:<ol><li>Vercel Dashboard → seu projeto → aba <strong>Storage</strong></li><li><strong>Create Database</strong> → <strong>KV (Redis)</strong> → plano grátis</li><li>Conecte ao projeto → <strong>Redeploy</strong></li></ol>Pronto! Os dados aparecem aqui em tempo real.</div>';
+      }
+      fullRender();
+      setInterval(loadStats, 30000);
+    })
+    .catch(function() {
+      document.getElementById('login-btn').textContent = 'Entrar';
+      document.getElementById('login-err').textContent = 'Senha incorreta';
+      document.getElementById('login-pwd').value = '';
+      document.getElementById('login-pwd').focus();
+    });
+}
+
+document.getElementById('login-pwd').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') tryLogin();
+});
+
+function fullRender() {
+  var d = getPeriodData();
+  renderKPIs(d);
+  renderFunnel(d);
+  renderConvCards(d);
+  renderDevices(d);
+  renderUsernames(cachedData.usernames || []);
+  renderSparkline(d._days || []);
+  renderHeatmap(cachedData.events || []);
+  renderEvents(cachedData.events || []);
+}
+
+function loadStats() {
+  fetch('/api/stats?pwd=' + encodeURIComponent(adminPwd))
+    .then(function(r) {
+      if (r.status === 401) {
+        sessionStorage.removeItem('admin_pwd');
+        document.getElementById('login-gate').style.display = 'flex';
+        return;
+      }
+      return r.json();
+    })
+    .then(function(data) {
+      if (!data) return;
       if (!data.configured) {
         document.getElementById('setup-banner').innerHTML = '<div class="setup"><strong>Falta conectar o banco de dados (2 min)</strong><br>O tracking já está em todas as páginas. Só falta criar o banco grátis:<ol><li>Vercel Dashboard → seu projeto → aba <strong>Storage</strong></li><li><strong>Create Database</strong> → <strong>KV (Redis)</strong> → plano grátis</li><li>Conecte ao projeto → <strong>Redeploy</strong></li></ol>Pronto! Os dados aparecem aqui em tempo real.</div>';
         cachedData = { days: [], usernames: [], events: [] };
@@ -471,22 +538,15 @@ function loadStats() {
         document.getElementById('setup-banner').innerHTML = '';
         cachedData = data;
       }
-
-      var d = getPeriodData();
-      renderKPIs(d);
-      renderFunnel(d);
-      renderConvCards(d);
-      renderDevices(d);
-      renderUsernames(cachedData.usernames || []);
-      renderSparkline(d._days || []);
-      renderHeatmap(cachedData.events || []);
-      renderEvents(cachedData.events || []);
+      fullRender();
     })
     .catch(function() {});
 }
 
-loadStats();
-setInterval(loadStats, 30000);
+if (adminPwd) {
+  document.getElementById('login-pwd').value = adminPwd;
+  tryLogin();
+}
 </script>
 </body>
 </html>
