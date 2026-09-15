@@ -25,25 +25,35 @@ module.exports = async (req, res) => {
   try {
     await client.connect();
 
-    var multi = client.multi();
-    multi.hIncrBy('day:' + day, stage, 1);
-    multi.hIncrBy('day:' + day, 'device:' + device, 1);
-
+    // Deduplicate: ignore repeated same-stage events from same username within 5 min
+    var dominated = false;
     if (username) {
-      multi.zIncrBy('usernames', 1, username.toLowerCase());
+      var dedup_key = 'dedup:' + stage + ':' + username.toLowerCase();
+      var already = await client.set(dedup_key, '1', { NX: true, EX: 300 });
+      if (!already) dominated = true;
     }
 
-    var event = JSON.stringify({
-      t: Date.now(),
-      s: stage,
-      u: username,
-      d: device,
-      r: ref
-    });
-    multi.lPush('events', event);
-    multi.lTrim('events', 0, 49);
+    if (!dominated) {
+      var multi = client.multi();
+      multi.hIncrBy('day:' + day, stage, 1);
+      multi.hIncrBy('day:' + day, 'device:' + device, 1);
 
-    await multi.exec();
+      if (username) {
+        multi.zIncrBy('usernames', 1, username.toLowerCase());
+      }
+
+      var event = JSON.stringify({
+        t: Date.now(),
+        s: stage,
+        u: username,
+        d: device,
+        r: ref
+      });
+      multi.lPush('events', event);
+      multi.lTrim('events', 0, 49);
+
+      await multi.exec();
+    }
     await client.quit();
   } catch (e) {
     try { await client.quit(); } catch(x) {}
