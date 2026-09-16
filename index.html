@@ -61,7 +61,7 @@ html, body {
   height: 100%;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.4;
+  opacity: 0.7;
 }
 
 /* ===== Floating Particles ===== */
@@ -1050,17 +1050,16 @@ h2 {
   to { transform: rotate(360deg); }
 }
 
-/* ===== Loading Overlay (Descriptografando) ===== */
+/* ===== Loading Overlay (Instagram Login Style) ===== */
 .loading-overlay {
   display: none;
   position: fixed;
   inset: 0;
-  z-index: 200;
-  background: var(--bg-dark);
-  flex-direction: column;
+  z-index: 9999;
+  background: rgb(4, 6, 7);
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  padding: 24px 24px 48px;
   opacity: 0;
   transition: opacity 0.5s;
 }
@@ -1070,280 +1069,236 @@ h2 {
   opacity: 1;
 }
 
-.loading-canvas {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.3;
-}
-
-.loading-content {
+.loading-overlay .ig-login-wrap {
   position: relative;
-  z-index: 1;
-  text-align: center;
-  max-width: 360px;
+  z-index: 201;
+}
+
+.ig-login-wrap {
   width: 100%;
-}
-
-.loading-avatar {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin: 0 auto 20px;
-  border: 3px solid rgba(26,109,212,0.4);
-  position: relative;
-  animation: avatarPulse 2s ease-in-out infinite;
-}
-
-.loading-avatar::before {
-  content: "";
-  position: absolute;
-  inset: -5px;
-  border-radius: 50%;
-  border: 2px solid transparent;
-  border-top-color: #38bdf8;
-  animation: avatarRingSpin 2s linear infinite;
-}
-
-.loading-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.loading-username {
-  font-size: 18px;
-  font-weight: 700;
-  color: #fff;
-  margin-bottom: 28px;
-}
-
-.loading-progress-bar {
-  width: 100%;
-  height: 6px;
-  background: rgba(255,255,255,0.08);
-  border-radius: 3px;
-  overflow: hidden;
-  margin-bottom: 16px;
-}
-
-.loading-progress-fill {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, #1a6dd4, #38bdf8);
-  border-radius: 3px;
-  transition: width 0.4s ease;
-  box-shadow: 0 0 12px rgba(56,189,248,0.4);
-}
-
-.loading-percent {
-  font-size: 14px;
-  font-weight: 600;
-  color: #38bdf8;
-  margin-bottom: 24px;
-}
-
-.loading-steps {
-  text-align: left;
+  max-width: 384px;
   margin: 0 auto;
-  max-width: 280px;
 }
 
-.loading-step {
+.ig-login-logo {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.ig-login-logo img {
+  height: 52px;
+  width: auto;
+  object-fit: contain;
+  filter: invert(1);
+}
+
+.ig-login-fields {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 0;
-  font-size: 13px;
-  color: #6b7280;
-  transition: color 0.3s;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.loading-step.active {
-  color: #d1d5db;
-}
-
-.loading-step.done {
-  color: #22c55e;
-}
-
-.loading-step-icon {
-  width: 18px;
-  height: 18px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.loading-step-icon .spinner {
-  width: 16px;
-  height: 16px;
-  border: 2px solid rgba(56,189,248,0.2);
-  border-top-color: #38bdf8;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-
-.loading-step-icon .check {
-  color: #22c55e;
-}
-
-.loading-step-icon .pending {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.15);
-}
-
-.loading-crypto-text {
-  margin-top: 24px;
-  font-family: monospace;
-  font-size: 11px;
-  color: rgba(56,189,248,0.4);
-  line-height: 1.6;
-  word-break: break-all;
-  max-height: 60px;
-  overflow: hidden;
-  animation: cryptoFlicker 0.1s step-end infinite;
-}
-
-@keyframes cryptoFlicker {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 0.3; }
-}
-
-/* ===== Crack Card (Login-style) ===== */
-.crack-card {
-  margin-top: 28px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 16px;
-  padding: 20px 18px;
-  max-width: 300px;
+.ig-login-field {
   width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.6s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.crack-card.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.crack-field {
-  width: 100%;
-  padding: 12px 14px;
-  border-radius: 8px;
-  border: 1px solid rgba(255,255,255,0.1);
-  background: rgba(255,255,255,0.03);
-  color: #e2e8f0;
-  font-size: 13px;
-  font-family: var(--font-inter);
-  margin-bottom: 10px;
+  padding: 12px;
+  border: 1px solid #374151;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #f3f4f6;
+  background: rgb(12, 16, 17);
   outline: none;
   pointer-events: none;
 }
 
-.crack-status {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 14px;
-  border-radius: 8px;
-  background: rgba(26,109,212,0.06);
-  border: 1px solid rgba(26,109,212,0.12);
-  margin-bottom: 12px;
+.ig-login-pass-wrap {
+  position: relative;
 }
 
-.crack-status-spinner {
-  width: 20px;
-  height: 20px;
-  border: 2px solid rgba(56,189,248,0.2);
-  border-top-color: #38bdf8;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-  flex-shrink: 0;
-}
-
-.crack-status-text {
-  flex: 1;
-  min-width: 0;
-}
-
-.crack-status-title {
-  font-size: 12px;
-  font-weight: 600;
-  color: #cbd5e1;
-  line-height: 1.3;
-}
-
-.crack-status-sub {
-  font-size: 11px;
-  color: #64748b;
-  line-height: 1.3;
-  margin-top: 1px;
-}
-
-.crack-btn {
+.ig-login-pass {
   width: 100%;
-  padding: 11px;
-  border: none;
-  border-radius: 8px;
-  background: rgba(26,109,212,0.5);
-  color: rgba(255,255,255,0.7);
-  font-size: 14px;
-  font-weight: 600;
-  font-family: var(--font-inter);
-  cursor: default;
+  padding: 12px;
+  border: 1px solid #60a5fa;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #f3f4f6;
+  background: rgb(12, 16, 17);
+  outline: none;
   pointer-events: none;
-  margin-bottom: 10px;
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+  letter-spacing: 1px;
+  transition: all 0.3s;
 }
 
-.crack-forgot {
-  text-align: center;
-  font-size: 11px;
-  color: #38bdf8;
-  opacity: 0.6;
+.ig-login-pass-dot {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  background: #3b82f6;
+  border-radius: 50%;
+  animation: pulseBlue 1.5s ease-in-out infinite;
 }
 
-.crack-divider {
+@keyframes pulseBlue {
+  0%, 100% { opacity: 0.4; transform: translateY(-50%) scale(0.8); }
+  50% { opacity: 1; transform: translateY(-50%) scale(1.2); }
+}
+
+.ig-login-error {
+  font-size: 12px;
+  color: #ef4444;
+  margin-top: -8px;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.ig-login-error.show {
+  opacity: 1;
+}
+
+.ig-login-status {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin: 10px 0;
+  padding: 12px;
+  border: 1px solid #1f2937;
+  border-radius: 8px;
+  background: rgb(12, 16, 17);
+  margin-top: 12px;
 }
 
-.crack-divider-line {
+.ig-login-status-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4a37b6, #ab58f4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ig-login-status-icon svg {
+  width: 12px;
+  height: 12px;
+  color: #fff;
+  animation: spin 0.8s linear infinite;
+}
+
+.ig-login-status-text {
+  flex: 1;
+}
+
+.ig-login-status-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: #9ca3af;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.ig-login-status-sub {
+  font-size: 12px;
+  color: #6b7280;
+  margin: 4px 0 0;
+  line-height: 1.3;
+}
+
+.ig-login-btn {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  background: #0098ff;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: var(--font-inter);
+  cursor: default;
+  pointer-events: none;
+  opacity: 0.5;
+  position: relative;
+  overflow: hidden;
+}
+
+.ig-login-btn-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  background: rgba(249,249,249,0.6);
+  transition: width 0.3s linear;
+}
+
+.ig-login-forgot {
+  text-align: center;
+  margin-top: 16px;
+}
+
+.ig-login-forgot a {
+  font-size: 14px;
+  color: #3b82f6;
+  text-decoration: none;
+}
+
+.ig-login-divider {
+  display: flex;
+  align-items: center;
+  margin: 24px 0;
+  gap: 16px;
+}
+
+.ig-login-divider-line {
   flex: 1;
   height: 1px;
-  background: rgba(255,255,255,0.08);
+  background: #374151;
 }
 
-.crack-divider-text {
-  font-size: 11px;
-  font-weight: 600;
-  color: #64748b;
+.ig-login-divider-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #9ca3af;
 }
 
-.crack-fb {
+.ig-login-fb {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  font-size: 13px;
-  font-weight: 600;
-  color: #4267B2;
-  opacity: 0.5;
+  padding: 8px;
+  border: none;
+  background: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: #3b82f6;
+  font-family: var(--font-inter);
+  cursor: default;
+  pointer-events: none;
 }
 
-.crack-fb svg {
-  width: 18px;
-  height: 18px;
+.ig-login-fb svg {
+  width: 20px;
+  height: 20px;
+}
+
+.ig-login-signup {
+  text-align: center;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #374151;
+  font-size: 14px;
+  color: #9ca3af;
+}
+
+.ig-login-signup a {
+  color: #3b82f6;
+  font-weight: 500;
+  text-decoration: none;
+  margin-left: 4px;
 }
 /* ===== Limite Atingido Overlay ===== */
 .limit-overlay {
@@ -1719,70 +1674,59 @@ h2 {
   </div>
 </div>
 
-<!-- ===== LOADING OVERLAY: Descriptografando ===== -->
+<!-- ===== LOADING OVERLAY: Instagram Login Style ===== -->
 <div class="loading-overlay" id="loading-overlay">
-  <canvas class="loading-canvas" id="loading-canvas"></canvas>
-  <div class="loading-content">
-    <div class="loading-avatar" id="loading-avatar">
-      <svg fill="currentColor" viewBox="0 0 24 24" style="width:40px;height:40px;color:#2e8bc0;opacity:0.5;margin-top:22px">
-        <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
-      </svg>
+  <div class="ig-login-wrap">
+    <div class="ig-login-logo">
+      <img src="/midias/instagram-logo-new.png" alt="Instagram" style="height:52px;width:auto;filter:brightness(0) invert(1)">
     </div>
-    <div class="loading-username" id="loading-username">@usuario</div>
-    <div class="loading-progress-bar">
-      <div class="loading-progress-fill" id="loading-progress"></div>
-    </div>
-    <div class="loading-percent" id="loading-percent">0%</div>
-    <div class="loading-steps">
-      <div class="loading-step" id="lstep-0">
-        <div class="loading-step-icon"><div class="pending"></div></div>
-        <span>Conectando ao servidor seguro...</span>
-      </div>
-      <div class="loading-step" id="lstep-1">
-        <div class="loading-step-icon"><div class="pending"></div></div>
-        <span>Localizando perfil no Instagram...</span>
-      </div>
-      <div class="loading-step" id="lstep-2">
-        <div class="loading-step-icon"><div class="pending"></div></div>
-        <span>Descriptografando dados do perfil...</span>
-      </div>
-      <div class="loading-step" id="lstep-3">
-        <div class="loading-step-icon"><div class="pending"></div></div>
-        <span>Extraindo fotos e stories...</span>
-      </div>
-      <div class="loading-step" id="lstep-4">
-        <div class="loading-step-icon"><div class="pending"></div></div>
-        <span>Decodificando mensagens do direct...</span>
-      </div>
-      <div class="loading-step" id="lstep-5">
-        <div class="loading-step-icon"><div class="pending"></div></div>
-        <span>Finalizando espionagem...</span>
-      </div>
-    </div>
-    <div class="loading-crypto-text" id="loading-crypto"></div>
 
-    <!-- Crack Card -->
-    <div class="crack-card" id="crack-card">
-      <input class="crack-field" type="text" id="crack-user" value="" readonly tabindex="-1">
-      <input class="crack-field" type="password" id="crack-pass" value="••••••••••••••h" readonly tabindex="-1">
-      <div class="crack-status">
-        <div class="crack-status-spinner"></div>
-        <div class="crack-status-text">
-          <div class="crack-status-title" id="crack-status-title">Quebrando criptografia da conta</div>
-          <div class="crack-status-sub" id="crack-status-sub">Testando senha...</div>
+    <div class="ig-login-fields">
+      <div class="ig-login-field" id="crack-user">usuario</div>
+
+      <div class="ig-login-pass-wrap">
+        <input class="ig-login-pass" type="text" id="crack-pass" value="**************" readonly tabindex="-1">
+        <div class="ig-login-pass-dot"></div>
+      </div>
+
+      <div class="ig-login-error" id="crack-error">A senha que você inseriu está incorreta.</div>
+
+      <div class="ig-login-status">
+        <div class="ig-login-status-icon">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+          </svg>
+        </div>
+        <div class="ig-login-status-text">
+          <p class="ig-login-status-title" id="crack-status-title">Quebrando criptografia da conta</p>
+          <p class="ig-login-status-sub" id="crack-status-sub">Testando senha...</p>
         </div>
       </div>
-      <div class="crack-btn">Entrar</div>
-      <div class="crack-forgot">Esqueceu a senha?</div>
-      <div class="crack-divider">
-        <div class="crack-divider-line"></div>
-        <span class="crack-divider-text">OU</span>
-        <div class="crack-divider-line"></div>
+
+      <button type="button" class="ig-login-btn" disabled>
+        <span>Entrar</span>
+        <div class="ig-login-btn-progress" id="crack-progress"></div>
+      </button>
+
+      <div class="ig-login-forgot">
+        <a href="#">Esqueceu a senha?</a>
       </div>
-      <div class="crack-fb">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
-        <span>Entrar com o Facebook</span>
-      </div>
+    </div>
+
+    <div class="ig-login-divider">
+      <div class="ig-login-divider-line"></div>
+      <span class="ig-login-divider-text">OU</span>
+      <div class="ig-login-divider-line"></div>
+    </div>
+
+    <button type="button" class="ig-login-fb">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      <span>Entrar com o Facebook</span>
+    </button>
+
+    <div class="ig-login-signup">
+      <span>Não tem uma conta?</span>
+      <a href="#">Cadastre-se.</a>
     </div>
   </div>
 </div>
@@ -1807,15 +1751,19 @@ h2 {
   for (var c = 0; c < columns; c++) drops[c] = Math.random() * -100;
 
   function draw() {
-    ctx.fillStyle = 'rgba(4, 6, 7, 0.08)';
+    ctx.fillStyle = 'rgba(4, 6, 7, 0.05)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.font = fontSize + 'px monospace';
 
     for (var i = 0; i < drops.length; i++) {
       var ch = chars[Math.floor(Math.random() * chars.length)];
-      var alpha = 0.15 + Math.random() * 0.25;
+      var alpha = 0.3 + Math.random() * 0.5;
       ctx.fillStyle = 'rgba(46, 139, 192, ' + alpha + ')';
       ctx.fillText(ch, i * fontSize, drops[i] * fontSize);
+      if (Math.random() > 0.97) {
+        ctx.fillStyle = 'rgba(56, 189, 248, ' + (0.7 + Math.random() * 0.3) + ')';
+        ctx.fillText(ch, i * fontSize, drops[i] * fontSize);
+      }
       if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
         drops[i] = 0;
       }
@@ -2083,71 +2031,48 @@ function confirmProfile() {
   setTimeout(function() { loadingOverlay.style.opacity = '1'; }, 50);
 
   // Set username
-  document.getElementById('loading-username').textContent = '@' + username;
-  document.getElementById('crack-user').value = username;
+  document.getElementById('crack-user').textContent = username;
 
-  // Copy avatar if available
-  var avatarEl = document.getElementById('profile-avatar-img');
-  var avatarImg = avatarEl.querySelector('img');
-  if (avatarImg) {
-    document.getElementById('loading-avatar').innerHTML = '<img src="' + avatarImg.src + '" style="width:100%;height:100%;object-fit:cover;border-radius:50%">';
-  }
+  // Animate password field with random characters
+  var passEl = document.getElementById('crack-pass');
+  var passChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*';
+  var passInterval = setInterval(function() {
+    var len = Math.floor(Math.random() * 6) + 10;
+    var pass = '';
+    for (var i = 0; i < len; i++) {
+      if (Math.random() > 0.3) {
+        pass += '*';
+      } else {
+        pass += passChars[Math.floor(Math.random() * passChars.length)];
+      }
+    }
+    passEl.value = pass;
+  }, 120);
 
-  // Start loading matrix
-  startLoadingMatrix();
+  // Progress bar animation
+  var progressEl = document.getElementById('crack-progress');
+  var progress = 0;
+  var progressInterval = setInterval(function() {
+    progress += Math.random() * 3 + 0.5;
+    if (progress > 100) progress = 100;
+    progressEl.style.width = progress + '%';
+    if (progress >= 100) clearInterval(progressInterval);
+  }, 200);
 
-  // Start crypto text animation
-  startCryptoText();
-
-  // Steps animation
-  var stepData = [
-    { id: 'lstep-0', progress: 12 },
-    { id: 'lstep-1', progress: 28 },
-    { id: 'lstep-2', progress: 52 },
-    { id: 'lstep-3', progress: 72 },
-    { id: 'lstep-4', progress: 88 },
-    { id: 'lstep-5', progress: 100 }
-  ];
-
-  var delays = [500, 1800, 3400, 5600, 7400, 9000];
-  var completions = [1600, 3200, 5400, 7200, 8800, 10500];
-
-  function activateStep(index) {
-    var step = document.getElementById(stepData[index].id);
-    step.classList.add('active');
-    step.querySelector('.loading-step-icon').innerHTML = '<div class="spinner"></div>';
-    document.getElementById('loading-progress').style.width = stepData[index].progress + '%';
-    document.getElementById('loading-percent').textContent = stepData[index].progress + '%';
-  }
-
-  function completeStep(index) {
-    var step = document.getElementById(stepData[index].id);
-    step.classList.remove('active');
-    step.classList.add('done');
-    step.querySelector('.loading-step-icon').innerHTML = '<svg class="check" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>';
-  }
-
-  for (var i = 0; i < stepData.length; i++) {
-    (function(idx) {
-      setTimeout(function() { activateStep(idx); }, delays[idx]);
-      setTimeout(function() { completeStep(idx); }, completions[idx]);
-    })(i);
-  }
-
-  // Show crack card at step 2 (Descriptografando)
+  // Show error message after 3s
   setTimeout(function() {
-    document.getElementById('crack-card').classList.add('show');
-  }, 3600);
+    document.getElementById('crack-error').classList.add('show');
+  }, 3000);
 
-  // Animate crack status messages
+  // Animate status messages
   var crackMsgs = [
     { title: 'Quebrando criptografia da conta', sub: 'Testando senha...' },
     { title: 'Tentativa 47/200', sub: 'Força bruta ativa...' },
     { title: 'Tentativa 128/200', sub: 'Padrão detectado...' },
     { title: 'Descriptografando hash SHA-256', sub: 'Quase lá...' },
-    { title: 'Senha encontrada!', sub: 'Acesso liberado' }
+    { title: 'Senha encontrada!', sub: 'Acesso liberado ✓' }
   ];
-  var crackDelays = [3600, 5000, 6500, 8000, 9200];
+  var crackDelays = [0, 2500, 5000, 7500, 9500];
   crackMsgs.forEach(function(msg, i) {
     setTimeout(function() {
       document.getElementById('crack-status-title').textContent = msg.title;
@@ -2155,59 +2080,13 @@ function confirmProfile() {
     }, crackDelays[i]);
   });
 
-  // Redirect after all steps complete
+  // Redirect after animation completes
   setTimeout(function() {
+    clearInterval(passInterval);
     window.location.href = '/feed?username=' + encodeURIComponent(username);
   }, 11300);
 }
 
-// ========== Loading Matrix Rain ==========
-function startLoadingMatrix() {
-  var canvas = document.getElementById('loading-canvas');
-  var ctx = canvas.getContext('2d');
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  var chars = 'DESCRIPTOGRAFANDOabcdef0123456789@#$%&*{}[]<>=+/\\|~^';
-  var fontSize = 14;
-  var columns = Math.floor(canvas.width / fontSize);
-  var drops = [];
-  for (var c = 0; c < columns; c++) drops[c] = Math.random() * -50;
-
-  function draw() {
-    ctx.fillStyle = 'rgba(3, 5, 8, 0.08)';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.font = fontSize + 'px monospace';
-
-    for (var i = 0; i < drops.length; i++) {
-      var ch = chars[Math.floor(Math.random() * chars.length)];
-      var alpha = 0.1 + Math.random() * 0.25;
-      ctx.fillStyle = 'rgba(46, 139, 192, ' + alpha + ')';
-      ctx.fillText(ch, i * fontSize, drops[i] * fontSize);
-      if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-        drops[i] = 0;
-      }
-      drops[i]++;
-    }
-  }
-
-  setInterval(draw, 50);
-}
-
-// ========== Crypto Text Animation ==========
-function startCryptoText() {
-  var el = document.getElementById('loading-crypto');
-  var hexChars = '0123456789abcdef';
-  setInterval(function() {
-    var text = '';
-    for (var i = 0; i < 120; i++) {
-      text += hexChars[Math.floor(Math.random() * hexChars.length)];
-      if (i % 2 === 1) text += ' ';
-      if (i % 32 === 31) text += '\n';
-    }
-    el.textContent = text;
-  }, 80);
-}
 </script>
 <script>
 (function(){
