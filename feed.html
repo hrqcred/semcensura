@@ -418,7 +418,7 @@ button { font-family: inherit; }
   position: fixed;
   left: 50%;
   bottom: 24px;
-  transform: translateX(-50%);
+  transform: translateX(-50%) scale(1);
   width: auto;
   padding: 10px 22px;
   display: flex;
@@ -430,6 +430,13 @@ button { font-family: inherit; }
   border-radius: 50px;
   z-index: 60;
   box-shadow: 0 4px 24px rgba(0,0,0,0.55);
+  transition: transform 0.3s ease, bottom 0.3s ease, opacity 0.3s ease;
+}
+
+.bottom-nav.nav-hidden {
+  bottom: 10px;
+  transform: translateX(-50%) scale(0.92);
+  opacity: 0.6;
 }
 
 .nav-btn {
@@ -443,7 +450,11 @@ button { font-family: inherit; }
   color: var(--ig-text);
   border-radius: 40px;
   position: relative;
-  transition: background 0.15s;
+  transition: background 0.18s ease, transform 0.15s ease;
+}
+
+.nav-btn:active {
+  transform: scale(0.85);
 }
 
 .nav-btn:first-child {
@@ -475,40 +486,34 @@ button { font-family: inherit; }
 /* ================= PREVIEW ================= */
 
 .preview-banner {
-  position: fixed;
-  left: 50%;
-  bottom: 90px;
-  transform: translateX(-50%);
   width: 100%;
-  max-width: 470px;
-  padding: 8px 10px;
+  padding: 12px 14px;
   display: flex;
-  gap: 8px;
+  gap: 10px;
   align-items: center;
   background: linear-gradient(135deg, #0564cc, #069be9);
-  z-index: 100;
 }
 
 .banner-content { min-width: 0; flex: 1; }
 
 .banner-title {
-  font-size: 11px;
-  line-height: 14px;
+  font-size: 13px;
+  line-height: 16px;
   font-weight: 700;
   color: #fff;
 }
 
 .banner-desc {
-  margin-top: 2px;
-  font-size: 9px;
-  line-height: 12px;
+  margin-top: 3px;
+  font-size: 11px;
+  line-height: 14px;
   color: rgba(255,255,255,.87);
 }
 
 .vip-btn {
-  padding: 7px 11px;
-  border-radius: 7px;
-  font-size: 11px;
+  padding: 9px 14px;
+  border-radius: 8px;
+  font-size: 12px;
   font-weight: 700;
   background: #fff;
   color: #0564cc;
@@ -846,6 +851,15 @@ button { font-family: inherit; }
   </div>
 </section>
 
+<!-- ===== BANNER CTA ===== -->
+<div class="preview-banner" onclick="showUnlock()">
+  <div class="banner-content">
+    <div class="banner-title">🔓 DESBLOQUEIE AGORA O ACESSO COMPLETO</div>
+    <div class="banner-desc">Acompanhe tudo o que @<span class="target-username">usuario</span> faz no Instagram.</div>
+  </div>
+  <button class="vip-btn" onclick="event.stopPropagation(); showUnlock()">Desbloquear</button>
+</div>
+
 <!-- ===== FEED ===== -->
 <main class="feed-posts">
 
@@ -888,15 +902,6 @@ button { font-family: inherit; }
     <img class="nav-profile" id="nav-profile-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23555'/%3E%3Ccircle cx='50' cy='37' r='17' fill='rgba(255%2C255%2C255%2C0.75)'/%3E%3Cellipse cx='50' cy='90' rx='31' ry='26' fill='rgba(255%2C255%2C255%2C0.75)'/%3E%3C/svg%3E" alt="Perfil">
   </button>
 </nav>
-
-<!-- ===== PREVIEW BANNER ===== -->
-<div class="preview-banner">
-  <div class="banner-content">
-    <div class="banner-title">🔓 Acesso VIP Disponível</div>
-    <div class="banner-desc">Veja tudo que <span class="target-username">usuario</span> posta no Instagram</div>
-  </div>
-  <button class="vip-btn" onclick="showUnlock()">Ver Tudo</button>
-</div>
 
 <div class="unlock-overlay" id="unlock-overlay" onclick="hideUnlock(event)">
   <div class="unlock-popup">
@@ -1116,6 +1121,8 @@ button { font-family: inherit; }
   var unlockShown = false;
   var upsellTriggered = false;
   var upsellScrollLimit = feedScrollLimit + window.innerHeight * 5;
+  var lastScrollY = 0;
+  var navEl = document.querySelector('.bottom-nav');
   window.addEventListener('scroll', function () {
     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 800) {
       loadBatch();
@@ -1128,6 +1135,13 @@ button { font-family: inherit; }
       upsellTriggered = true;
       showUpsell();
     }
+    var currentY = window.scrollY;
+    if (currentY > lastScrollY && currentY > 100) {
+      navEl.classList.add('nav-hidden');
+    } else {
+      navEl.classList.remove('nav-hidden');
+    }
+    lastScrollY = currentY;
   });
 })();
 </script>
