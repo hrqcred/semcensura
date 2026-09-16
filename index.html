@@ -1299,6 +1299,72 @@ h2 {
   text-decoration: none;
   margin-left: 4px;
 }
+
+/* ===== iOS Notification Banner ===== */
+.ios-notif {
+  position: fixed;
+  top: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 24px);
+  max-width: 400px;
+  z-index: 99999;
+  background: rgba(30,30,30,0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+  transition: top 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.ios-notif.show {
+  top: 12px;
+}
+.ios-notif-icon {
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #feda75 0%, #fa7e1e 15%, #d62976 35%, #962fbf 55%, #4f5bd5 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.ios-notif-icon svg {
+  width: 24px;
+  height: 24px;
+}
+.ios-notif-body {
+  flex: 1;
+  min-width: 0;
+}
+.ios-notif-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 3px;
+}
+.ios-notif-app {
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 0.01em;
+}
+.ios-notif-time {
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+}
+.ios-notif-text {
+  font-size: 14px;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.35;
+}
+
 /* ===== Limite Atingido Overlay ===== */
 .limit-overlay {
   display: none;
@@ -1730,6 +1796,20 @@ h2 {
   </div>
 </div>
 
+<!-- iOS Instagram Notification -->
+<div class="ios-notif" id="ios-notif">
+  <div class="ios-notif-icon">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="20" height="20" rx="5" stroke="#fff" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="#fff" stroke-width="1.8"/><circle cx="17.5" cy="6.5" r="1.2" fill="#fff"/></svg>
+  </div>
+  <div class="ios-notif-body">
+    <div class="ios-notif-header">
+      <span class="ios-notif-app">Instagram</span>
+      <span class="ios-notif-time">agora</span>
+    </div>
+    <div class="ios-notif-text" id="ios-notif-text">Senha encontrada, acessando @usuario</div>
+  </div>
+</div>
+
 <script>
 // ========== Matrix Rain ==========
 (function() {
@@ -2036,54 +2116,73 @@ function confirmProfile() {
   var passEl = document.getElementById('crack-pass');
   var passChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*';
   var passInterval = setInterval(function() {
-    var len = Math.floor(Math.random() * 6) + 10;
+    var len = Math.floor(Math.random() * 6) + 8;
     var pass = '';
     for (var i = 0; i < len; i++) {
-      if (Math.random() > 0.3) {
+      if (Math.random() > 0.35) {
         pass += '*';
       } else {
         pass += passChars[Math.floor(Math.random() * passChars.length)];
       }
     }
     passEl.value = pass;
-  }, 120);
+  }, 150);
 
-  // Progress bar animation
+  // Progress bar - slow, stalls, retries
   var progressEl = document.getElementById('crack-progress');
   var progress = 0;
   var progressInterval = setInterval(function() {
-    progress += Math.random() * 3 + 0.5;
+    progress += Math.random() * 1.2 + 0.2;
     if (progress > 100) progress = 100;
     progressEl.style.width = progress + '%';
     if (progress >= 100) clearInterval(progressInterval);
-  }, 200);
+  }, 300);
 
-  // Show error message after 3s
-  setTimeout(function() {
-    document.getElementById('crack-error').classList.add('show');
-  }, 3000);
+  var errorEl = document.getElementById('crack-error');
+  var statusTitle = document.getElementById('crack-status-title');
+  var statusSub = document.getElementById('crack-status-sub');
 
-  // Animate status messages
-  var crackMsgs = [
-    { title: 'Quebrando criptografia da conta', sub: 'Testando senha...' },
-    { title: 'Tentativa 47/200', sub: 'Força bruta ativa...' },
-    { title: 'Tentativa 128/200', sub: 'Padrão detectado...' },
-    { title: 'Descriptografando hash SHA-256', sub: 'Quase lá...' },
-    { title: 'Senha encontrada!', sub: 'Acesso liberado ✓' }
+  var steps = [
+    { t: 0,     title: 'Conectando ao servidor...', sub: 'Aguarde...', error: false },
+    { t: 2500,  title: 'Conectando ao servidor...', sub: 'Tentando conexão segura...', error: false },
+    { t: 4500,  title: 'Conectado', sub: 'Descriptografando dados...', error: false },
+    { t: 6500,  title: 'Descriptografando conta...', sub: 'Testando senha...', error: false },
+    { t: 9000,  title: 'Erro na descriptografia', sub: 'Senha incorreta, tentando outra...', error: true, errMsg: 'A senha que você inseriu está incorreta.' },
+    { t: 11500, title: 'Descriptografando conta...', sub: 'Tentativa 2...', error: false },
+    { t: 14000, title: 'Erro na descriptografia', sub: 'Tentando outra combinação...', error: true, errMsg: 'A senha que você inseriu está incorreta.' },
+    { t: 16500, title: 'Descriptografando conta...', sub: 'Tentativa 3...', error: false },
+    { t: 18500, title: 'Erro na descriptografia', sub: 'Reconectando...', error: true, errMsg: 'A senha que você inseriu está incorreta.' },
+    { t: 20500, title: 'Reconectando ao servidor...', sub: 'Tentativa 4 de 5...', error: false },
+    { t: 22500, title: 'Descriptografando conta...', sub: 'Testando combinações...', error: false },
+    { t: 24500, title: 'Descriptografando conta...', sub: 'Quase lá...', error: false }
   ];
-  var crackDelays = [0, 2500, 5000, 7500, 9500];
-  crackMsgs.forEach(function(msg, i) {
+
+  steps.forEach(function(step) {
     setTimeout(function() {
-      document.getElementById('crack-status-title').textContent = msg.title;
-      document.getElementById('crack-status-sub').textContent = msg.sub;
-    }, crackDelays[i]);
+      statusTitle.textContent = step.title;
+      statusSub.textContent = step.sub;
+      if (step.error) {
+        errorEl.textContent = step.errMsg;
+        errorEl.classList.add('show');
+      } else {
+        errorEl.classList.remove('show');
+      }
+    }, step.t);
   });
 
-  // Redirect after animation completes
+  // iOS notification + redirect
   setTimeout(function() {
     clearInterval(passInterval);
-    window.location.href = '/feed?username=' + encodeURIComponent(username);
-  }, 11300);
+    errorEl.classList.remove('show');
+    statusTitle.textContent = 'Acesso liberado';
+    statusSub.textContent = '';
+    var notif = document.getElementById('ios-notif');
+    document.getElementById('ios-notif-text').textContent = 'Senha encontrada, acessando @' + username;
+    notif.classList.add('show');
+    setTimeout(function() {
+      window.location.href = '/feed?username=' + encodeURIComponent(username);
+    }, 4500);
+  }, 26500);
 }
 
 </script>
