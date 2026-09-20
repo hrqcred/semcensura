@@ -206,7 +206,7 @@ body {
 
 <div class="ticket-row">
   Ticket médio: R$
-  <input type="number" class="ticket-input" id="ticket" value="29.90" step="0.01" min="0" onchange="rerender()">
+  <input type="number" class="ticket-input" id="ticket" value="19.90" step="0.01" min="0" onchange="rerender()">
   <span style="color:var(--text-3)">(valor do produto — usado pra calcular receita)</span>
 </div>
 
@@ -245,6 +245,71 @@ body {
   <div style="overflow-x:auto" id="events"></div>
 </div>
 
+<div class="stitle">Chave UTM — Proteção do Funil</div>
+<div class="card" style="margin-bottom:24px">
+  <div id="utm-section">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-size:12px;color:var(--text-2)">Chave atual:</span>
+        <code id="utm-key-display" style="font-family:var(--mono);font-size:14px;font-weight:600;color:var(--accent);background:var(--accent-dim);padding:4px 12px;border-radius:6px;letter-spacing:0.03em">—</code>
+      </div>
+      <button onclick="generateUtmKey()" style="display:inline-flex;align-items:center;gap:6px;padding:7px 16px;border-radius:7px;border:1px solid var(--border);background:var(--elevated);color:var(--text-1);font-family:var(--inter);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+        Gerar Nova Chave
+      </button>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+      <div>
+        <label style="font-size:11px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.04em;display:block;margin-bottom:4px">URL do site</label>
+        <input type="text" id="utm-site-url" placeholder="https://descobreaqui.com" style="width:100%;padding:8px 12px;border-radius:7px;border:1px solid var(--border);background:var(--elevated);color:var(--text-1);font-family:var(--mono);font-size:12px;outline:none" onchange="saveUtmSettings()">
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.04em;display:block;margin-bottom:4px">utm_source</label>
+        <input type="text" id="utm-source" placeholder="facebook" style="width:100%;padding:8px 12px;border-radius:7px;border:1px solid var(--border);background:var(--elevated);color:var(--text-1);font-family:var(--mono);font-size:12px;outline:none" onchange="saveUtmSettings()">
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px">
+      <div>
+        <label style="font-size:11px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.04em;display:block;margin-bottom:4px">utm_medium</label>
+        <input type="text" id="utm-medium" placeholder="cpc" style="width:100%;padding:8px 12px;border-radius:7px;border:1px solid var(--border);background:var(--elevated);color:var(--text-1);font-family:var(--mono);font-size:12px;outline:none" onchange="saveUtmSettings()">
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.04em;display:block;margin-bottom:4px">utm_campaign</label>
+        <input type="text" id="utm-campaign" placeholder="descobreaqui" style="width:100%;padding:8px 12px;border-radius:7px;border:1px solid var(--border);background:var(--elevated);color:var(--text-1);font-family:var(--mono);font-size:12px;outline:none" onchange="saveUtmSettings()">
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.04em;display:block;margin-bottom:4px">utm_content</label>
+        <input type="text" id="utm-content" placeholder="video_01" style="width:100%;padding:8px 12px;border-radius:7px;border:1px solid var(--border);background:var(--elevated);color:var(--text-1);font-family:var(--mono);font-size:12px;outline:none" onchange="saveUtmSettings()">
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:18px">
+      <div>
+        <label style="font-size:11px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.04em;display:block;margin-bottom:4px">utm_term</label>
+        <input type="text" id="utm-term" placeholder="espionar_instagram" style="width:100%;padding:8px 12px;border-radius:7px;border:1px solid var(--border);background:var(--elevated);color:var(--text-1);font-family:var(--mono);font-size:12px;outline:none" onchange="saveUtmSettings()">
+      </div>
+      <div style="grid-column:span 2">
+        <label style="font-size:11px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.04em;display:block;margin-bottom:4px">utm_id (chave secreta — gerada automaticamente)</label>
+        <input type="text" id="utm-id-field" readonly style="width:100%;padding:8px 12px;border-radius:7px;border:1px solid var(--border);background:var(--bg);color:var(--text-3);font-family:var(--mono);font-size:12px;outline:none;cursor:default">
+      </div>
+    </div>
+
+    <div style="margin-bottom:10px">
+      <label style="font-size:11px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.04em;display:block;margin-bottom:6px">URL completa para colar nas campanhas</label>
+      <div style="position:relative">
+        <div id="utm-full-url" style="font-family:var(--mono);font-size:11px;background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:12px 48px 12px 14px;color:var(--accent);word-break:break-all;line-height:1.6;min-height:42px">—</div>
+        <button onclick="copyUtmUrl()" id="utm-copy-btn" style="position:absolute;top:8px;right:8px;padding:5px 10px;border-radius:5px;border:1px solid var(--border);background:var(--elevated);color:var(--text-2);font-family:var(--inter);font-size:11px;font-weight:600;cursor:pointer;transition:all .15s" title="Copiar URL">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        </button>
+      </div>
+    </div>
+    <div style="font-size:11px;color:var(--text-3);line-height:1.6">
+      Visitantes sem essa UTM veem o blog. Com a UTM correta, vão direto pro funil.<br>
+      Ao gerar nova chave, as campanhas antigas param de direcionar pro funil — cole a URL nova no gerenciador de anúncios.
+    </div>
+  </div>
+</div>
+
 <div class="footer">Atualiza automaticamente a cada 30s — dados reais do tracking</div>
 
 <script>
@@ -254,8 +319,9 @@ var STAGES = [
   { key:'decrypt', name:'Descriptografando', sub:'esperou animação', color:'var(--warning)', dim:'var(--warning-dim)' },
   { key:'feed', name:'Feed', sub:'viu o perfil', color:'var(--success)', dim:'var(--success-dim)' },
   { key:'cta', name:'CTA', sub:'página de venda', color:'var(--pink)', dim:'var(--pink-dim)' },
-  { key:'checkout', name:'Checkout', sub:'clicou pagar', color:'var(--orange)', dim:'var(--orange-dim)' },
-  { key:'obrigado', name:'Comprou', sub:'virou cliente', color:'var(--emerald)', dim:'var(--emerald-dim)' }
+  { key:'checkout_pix', name:'PIX', sub:'abriu pagamento', color:'var(--orange)', dim:'var(--orange-dim)' },
+  { key:'pix_confirm', name:'Confirmou', sub:'clicou já paguei', color:'var(--warning)', dim:'var(--warning-dim)' },
+  { key:'pix_unlock', name:'Comprou', sub:'informou remetente', color:'var(--emerald)', dim:'var(--emerald-dim)' }
 ];
 
 var STAGE_MAP = {};
@@ -280,7 +346,7 @@ function getPeriodData() {
   else days = days.slice(0, 30);
 
   var result = {};
-  var keys = ['hero','arroba','decrypt','feed','cta','checkout','obrigado','device:mobile','device:desktop'];
+  var keys = ['hero','arroba','decrypt','feed','cta','checkout_pix','pix_confirm','pix_unlock','device:mobile','device:desktop'];
   keys.forEach(function(k) { result[k] = sumDays(days, k); });
   result._days = days;
   return result;
@@ -295,8 +361,8 @@ function renderKPIs(d) {
   var hero = d.hero || 0;
   var arroba = d.arroba || 0;
   var cta = d.cta || 0;
-  var checkout = d.checkout || 0;
-  var compras = d.obrigado || 0;
+  var checkout = d.checkout_pix || 0;
+  var compras = d.pix_unlock || 0;
   var receita = compras * ticket;
   var mob = d['device:mobile'] || 0;
   var desk = d['device:desktop'] || 0;
@@ -307,7 +373,7 @@ function renderKPIs(d) {
     { lbl:'Visitantes', val:fmt(hero), sub:'abriram o site', cls:'' },
     { lbl:'Buscas (@)', val:fmt(arroba), sub:'digitaram um @', cls:'' },
     { lbl:'Viram o CTA', val:fmt(cta), sub:'página de venda', cls:'' },
-    { lbl:'Clicaram Pagar', val:fmt(checkout), sub:'foram pro checkout', cls:'' },
+    { lbl:'Abriram PIX', val:fmt(checkout), sub:'viram o QR code', cls:'' },
     { lbl:'Vendas', val:fmt(compras), sub: compras === 1 ? 'compra realizada' : 'compras realizadas', cls:'' },
     { lbl:'Receita', val:fmtMoney(receita), sub: compras + ' vendas × ' + fmtMoney(ticket), cls:'revenue' },
     { lbl:'Conversão Geral', val:pct(compras, hero) + '%', sub:'visitante → compra', cls:'' },
@@ -350,8 +416,9 @@ function renderConvCards(d) {
     { from:'arroba', to:'decrypt', label:'@ → Decrypt' },
     { from:'decrypt', to:'feed', label:'Decrypt → Feed' },
     { from:'feed', to:'cta', label:'Feed → CTA' },
-    { from:'cta', to:'checkout', label:'CTA → Checkout' },
-    { from:'checkout', to:'obrigado', label:'Checkout → Compra' }
+    { from:'cta', to:'checkout_pix', label:'CTA → PIX' },
+    { from:'checkout_pix', to:'pix_confirm', label:'PIX → Confirmou' },
+    { from:'pix_confirm', to:'pix_unlock', label:'Confirmou → Comprou' }
   ];
 
   var html = '';
@@ -517,6 +584,7 @@ function fullRender() {
   renderSparkline(d._days || []);
   renderHeatmap(cachedData.events || []);
   renderEvents(cachedData.events || []);
+  loadUtmConfig();
 }
 
 function loadStats() {
@@ -546,6 +614,111 @@ function loadStats() {
 if (adminPwd) {
   document.getElementById('login-pwd').value = adminPwd;
   tryLogin();
+}
+
+// UTM Management
+var utmData = null;
+
+function loadUtmConfig() {
+  fetch('/api/utm?pwd=' + encodeURIComponent(adminPwd) + '&action=get')
+    .then(function(r) { return r.json(); })
+    .then(function(res) {
+      if (!res.configured) {
+        document.getElementById('utm-section').innerHTML = '<div class="empty">Conecte o banco de dados (KV) primeiro para usar a proteção UTM.</div>';
+        return;
+      }
+      utmData = res.data;
+      renderUtm();
+    })
+    .catch(function() {});
+}
+
+function renderUtm() {
+  if (!utmData || !utmData.key) {
+    document.getElementById('utm-key-display').textContent = 'Nenhuma chave gerada';
+    document.getElementById('utm-key-display').style.color = 'var(--text-3)';
+    document.getElementById('utm-id-field').value = '';
+    document.getElementById('utm-full-url').textContent = 'Gere uma chave primeiro';
+    return;
+  }
+
+  document.getElementById('utm-key-display').textContent = utmData.key;
+  document.getElementById('utm-key-display').style.color = 'var(--accent)';
+  document.getElementById('utm-id-field').value = utmData.key;
+
+  if (utmData.site_url) document.getElementById('utm-site-url').value = utmData.site_url;
+  if (utmData.source) document.getElementById('utm-source').value = utmData.source;
+  if (utmData.medium) document.getElementById('utm-medium').value = utmData.medium;
+  if (utmData.campaign) document.getElementById('utm-campaign').value = utmData.campaign;
+  if (utmData.content) document.getElementById('utm-content').value = utmData.content;
+  if (utmData.term) document.getElementById('utm-term').value = utmData.term;
+
+  buildUtmUrl();
+}
+
+function buildUtmUrl() {
+  var base = document.getElementById('utm-site-url').value || 'https://seusite.com';
+  var params = [];
+  var source = document.getElementById('utm-source').value;
+  var medium = document.getElementById('utm-medium').value;
+  var campaign = document.getElementById('utm-campaign').value;
+  var content = document.getElementById('utm-content').value;
+  var term = document.getElementById('utm-term').value;
+  var key = utmData ? utmData.key : '';
+
+  if (source) params.push('utm_source=' + encodeURIComponent(source));
+  if (medium) params.push('utm_medium=' + encodeURIComponent(medium));
+  if (campaign) params.push('utm_campaign=' + encodeURIComponent(campaign));
+  if (content) params.push('utm_content=' + encodeURIComponent(content));
+  if (term) params.push('utm_term=' + encodeURIComponent(term));
+  if (key) params.push('utm_id=' + encodeURIComponent(key));
+
+  var url = base + (params.length ? '/?' + params.join('&') : '');
+  document.getElementById('utm-full-url').textContent = url;
+}
+
+function generateUtmKey() {
+  if (!confirm('Gerar nova chave? As campanhas com a chave antiga vão parar de direcionar pro funil.')) return;
+  fetch('/api/utm?pwd=' + encodeURIComponent(adminPwd) + '&action=generate')
+    .then(function(r) { return r.json(); })
+    .then(function(res) {
+      utmData = res.data;
+      renderUtm();
+    })
+    .catch(function(e) { alert('Erro ao gerar chave: ' + e.message); });
+}
+
+function saveUtmSettings() {
+  buildUtmUrl();
+  var body = JSON.stringify({
+    site_url: document.getElementById('utm-site-url').value,
+    source: document.getElementById('utm-source').value,
+    medium: document.getElementById('utm-medium').value,
+    campaign: document.getElementById('utm-campaign').value,
+    content: document.getElementById('utm-content').value,
+    term: document.getElementById('utm-term').value
+  });
+  fetch('/api/utm?pwd=' + encodeURIComponent(adminPwd) + '&action=save', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: body
+  }).catch(function() {});
+}
+
+function copyUtmUrl() {
+  var url = document.getElementById('utm-full-url').textContent;
+  if (!url || url === '—' || url === 'Gere uma chave primeiro') return;
+  navigator.clipboard.writeText(url).then(function() {
+    var btn = document.getElementById('utm-copy-btn');
+    btn.innerHTML = '✓';
+    btn.style.color = 'var(--success)';
+    btn.style.borderColor = 'var(--success)';
+    setTimeout(function() {
+      btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>';
+      btn.style.color = 'var(--text-2)';
+      btn.style.borderColor = 'var(--border)';
+    }, 1500);
+  });
 }
 </script>
 </body>

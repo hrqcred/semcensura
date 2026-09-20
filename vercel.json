@@ -1,6 +1,7 @@
 {
   "version": 2,
   "rewrites": [
+    { "source": "/funil", "destination": "/funil.html" },
     { "source": "/feed", "destination": "/feed.html" },
     { "source": "/dm", "destination": "/dm.html" },
     { "source": "/cta", "destination": "/cta.html" },

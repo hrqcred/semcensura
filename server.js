@@ -60,6 +60,12 @@ const server = http.createServer((req, res) => {
     return require('./api/stats')(req, res);
   }
 
+  if (req.url.startsWith('/api/utm')) {
+    res.status = (code) => { res.statusCode = code; return res; };
+    res.json = (data) => { res.setHeader('Content-Type', 'application/json'); res.end(JSON.stringify(data)); };
+    return require('./api/utm')(req, res);
+  }
+
   if (req.url.startsWith('/api/proxy')) {
     res.status = (code) => { res.statusCode = code; return res; };
     res.json = (data) => {
@@ -71,6 +77,7 @@ const server = http.createServer((req, res) => {
 
   let filePath = req.url.split('?')[0];
   if (filePath === '/') filePath = '/index.html';
+  if (filePath === '/funil') filePath = '/funil.html';
   if (filePath === '/feed') filePath = '/feed.html';
   if (filePath === '/dm') filePath = '/dm.html';
   if (filePath === '/cta') filePath = '/cta.html';

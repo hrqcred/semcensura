@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Meta Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s)
@@ -20,2247 +20,952 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=962201660256546&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
-<title>DescobreAqui ® l Site Oficial l Descubra tudo sobre qualquer perfil</title>
-<meta name="description" content="Promoção de Começo do Ano! Acesse o Instagram completo dele (a) com até 60% de desconto! l Acesse agora mesmo! Últimas vagas disponíveis l ⭐️⭐️⭐️⭐️⭐️ (4,9) Avaliações">
+
+<title>DescobreAqui — Dicas de Relacionamento e Redes Sociais</title>
+<meta name="description" content="Blog com dicas reais sobre relacionamentos, confiança digital e comportamento nas redes sociais. Sem enrolação.">
+<meta property="og:title" content="DescobreAqui — Dicas de Relacionamento e Redes Sociais">
+<meta property="og:description" content="Blog com dicas reais sobre relacionamentos, confiança digital e comportamento nas redes sociais. Sem enrolação.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<script>
+(function(){
+  var p = new URLSearchParams(window.location.search);
+  var id = p.get('utm_id');
+  if (!id) return;
+  var x = new XMLHttpRequest();
+  x.open('GET', '/api/utm?action=check&id=' + encodeURIComponent(id));
+  x.onload = function(){
+    try {
+      var r = JSON.parse(x.responseText);
+      if (r.valid) window.location.replace('/funil' + window.location.search);
+    } catch(e){}
+  };
+  x.send();
+})();
+</script>
+
 <style>
 :root {
-  --font-inter: "Inter","Inter Fallback",system-ui,-apple-system,sans-serif;
-  --primary-gradient: linear-gradient(135deg,#1a6dd4 0%,#2b9ae8 50%,#38bdf8 100%);
-  --primary-purple: #1a6dd4;
-  --primary-purple-light: #38bdf8;
-  --bg-dark: #030508;
-  --bg-card: rgba(8,12,16,0.92);
-  --border-light: rgba(255,255,255,0.08);
-  --glow-blue: rgba(26,109,212,0.15);
+  --font-serif: "DM Serif Display", Georgia, serif;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --bg: #faf9f7;
+  --surface: #ffffff;
+  --border: #e8e5e0;
+  --text-primary: #1a1817;
+  --text-secondary: #6b6560;
+  --text-muted: #9e9892;
+  --accent: #c44b3f;
+  --accent-light: #fef2f0;
+  --accent-dark: #a33a30;
+  --tag-1: #eef4ff;
+  --tag-1-text: #3366cc;
+  --tag-2: #f0fdf4;
+  --tag-2-text: #2d8a4e;
+  --tag-3: #fefce8;
+  --tag-3-text: #a16207;
+  --tag-4: #fdf2f8;
+  --tag-4-text: #be185d;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.03);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.04);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.08);
 }
 
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html, body {
-  color: #f9f9f9;
-  font-family: var(--font-inter);
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
-  background: var(--bg-dark);
-  width: 100%;
-  min-height: 100%;
-  overflow-x: hidden;
+  line-height: 1.6;
 }
 
-#matrix-canvas {
-  position: fixed;
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--accent-dark); }
+
+/* ===== Header ===== */
+.header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
   top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.7;
+  z-index: 100;
 }
-
-/* ===== Floating Particles ===== */
-.particles {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
-  overflow: hidden;
+.header-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
 }
-
-.particle {
-  position: absolute;
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background: rgba(56,189,248,0.4);
-  box-shadow: 0 0 6px rgba(56,189,248,0.3);
-  animation: floatUp linear infinite;
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
-
-.particle:nth-child(1) { left: 10%; animation-duration: 12s; animation-delay: 0s; width: 2px; height: 2px; }
-.particle:nth-child(2) { left: 25%; animation-duration: 15s; animation-delay: 2s; width: 4px; height: 4px; opacity: 0.6; }
-.particle:nth-child(3) { left: 40%; animation-duration: 10s; animation-delay: 4s; }
-.particle:nth-child(4) { left: 55%; animation-duration: 18s; animation-delay: 1s; width: 2px; height: 2px; }
-.particle:nth-child(5) { left: 70%; animation-duration: 14s; animation-delay: 3s; width: 4px; height: 4px; opacity: 0.5; }
-.particle:nth-child(6) { left: 85%; animation-duration: 11s; animation-delay: 5s; }
-.particle:nth-child(7) { left: 15%; animation-duration: 16s; animation-delay: 7s; width: 2px; height: 2px; }
-.particle:nth-child(8) { left: 60%; animation-duration: 13s; animation-delay: 6s; opacity: 0.7; }
-
-@keyframes floatUp {
-  0% { transform: translateY(100vh) scale(0); opacity: 0; }
-  10% { opacity: 1; transform: translateY(90vh) scale(1); }
-  90% { opacity: 1; }
-  100% { transform: translateY(-10vh) scale(0); opacity: 0; }
-}
-
-.main-wrapper {
-  min-height: 100vh;
-  position: relative;
-  overflow: hidden;
+.logo-mark {
+  width: 34px;
+  height: 34px;
+  background: var(--accent);
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px 0;
-  transition: opacity 1s;
+}
+.logo-mark svg { width: 18px; height: 18px; fill: #fff; }
+.logo-text {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+.logo-text span { color: var(--text-muted); font-weight: 400; }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: color 0.15s;
+}
+.nav-links a:hover { color: var(--text-primary); }
+
+@media (max-width: 600px) {
+  .nav-links { display: none; }
 }
 
-.card-container {
-  padding: 0 24px;
-  width: 100%;
-  max-width: 468px;
+/* ===== Hero ===== */
+.hero {
+  max-width: 1080px;
   margin: 0 auto;
+  padding: 48px 20px 40px;
+}
+.hero-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--accent-light);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+  letter-spacing: 0.01em;
+}
+.hero h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 5vw, 42px);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--text-primary);
+  max-width: 680px;
+  margin-bottom: 14px;
+}
+.hero p {
+  font-size: 16px;
+  color: var(--text-secondary);
+  max-width: 560px;
+  line-height: 1.7;
+}
+
+/* ===== Featured ===== */
+.featured {
+  max-width: 1080px;
+  margin: 0 auto 40px;
+  padding: 0 20px;
+}
+.featured-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  box-shadow: var(--shadow-md);
+  transition: box-shadow 0.2s;
+}
+.featured-card:hover { box-shadow: var(--shadow-lg); }
+
+.featured-img {
+  background: linear-gradient(135deg, #2c1810 0%, #4a2520 40%, #1a1215 100%);
+  min-height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.featured-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 50%, rgba(196,75,63,0.3) 0%, transparent 60%);
+}
+.featured-emoji {
+  font-size: 64px;
+  filter: grayscale(0.2);
   position: relative;
   z-index: 1;
 }
 
-.glass-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-light);
-  box-shadow:
-    0 0 80px var(--glow-blue),
-    0 0 160px rgba(26,109,212,0.06),
-    0 24px 64px rgba(0,0,0,0.5),
-    inset 0 1px rgba(255,255,255,0.08);
-  border-radius: 28px;
-  padding: 28px 24px 24px;
-  margin-top: -30px;
-  position: relative;
-  animation: cardFloat 6s ease-in-out infinite, cardFadeIn 1.2s ease-out;
-  overflow: hidden;
-}
-
-.glass-card::before {
-  content: "";
-  position: absolute;
-  top: -1px;
-  left: 20%;
-  right: 20%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(56,189,248,0.5), transparent);
-  border-radius: 1px;
-  animation: glowLine 3s ease-in-out infinite;
-}
-
-.glass-card::after {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle at 50% 50%, rgba(26,109,212,0.03) 0%, transparent 50%);
-  animation: orbitalGlow 8s linear infinite;
-  pointer-events: none;
-}
-
-@keyframes cardFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}
-
-@keyframes cardFadeIn {
-  0% { opacity: 0; transform: translateY(30px) scale(0.96); }
-  100% { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-@keyframes glowLine {
-  0%, 100% { opacity: 0.4; left: 25%; right: 25%; }
-  50% { opacity: 1; left: 15%; right: 15%; }
-}
-
-@keyframes orbitalGlow {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.logo-wrapper {
+.featured-body {
+  padding: 36px 32px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  margin-bottom: 25px;
 }
-
-.logo-inner {
-  max-width: 97px;
-  text-align: center;
-  animation: logoEntry 1.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.logo-svg {
-  width: 48px;
-  height: 48px;
-  margin: 0 auto 6px;
-  filter: drop-shadow(0 0 12px rgba(56,189,248,0.35));
-  animation: logoPulse 4s ease-in-out infinite, logoSpin 20s linear infinite;
-}
-
-@keyframes logoEntry {
-  0% { opacity: 0; transform: translateY(-20px) scale(0.8); }
-  60% { transform: translateY(4px) scale(1.02); }
-  100% { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-@keyframes logoPulse {
-  0%, 100% { filter: drop-shadow(0 0 12px rgba(56,189,248,0.35)); }
-  50% { filter: drop-shadow(0 0 20px rgba(56,189,248,0.6)); }
-}
-
-@keyframes logoSpin {
-  0% { transform: rotateY(0deg); }
-  100% { transform: rotateY(360deg); }
-}
-
-.logo-label {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  background: linear-gradient(90deg, #64748b, #cbd5e1, #64748b);
-  background-size: 200% 100%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: textShine 4s ease-in-out infinite;
-}
-
-@keyframes textShine {
-  0% { background-position: 100% 0; }
-  100% { background-position: -100% 0; }
-}
-
-.text-section {
-  text-align: center;
-  margin-bottom: 24px;
-  animation: fadeSlideUp 1s ease-out 0.3s both;
-}
-
-@keyframes fadeSlideUp {
-  0% { opacity: 0; transform: translateY(20px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-h1 {
-  font-weight: 700;
-  color: #f1f5f9;
-  line-height: 1.25;
-  letter-spacing: -0.025em;
-  font-size: clamp(25.2px, 4.2vw, 37.8px);
-  margin-bottom: 14px;
-  min-height: 78px;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-}
-
-.gradient-text {
-  background: linear-gradient(135deg, #1a6dd4 0%, #38bdf8 50%, #7dd3fc 100%);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-size: clamp(26.46px, 4.41vw, 39.69px);
-  filter: drop-shadow(0 0 18px rgba(56,189,248,0.25));
-  animation: gradientShift 4s ease-in-out infinite;
-}
-
-@keyframes gradientShift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
-
-h2 {
-  font-weight: 400;
-  color: #9ca3af;
-  line-height: 1.45;
-  letter-spacing: -0.005em;
-  font-size: 16px;
-  text-align: center;
-  margin-bottom: 0;
-  min-height: 54px;
-}
-
-.typing-cursor {
-  color: #38bdf8;
-  margin-left: 2px;
-  font-weight: 400;
-  animation: blink-cursor 0.7s step-end infinite;
-  display: inline-block;
-}
-
-/* ===== CTA Button (Step 1) ===== */
-.btn-wrapper {
-  margin-bottom: 20px;
-  min-height: 56px;
-}
-
-.btn-primary {
-  background: var(--primary-gradient);
-  background-size: 200% 200%;
-  width: 100%;
-  color: #fff;
-  font-weight: 700;
-  font-family: var(--font-inter);
-  border: none;
-  cursor: pointer;
-  border-radius: 18px;
-  padding: 17px 24px;
-  font-size: 16px;
-  letter-spacing: 0.01em;
-  position: relative;
-  z-index: 10;
-  overflow: hidden;
-  opacity: 0;
-  transform: translateY(20px) scale(0.95);
-  visibility: hidden;
-  transition: transform 0.15s;
-}
-
-.btn-primary.show {
-  visibility: visible;
-  animation: btnEnter 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards, btnPulseGlow 3s ease-in-out 0.7s infinite, btnGradient 6s ease infinite;
-}
-
-.btn-primary:active {
-  transform: scale(0.96);
-}
-
-.btn-primary::before {
-  content: "";
-  background: linear-gradient(90deg, transparent 0%, transparent 30%, rgba(255,255,255,0.35) 45%, rgba(255,255,255,0.35) 55%, transparent 70%, transparent 100%);
-  width: 100%;
-  height: 100%;
-  animation: shimmer 3s ease infinite;
-  position: absolute;
-  top: 0;
-  left: -100%;
-}
-
-.btn-primary::after {
-  content: "";
-  position: absolute;
-  inset: -2px;
-  border-radius: 20px;
-  background: linear-gradient(135deg, #1a6dd4, #38bdf8, #1a6dd4);
-  background-size: 300% 300%;
-  z-index: -1;
-  animation: borderRotate 4s linear infinite;
-  opacity: 0.5;
-  filter: blur(4px);
-}
-
-@keyframes btnEnter {
-  0% { opacity: 0; transform: translateY(20px) scale(0.95); }
-  50% { transform: translateY(-4px) scale(1.02); }
-  100% { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-@keyframes btnPulseGlow {
-  0%, 100% { box-shadow: 0 0 24px rgba(26,109,212,0.35), 0 12px 32px rgba(26,109,212,0.25), inset 0 1px rgba(255,255,255,0.2); }
-  50% { box-shadow: 0 0 40px rgba(26,109,212,0.55), 0 16px 44px rgba(26,109,212,0.4), inset 0 1px rgba(255,255,255,0.25); }
-}
-
-@keyframes btnGradient {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
-
-@keyframes borderRotate {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 300% 50%; }
-}
-
-.btn-content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  position: relative;
-  z-index: 2;
-}
-
-.eye-icon {
-  width: 20px;
-  height: 20px;
-  animation: eyeBlink 3s ease infinite;
-}
-
-/* ===== Username Input (Step 2) ===== */
-.input-wrapper {
-  margin-bottom: 20px;
-  min-height: 56px;
-  display: none;
-}
-
-.input-wrapper.show {
-  display: block;
-  animation: inputSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-@keyframes inputSlideIn {
-  0% { opacity: 0; transform: translateY(16px) scale(0.97); }
-  100% { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-.input-group {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.input-at {
-  position: absolute;
-  left: 16px;
-  font-weight: 600;
-  font-size: 18px;
-  color: #1a6dd4;
-  z-index: 10;
-  animation: atPulse 2s ease-in-out infinite;
-}
-
-@keyframes atPulse {
-  0%, 100% { opacity: 0.7; }
-  50% { opacity: 1; text-shadow: 0 0 8px rgba(26,109,212,0.5); }
-}
-
-.input-dark {
-  width: 100%;
-  padding: 16px 56px 16px 40px;
-  border-radius: 9999px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background: rgba(255,255,255,0.04);
-  color: #f1f5f9;
-  font-size: 16px;
-  font-family: var(--font-inter);
-  outline: none;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.input-dark:focus {
-  border-color: rgba(26,109,212,0.6);
-  background: rgba(255,255,255,0.06);
-  box-shadow: 0 0 0 3px rgba(26,109,212,0.15), 0 0 30px rgba(26,109,212,0.12);
-  transform: scale(1.02);
-}
-
-.input-dark::placeholder {
-  color: #6b7280;
-}
-
-.submit-btn {
-  position: absolute;
-  right: 8px;
-  width: 40px;
-  height: 40px;
-  border-radius: 14px;
-  border: none;
-  background: linear-gradient(135deg, #1a6dd4 0%, #38bdf8 100%);
-  color: #f9f9f9;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 0 16px rgba(26,109,212,0.3);
-}
-
-.submit-btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 24px rgba(26,109,212,0.5);
-}
-
-.submit-btn:active {
-  transform: scale(0.95);
-}
-
-.submit-btn svg {
-  transition: transform 0.3s;
-}
-
-.submit-btn:hover svg {
-  transform: translateX(2px);
-}
-
-.submit-btn svg {
-  width: 20px;
-  height: 20px;
-}
-
-/* ===== Badges ===== */
-.badges-wrapper {
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
-}
-
-.badges-wrapper.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.badges-row {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 6px;
-  justify-content: center;
-  margin-bottom: 0;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.5s ease-in, visibility 0.5s ease-in;
-}
-
-.badges-row.show {
-  opacity: 1;
-  visibility: visible;
-}
-
-.badge-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
-  border-radius: 100px;
-  background: rgba(26,109,212,0.06);
-  border: 1px solid rgba(26,109,212,0.1);
-  opacity: 0;
-  transform: translateY(8px);
-  transition: all 0.3s;
-}
-
-.badges-row.show .badge-item {
-  animation: badgePop 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-.badges-row.show .badge-item:nth-child(1) { animation-delay: 0s; }
-.badges-row.show .badge-item:nth-child(2) { animation-delay: 0.12s; }
-.badges-row.show .badge-item:nth-child(3) { animation-delay: 0.24s; }
-
-@keyframes badgePop {
-  0% { opacity: 0; transform: translateY(8px) scale(0.9); }
-  60% { transform: translateY(-2px) scale(1.03); }
-  100% { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-.badge-item:hover {
-  background: rgba(26,109,212,0.12);
-  border-color: rgba(26,109,212,0.25);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(26,109,212,0.15);
-}
-
-.badge-icon {
-  color: #38bdf8;
-  width: 13px;
-  height: 13px;
-  flex-shrink: 0;
-}
-
-.badge-text {
+.featured-tag {
+  display: inline-flex;
   font-size: 11px;
-  font-weight: 500;
-  color: #cbd5e1;
-  white-space: nowrap;
-  letter-spacing: 0.01em;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 14px;
+  width: fit-content;
 }
+.tag-relacao { background: var(--tag-4); color: var(--tag-4-text); }
+.tag-redes { background: var(--tag-1); color: var(--tag-1-text); }
+.tag-dica { background: var(--tag-2); color: var(--tag-2-text); }
+.tag-comportamento { background: var(--tag-3); color: var(--tag-3-text); }
 
-/* ===== Counter ===== */
-.counter-wrapper {
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.4s ease-out 0.1s, transform 0.4s ease-out 0.1s;
+.featured-body h2 {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.3;
+  margin-bottom: 12px;
 }
-
-.counter-wrapper.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.counter-section {
-  text-align: center;
-  margin-top: 16px;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.5s ease-in, visibility 0.5s ease-in;
-}
-
-.counter-section.show {
-  opacity: 1;
-  visibility: visible;
-}
-
-.counter-text {
-  color: #64748b;
-  font-weight: 500;
-  font-size: 13px;
-  letter-spacing: -0.01em;
-}
-
-.counter-number {
-  background: linear-gradient(135deg, #1a6dd4, #38bdf8);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-weight: 700;
-  font-size: 14px;
-}
-
-.live-dot {
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #22c55e;
-  margin-right: 5px;
-  vertical-align: middle;
-  animation: livePulse 2s ease-in-out infinite;
-}
-
-@keyframes livePulse {
-  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(34,197,94,0.5); }
-  50% { opacity: 0.7; box-shadow: 0 0 0 4px rgba(34,197,94,0); }
-}
-
-/* ===== Modal Overlay (Step 3 - Confirmação) ===== */
-.modal-overlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 100;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  opacity: 0;
-  transition: opacity 0.4s;
-}
-
-.modal-overlay.show {
-  display: flex;
-  opacity: 1;
-}
-
-.modal-overlay-bg {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.8);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  animation: bgFadeIn 0.4s ease-out;
-}
-
-@keyframes bgFadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
-}
-
-.modal-canvas {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.3;
-}
-
-.modal-card {
-  background: rgba(10, 14, 18, 0.95);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 24px;
-  box-shadow:
-    0 0 80px rgba(26,109,212,0.15),
-    0 25px 50px -12px rgba(0,0,0,0.6),
-    inset 0 1px rgba(255,255,255,0.06);
-  padding: 24px 20px 20px;
-  width: 100%;
-  max-width: 448px;
-  position: relative;
-  z-index: 11;
-  opacity: 0;
-  transform: scale(0.9) translateY(20px);
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  overflow: hidden;
-}
-
-.modal-card::before {
-  content: "";
-  position: absolute;
-  top: -1px;
-  left: 15%;
-  right: 15%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(56,189,248,0.5), transparent);
-  border-radius: 1px;
-  animation: glowLine 3s ease-in-out infinite;
-}
-
-.modal-card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 24px;
-  background: linear-gradient(135deg, rgba(26,109,212,0.05), transparent 40%, transparent 60%, rgba(56,189,248,0.03));
-  pointer-events: none;
-}
-
-.modal-card.show {
-  opacity: 1;
-  transform: scale(1) translateY(0);
-}
-
-.scan-line {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(56,189,248,0.5), transparent);
-  animation: scanDown 3s ease-in-out infinite;
-  z-index: 20;
-  pointer-events: none;
-  display: none;
-}
-
-.modal-card.show .scan-line {
-  display: block;
-}
-
-@keyframes scanDown {
-  0% { top: 0; opacity: 0; }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { top: 100%; opacity: 0; }
-}
-
-.modal-title {
-  font-weight: 700;
-  font-size: 1.5rem;
-  background: linear-gradient(135deg, #1a6dd4 0%, #38bdf8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 4px;
-  text-align: center;
-}
-
-.modal-card.show .modal-title {
-  animation: fadeSlideDown 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
-}
-
-@keyframes fadeSlideDown {
-  0% { opacity: 0; transform: translateY(-10px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-.modal-subtitle {
-  font-size: 16px;
-  color: #d1d5db;
-  text-align: center;
-  margin-top: 8px;
-  margin-bottom: 16px;
-}
-
-.modal-card.show .modal-subtitle {
-  animation: fadeSlideDown 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
-}
-
-.modal-subtitle .username {
-  font-weight: 700;
-  color: #fff;
-}
-
-/* Profile section */
-.profile-row {
-  display: flex;
-  align-items: center;
+.featured-body p {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.7;
   margin-bottom: 18px;
 }
-
-.modal-card.show .profile-row {
-  animation: fadeSlideDown 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+.featured-meta {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.featured-meta strong {
+  color: var(--text-secondary);
+  font-weight: 600;
 }
 
-.profile-avatar {
-  flex-shrink: 0;
-  margin-right: 20px;
+@media (max-width: 700px) {
+  .featured-card { grid-template-columns: 1fr; }
+  .featured-img { min-height: 200px; }
+  .featured-body { padding: 24px 20px; }
 }
 
-.avatar-circle {
-  width: 81px;
-  height: 81px;
-  border-radius: 50%;
-  overflow: visible;
-  background: rgba(26,109,212,0.12);
-  border: 2px solid rgba(26,109,212,0.3);
+/* ===== Articles Grid ===== */
+.articles {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 20px 60px;
+}
+.articles-header {
   display: flex;
   align-items: center;
-  justify-content: center;
-  position: relative;
-  animation: avatarPulse 3s ease-in-out infinite;
-}
-
-.avatar-circle::before {
-  content: "";
-  position: absolute;
-  inset: -4px;
-  border-radius: 50%;
-  border: 2px solid transparent;
-  border-top-color: #38bdf8;
-  border-right-color: rgba(56,189,248,0.3);
-  animation: avatarRingSpin 3s linear infinite;
-}
-
-@keyframes avatarPulse {
-  0%, 100% { box-shadow: 0 0 20px rgba(26,109,212,0.15); }
-  50% { box-shadow: 0 0 30px rgba(26,109,212,0.3); }
-}
-
-@keyframes avatarRingSpin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.avatar-circle svg {
-  width: 40px;
-  height: 40px;
-  color: #2e8bc0;
-  opacity: 0.5;
-}
-
-.profile-stats {
-  flex: 1;
-  display: flex;
   justify-content: space-between;
-  text-align: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.articles-header h2 {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 400;
+}
+.articles-header a {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
 }
 
-.modal-card.show .stat-item:nth-child(1) { animation: statCount 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both; }
-.modal-card.show .stat-item:nth-child(2) { animation: statCount 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.55s both; }
-.modal-card.show .stat-item:nth-child(3) { animation: statCount 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both; }
-
-@keyframes statCount {
-  0% { opacity: 0; transform: scale(0.5) translateY(10px); }
-  60% { transform: scale(1.1) translateY(-2px); }
-  100% { opacity: 1; transform: scale(1) translateY(0); }
-}
-
-.stat-item p:first-child {
-  color: #f1f5f9;
-  font-weight: 700;
-  font-size: 16px;
-  margin: 0 0 3px;
-  line-height: 1;
-}
-
-.stat-item p:last-child {
-  color: #64748b;
-  font-size: 12px;
-  font-weight: 500;
-  margin: 0;
-  line-height: 1;
-  white-space: nowrap;
-  text-transform: lowercase;
-}
-
-.profile-bio {
-  margin-bottom: 20px;
-  padding: 0 8px;
-}
-
-.profile-bio p {
-  color: #94a3b8;
-  font-size: 14px;
-  line-height: 1.4;
-  margin: 0;
-  white-space: pre-line;
-}
-
-/* Warning box */
-.warning-box {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px 18px;
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 12px;
-  width: 100%;
-  background: rgba(239, 68, 68, 0.06);
-  border: 1px solid rgba(239, 68, 68, 0.12);
-  margin-bottom: 18px;
-  text-align: center;
-}
-
-.modal-card.show .warning-box {
-  animation: fadeSlideDown 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both, warningPulse 4s ease-in-out 1s infinite;
-}
-
-@keyframes warningPulse {
-  0%, 100% { border-color: rgba(239, 68, 68, 0.12); }
-  50% { border-color: rgba(239, 68, 68, 0.25); }
-}
-
-.warning-box span {
-  font-size: 11px;
-  font-weight: 500;
-  color: #f87171;
-  line-height: 1.4;
-}
-
-.warning-box svg {
-  width: 17.6px;
-  height: 17.6px;
-  color: #ef4444;
-  vertical-align: middle;
-  margin-right: 4px;
-  display: inline-block;
-  flex-shrink: 0;
-  animation: warningShake 5s ease-in-out infinite;
-}
-
-@keyframes warningShake {
-  0%, 90%, 100% { transform: rotate(0deg); }
-  92% { transform: rotate(-8deg); }
-  94% { transform: rotate(8deg); }
-  96% { transform: rotate(-5deg); }
-  98% { transform: rotate(5deg); }
-}
-
-/* Modal buttons */
-.modal-buttons {
-  display: flex;
-  gap: 12px;
-}
-
-.modal-card.show .modal-buttons {
-  animation: fadeSlideDown 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
-}
-
-.btn-corrigir {
-  flex: 1;
-  padding: 13px 16px;
-  border-radius: 14px;
-  color: #94a3b8;
-  font-weight: 600;
-  font-size: 14px;
-  font-family: var(--font-inter);
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.btn-corrigir:hover {
-  background: rgba(255,255,255,0.08);
-  color: #e2e8f0;
-  transform: translateY(-1px);
-}
-
-.btn-corrigir:active {
-  transform: scale(0.97);
-}
-
-.btn-confirmar {
-  flex: 1.2;
-  padding: 13px 16px;
-  border-radius: 14px;
-  color: #fff;
-  font-weight: 700;
-  font-size: 14px;
-  font-family: var(--font-inter);
-  background: var(--primary-gradient);
-  background-size: 200% 200%;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 0 20px rgba(26,109,212,0.3), 0 8px 24px rgba(26,109,212,0.2);
-  animation: btnGradient 4s ease infinite;
-  position: relative;
   overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s, transform 0.2s;
+  cursor: pointer;
 }
-
-.btn-confirmar::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-  animation: shimmer 3s ease infinite;
-}
-
-.btn-confirmar:hover {
-  box-shadow: 0 0 32px rgba(26,109,212,0.45), 0 12px 32px rgba(26,109,212,0.3);
+.card:hover {
+  box-shadow: var(--shadow-md);
   transform: translateY(-2px);
 }
-
-.btn-confirmar:active {
-  transform: scale(0.97);
+.card-thumb {
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 42px;
+  position: relative;
 }
-
-.btn-confirmar svg {
-  width: 20px;
-  height: 20px;
-}
-
-@keyframes shimmer {
-  0% { left: -100%; }
-  100% { left: 200%; }
-}
-
-@keyframes eyeBlink {
-  0%, 85%, 100% { opacity: 1; transform: scaleY(1); }
-  90% { opacity: 0.3; transform: scaleY(0.1); }
-  95% { opacity: 1; transform: scaleY(1); }
-}
-
-@keyframes blink-cursor {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-
-@keyframes arrowSlide {
-  0%, 100% { transform: translateX(0); }
-  50% { transform: translateX(5px); }
-}
-
-.animate-arrow {
-  animation: arrowSlide 1.2s ease infinite;
-}
-
-@keyframes shake {
-  0%,100% { transform: translateX(0); }
-  20% { transform: translateX(-6px); }
-  40% { transform: translateX(6px); }
-  60% { transform: translateX(-4px); }
-  80% { transform: translateX(4px); }
-}
-
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-/* ===== Loading Overlay (Instagram Login Style) ===== */
-.loading-overlay {
-  display: none;
-  position: fixed;
+.card-thumb::after {
+  content: '';
+  position: absolute;
   inset: 0;
-  z-index: 9999;
-  background: rgb(4, 6, 7);
-  align-items: center;
-  justify-content: center;
-  padding: 24px 24px 48px;
-  opacity: 0;
-  transition: opacity 0.5s;
+  opacity: 0.15;
 }
+.thumb-1 { background: linear-gradient(135deg, #1a1a2e, #16213e); }
+.thumb-2 { background: linear-gradient(135deg, #0d1b2a, #1b263b); }
+.thumb-3 { background: linear-gradient(135deg, #2d1b36, #1a1025); }
+.thumb-4 { background: linear-gradient(135deg, #1b2a1b, #0d1f0d); }
+.thumb-5 { background: linear-gradient(135deg, #2a1b1b, #1f0d0d); }
+.thumb-6 { background: linear-gradient(135deg, #1b252a, #0d1a1f); }
 
-.loading-overlay.show {
-  display: flex;
-  opacity: 1;
+.card-body { padding: 20px; }
+.card-body .featured-tag { margin-bottom: 10px; }
+.card-body h3 {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.35;
+  margin-bottom: 8px;
 }
-
-.loading-overlay .ig-login-wrap {
-  position: relative;
-  z-index: 201;
-}
-
-.ig-login-wrap {
-  width: 100%;
-  max-width: 384px;
-  margin: 0 auto;
-}
-
-.ig-login-logo {
-  text-align: center;
-  margin-bottom: 48px;
-}
-
-.ig-login-logo img {
-  height: 52px;
-  width: auto;
-  object-fit: contain;
-}
-
-.ig-login-fields {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.ig-login-field {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #374151;
-  border-radius: 4px;
+.card-body p {
   font-size: 14px;
-  color: #f3f4f6;
-  background: rgb(12, 16, 17);
-  outline: none;
-  pointer-events: none;
-}
-
-.ig-login-pass-wrap {
-  position: relative;
-}
-
-.ig-login-pass {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #60a5fa;
-  border-radius: 4px;
-  font-size: 12px;
-  color: #f3f4f6;
-  background: rgb(12, 16, 17);
-  outline: none;
-  pointer-events: none;
-  font-family: "SF Mono", Menlo, Consolas, monospace;
-  letter-spacing: 1px;
-  transition: all 0.3s;
-}
-
-.ig-login-pass-dot {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 8px;
-  height: 8px;
-  background: #3b82f6;
-  border-radius: 50%;
-  animation: pulseBlue 1.5s ease-in-out infinite;
-}
-
-@keyframes pulseBlue {
-  0%, 100% { opacity: 0.4; transform: translateY(-50%) scale(0.8); }
-  50% { opacity: 1; transform: translateY(-50%) scale(1.2); }
-}
-
-.ig-login-error {
-  font-size: 12px;
-  color: #ef4444;
-  margin-top: -8px;
-  opacity: 0;
-  transition: opacity 0.4s;
-}
-
-.ig-login-error.show {
-  opacity: 1;
-}
-
-.ig-login-status {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px;
-  border: 1px solid #1f2937;
-  border-radius: 8px;
-  background: rgb(12, 16, 17);
-  margin-top: 12px;
-}
-
-.ig-login-status-icon {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #4a37b6, #ab58f4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.ig-login-status-icon svg {
-  width: 12px;
-  height: 12px;
-  color: #fff;
-  animation: spin 0.8s linear infinite;
-}
-
-.ig-login-status-text {
-  flex: 1;
-}
-
-.ig-login-status-title {
-  font-size: 14px;
-  font-weight: 500;
-  color: #9ca3af;
-  margin: 0;
-  line-height: 1.3;
-}
-
-.ig-login-status-sub {
-  font-size: 12px;
-  color: #6b7280;
-  margin: 4px 0 0;
-  line-height: 1.3;
-}
-
-.ig-login-btn {
-  width: 100%;
-  padding: 8px;
-  border: none;
-  border-radius: 4px;
-  background: #0098ff;
-  color: #fff;
-  font-size: 14px;
-  font-weight: 500;
-  font-family: var(--font-inter);
-  cursor: default;
-  pointer-events: none;
-  opacity: 0.5;
-  position: relative;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
   overflow: hidden;
 }
-
-.ig-login-btn-progress {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 2px;
-  width: 0%;
-  background: rgba(249,249,249,0.6);
-  transition: width 0.3s linear;
-}
-
-.ig-login-forgot {
-  text-align: center;
-  margin-top: 16px;
-}
-
-.ig-login-forgot a {
-  font-size: 14px;
-  color: #3b82f6;
-  text-decoration: none;
-}
-
-.ig-login-divider {
-  display: flex;
-  align-items: center;
-  margin: 24px 0;
-  gap: 16px;
-}
-
-.ig-login-divider-line {
-  flex: 1;
-  height: 1px;
-  background: #374151;
-}
-
-.ig-login-divider-text {
-  font-size: 14px;
-  font-weight: 500;
-  color: #9ca3af;
-}
-
-.ig-login-fb {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 8px;
-  border: none;
-  background: none;
-  font-size: 14px;
-  font-weight: 500;
-  color: #3b82f6;
-  font-family: var(--font-inter);
-  cursor: default;
-  pointer-events: none;
-}
-
-.ig-login-fb svg {
-  width: 20px;
-  height: 20px;
-}
-
-.ig-login-signup {
-  text-align: center;
-  margin-top: 32px;
-  padding-top: 24px;
-  border-top: 1px solid #374151;
-  font-size: 14px;
-  color: #9ca3af;
-}
-
-.ig-login-signup a {
-  color: #3b82f6;
-  font-weight: 500;
-  text-decoration: none;
-  margin-left: 4px;
-}
-
-/* ===== Decrypt Toast ===== */
-.decrypt-toast {
-  position: fixed;
-  bottom: -120px;
-  left: 50%;
-  transform: translateX(-50%);
-  visibility: hidden;
-  background: rgba(30,30,30,0.95);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(239,68,68,0.3);
-  border-radius: 14px;
+.card-footer {
   padding: 12px 20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  z-index: 99998;
-  max-width: calc(100% - 32px);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-  transition: bottom 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-.decrypt-toast.show {
-  bottom: 32px;
-  visibility: visible;
-}
-.decrypt-toast-icon {
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-  color: #f87171;
-}
-.decrypt-toast-text {
-  font-size: 13px;
-  color: #e2e8f0;
-  line-height: 1.4;
-}
-
-/* ===== iOS Notification Banner ===== */
-.ios-notif {
-  position: fixed;
-  top: -120px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 24px);
-  max-width: 400px;
-  z-index: 99999;
-  background: rgba(30,30,30,0.95);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-radius: 20px;
-  padding: 14px 16px;
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.5);
-  transition: top 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  border: 1px solid rgba(255,255,255,0.08);
-}
-.ios-notif.show {
-  top: 12px;
-}
-.ios-notif-icon {
-  width: 38px;
-  height: 38px;
-  min-width: 38px;
-  border-radius: 10px;
-  background: linear-gradient(145deg, #feda75 0%, #fa7e1e 15%, #d62976 35%, #962fbf 55%, #4f5bd5 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-.ios-notif-icon svg {
-  width: 24px;
-  height: 24px;
-}
-.ios-notif-body {
-  flex: 1;
-  min-width: 0;
-}
-.ios-notif-header {
+  border-top: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 3px;
-}
-.ios-notif-app {
-  font-size: 13px;
-  font-weight: 600;
-  color: #fff;
-  letter-spacing: 0.01em;
-}
-.ios-notif-time {
   font-size: 12px;
-  color: rgba(255,255,255,0.4);
+  color: var(--text-muted);
 }
-.ios-notif-text {
-  font-size: 14px;
-  color: rgba(255,255,255,0.85);
-  line-height: 1.35;
-}
-
-/* ===== Limite Atingido Overlay ===== */
-.limit-overlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 200;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  opacity: 0;
-  transition: opacity 0.5s;
-  background: rgba(0,0,0,0.85);
-}
-
-.limit-overlay.show {
-  display: flex;
-  opacity: 1;
-}
-
-.limit-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-light);
-  box-shadow:
-    0 0 80px rgba(128,0,255,0.12),
-    0 24px 64px rgba(0,0,0,0.5),
-    inset 0 1px rgba(255,255,255,0.06);
-  border-radius: 28px;
-  padding: 36px 28px 28px;
-  max-width: 400px;
-  width: 100%;
-  text-align: center;
-  position: relative;
-  transform: scale(0.9) translateY(20px);
-  opacity: 0;
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.limit-overlay.show .limit-card {
-  transform: scale(1) translateY(0);
-  opacity: 1;
-}
-
-.limit-avatar {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  margin: 0 auto 20px;
-  background: rgba(255,255,255,0.06);
+.card-author {
   display: flex;
   align-items: center;
-  justify-content: center;
-  border: 3px solid rgba(128,0,255,0.4);
-  overflow: hidden;
+  gap: 6px;
 }
-
-.limit-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-}
-
-.limit-badge {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-bottom: 14px;
-}
-
-.limit-badge-icon {
+.card-avatar {
   width: 22px;
   height: 22px;
-  background: #e53e3e;
   border-radius: 50%;
+  background: var(--border);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 13px;
+  font-size: 10px;
   font-weight: 700;
-  color: #fff;
+  color: var(--text-secondary);
 }
 
-.limit-badge-text {
-  font-size: 18px;
-  font-weight: 700;
-  color: #e53e3e;
-  letter-spacing: 0.5px;
+/* ===== Newsletter ===== */
+.newsletter {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 20px 60px;
 }
-
-.limit-msg {
-  color: rgba(255,255,255,0.65);
-  font-size: 14px;
-  line-height: 1.5;
-  margin-bottom: 6px;
-}
-
-.limit-msg .limit-user {
-  color: #a855f7;
-  font-weight: 600;
-}
-
-.limit-submsg {
-  color: rgba(255,255,255,0.55);
-  font-size: 13px;
-  line-height: 1.5;
-  margin-bottom: 24px;
-}
-
-.limit-cta-btn {
-  width: 100%;
-  padding: 16px 24px;
-  border: none;
+.newsletter-box {
+  background: var(--text-primary);
   border-radius: 16px;
-  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #c084fc 100%);
+  padding: 48px 40px;
+  text-align: center;
   color: #fff;
+}
+.newsletter-box h2 {
+  font-family: var(--font-serif);
+  font-size: 26px;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+.newsletter-box p {
+  font-size: 15px;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 24px;
+  max-width: 440px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.nl-form {
+  display: flex;
+  gap: 10px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+.nl-form input {
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  outline: none;
+}
+.nl-form input::placeholder { color: rgba(255,255,255,0.35); }
+.nl-form input:focus { border-color: var(--accent); }
+.nl-form button {
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+.nl-form button:hover { background: var(--accent-dark); }
+
+@media (max-width: 480px) {
+  .nl-form { flex-direction: column; }
+  .newsletter-box { padding: 36px 24px; }
+}
+
+/* ===== Footer ===== */
+.footer {
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+.footer-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 32px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.footer-links {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
+.footer-links a {
+  font-size: 13px;
+  color: var(--text-muted);
+  transition: color 0.15s;
+}
+.footer-links a:hover { color: var(--text-secondary); }
+
+@media (max-width: 600px) {
+  .footer-inner { flex-direction: column; gap: 12px; text-align: center; }
+}
+
+/* ===== Article Page ===== */
+.article-full {
+  display: none;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+}
+.article-full.active { display: block; }
+.article-full .back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+}
+.article-full .back-link:hover { color: var(--text-primary); }
+.article-full h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(26px, 4vw, 36px);
+  font-weight: 400;
+  line-height: 1.25;
+  margin-bottom: 16px;
+}
+.article-full .article-meta {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+.article-full .article-content {
+  font-size: 17px;
+  line-height: 1.8;
+  color: #2a2725;
+}
+.article-full .article-content p { margin-bottom: 20px; }
+.article-full .article-content h2 {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 400;
+  margin: 36px 0 14px;
+}
+.article-full .article-content h3 {
   font-size: 16px;
   font-weight: 700;
-  font-family: var(--font-inter);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  transition: all 0.3s;
-  box-shadow: 0 4px 24px rgba(168,85,247,0.35);
-  position: relative;
-  overflow: hidden;
+  margin: 28px 0 10px;
+}
+.article-full .article-content ul,
+.article-full .article-content ol {
+  margin: 12px 0 20px 24px;
+}
+.article-full .article-content li {
+  margin-bottom: 8px;
+}
+.article-full .article-content blockquote {
+  border-left: 3px solid var(--accent);
+  padding: 12px 20px;
+  margin: 20px 0;
+  background: var(--accent-light);
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  color: var(--text-secondary);
 }
 
-.limit-cta-btn::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
-  animation: limitShine 2.5s ease-in-out infinite;
-}
-
-@keyframes limitShine {
-  0% { left: -100%; }
-  50%, 100% { left: 100%; }
-}
-
-.limit-cta-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 32px rgba(168,85,247,0.5);
-}
-
-.limit-cta-btn:active {
-  transform: scale(0.97);
-}
-
-.limit-cta-btn svg {
-  width: 18px;
-  height: 18px;
-  flex-shrink: 0;
-}
-
-.limit-warning {
-  margin-top: 16px;
-  background: rgba(229,62,62,0.1);
-  border: 1px solid rgba(229,62,62,0.2);
-  border-radius: 12px;
-  padding: 12px 16px;
-}
-
-.limit-warning p {
-  color: rgba(229,62,62,0.85);
-  font-size: 12px;
-  line-height: 1.5;
-}
-
-.limit-warning .warn-name {
-  color: #e53e3e;
-  font-weight: 600;
-}
+.home-sections { display: block; }
+.home-sections.hidden { display: none; }
 </style>
 </head>
 <body>
 
-<canvas id="matrix-canvas"></canvas>
-
-<!-- Floating Particles -->
-<div class="particles">
-  <div class="particle"></div>
-  <div class="particle"></div>
-  <div class="particle"></div>
-  <div class="particle"></div>
-  <div class="particle"></div>
-  <div class="particle"></div>
-  <div class="particle"></div>
-  <div class="particle"></div>
-</div>
-
-<div class="main-wrapper">
-  <div class="card-container">
-    <div class="glass-card">
-
-      <!-- Logo -->
-      <div class="logo-wrapper">
-        <div class="logo-inner">
-          <svg class="logo-svg" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="6" y="6" width="52" height="52" rx="14" stroke="#38a3d4" stroke-width="2.5" fill="none"/>
-            <circle cx="32" cy="32" r="13" stroke="#38a3d4" stroke-width="2.5" fill="none"/>
-            <circle cx="32" cy="32" r="4.5" fill="#38a3d4"/>
-            <circle cx="47" cy="17" r="3.2" fill="#38bdf8"/>
-          </svg>
-          <div class="logo-label">DESCOBREAQUI</div>
-        </div>
+<header class="header">
+  <div class="header-inner">
+    <div class="logo-area">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
       </div>
+      <div class="logo-text">DescobreAqui <span>blog</span></div>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#" onclick="goHome();return false;">Início</a></li>
+        <li><a href="#artigos">Artigos</a></li>
+        <li><a href="#newsletter">Newsletter</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
-      <!-- Headline -->
-      <div class="text-section">
-        <h1>Descubra tudo o que tem no <span class="gradient-text">perfil dele(a)</span></h1>
-        <h2 id="subtitle"><span class="typing-cursor">|</span></h2>
-      </div>
+<div class="home-sections" id="home-sections">
 
-      <!-- Step 1: CTA Button -->
-      <div class="btn-wrapper" id="step1-btn">
-        <button type="button" class="btn-primary" id="cta-btn" onclick="goToStep2()">
-          <span class="btn-content">
-            <svg class="eye-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-              <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-            </svg>
-            <span>Verificar Perfil</span>
-          </span>
-        </button>
-      </div>
+<section class="hero">
+  <div class="hero-label">✦ Novo por aqui? Seja bem-vindo(a)</div>
+  <h1>Tudo sobre relacionamentos na era digital</h1>
+  <p>Dicas sem filtro sobre confiança, redes sociais e o que ninguém te conta sobre a vida a dois na internet. Escrito por quem já passou por isso.</p>
+</section>
 
-      <!-- Step 2: Username Input -->
-      <div class="input-wrapper" id="step2-input">
-        <div class="input-group">
-          <span class="input-at">@</span>
-          <input id="usernameInput" type="text" placeholder="Digite o @ que você quer investigar" class="input-dark" autocomplete="off">
-          <!-- Honeypot -->
-          <input type="text" name="website" id="hp-field" autocomplete="off" tabindex="-1" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;pointer-events:none;">
-          <button type="button" class="submit-btn" onclick="submitUsername()">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      <!-- Trust Badges -->
-      <div class="badges-wrapper" id="badges-wrapper">
-        <div class="badges-row" id="badges">
-          <div class="badge-item">
-            <svg class="badge-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-            </svg>
-            <span class="badge-text">Sem Senha</span>
-          </div>
-          <div class="badge-item">
-            <svg class="badge-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-            </svg>
-            <span class="badge-text">Resultado Rápido</span>
-          </div>
-          <div class="badge-item">
-            <svg class="badge-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-            </svg>
-            <span class="badge-text">Privacidade</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Counter -->
-      <div class="counter-wrapper" id="counter-wrapper">
-        <div class="counter-section" id="counter">
-          <p class="counter-text">
-            <span class="live-dot"></span>
-            <span class="counter-number" id="counter-number">+81.455</span>
-            <span id="counter-day"> perfis analisados hoje (quarta-feira)</span>
-          </p>
-        </div>
-      </div>
-
+<section class="featured">
+  <div class="featured-card" onclick="openArticle('sinais-celular')">
+    <div class="featured-img">
+      <div class="featured-emoji">📱</div>
+    </div>
+    <div class="featured-body">
+      <div class="featured-tag tag-relacao">Relacionamento</div>
+      <h2>7 sinais de que algo estranho está acontecendo no celular do seu parceiro</h2>
+      <p>Nem tudo é paranoia. Às vezes o instinto acerta — mas é preciso saber separar o que é red flag real do que é insegurança falando mais alto. Veja os sinais que realmente importam.</p>
+      <div class="featured-meta"><strong>Equipe DescobreAqui</strong> · 12 min de leitura</div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- ===== MODAL: Confirme o Instagram ===== -->
-<div class="modal-overlay" id="modal-overlay">
-  <div class="modal-overlay-bg"></div>
-  <canvas class="modal-canvas" id="modal-canvas"></canvas>
-  <div class="modal-card" id="modal-card">
-    <div class="scan-line"></div>
-    <div class="modal-title">Confirme o Instagram</div>
-    <p class="modal-subtitle">Você deseja investigar o perfil <span class="username" id="modal-username">@usuario</span>?</p>
+<section class="articles" id="artigos">
+  <div class="articles-header">
+    <h2>Últimos artigos</h2>
+  </div>
+  <div class="grid">
 
-    <div class="profile-row">
-      <div class="profile-avatar">
-        <div class="avatar-circle" id="profile-avatar-img">
-          <svg fill="currentColor" viewBox="0 0 24 24" style="width:40px;height:40px;color:#2e8bc0;opacity:0.5">
-            <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
-          </svg>
-        </div>
+    <div class="card" onclick="openArticle('privacidade-casal')">
+      <div class="card-thumb thumb-1">🔒</div>
+      <div class="card-body">
+        <div class="featured-tag tag-redes">Redes Sociais</div>
+        <h3>Privacidade no relacionamento: onde fica o limite?</h3>
+        <p>Senha compartilhada é sinal de confiança ou controle? A linha é mais fina do que parece, e a maioria dos casais erra exatamente nesse ponto.</p>
       </div>
-      <div class="profile-stats">
-        <div class="stat-item">
-          <p id="stat-posts">17</p>
-          <p>posts</p>
+      <div class="card-footer">
+        <div class="card-author">
+          <div class="card-avatar">R</div>
+          Renata Silva
         </div>
-        <div class="stat-item">
-          <p id="stat-seguidores">6.956</p>
-          <p>seguidores</p>
-        </div>
-        <div class="stat-item">
-          <p id="stat-seguindo">545</p>
-          <p>seguindo</p>
-        </div>
+        <span>8 min</span>
       </div>
     </div>
 
-    <div class="profile-bio">
-      <p id="profile-bio-text"></p>
-    </div>
-
-    <div class="warning-box">
-      <span>
-        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/>
-        </svg>
-        Limite de apenas 1 pesquisa por dispositivo, certifique-se que digitou o usuário corretamente.
-      </span>
-    </div>
-
-    <div class="modal-buttons">
-      <button type="button" class="btn-corrigir" onclick="closeModal()">Corrigir @</button>
-      <button type="button" class="btn-confirmar" onclick="confirmProfile()">
-        Confirmar
-        <svg class="animate-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
-        </svg>
-      </button>
-    </div>
-  </div>
-</div>
-
-<!-- ===== LIMITE ATINGIDO OVERLAY ===== -->
-<div class="limit-overlay" id="limit-overlay">
-  <div class="limit-card">
-    <div class="limit-avatar" id="limit-avatar">
-      <svg fill="currentColor" viewBox="0 0 24 24" style="width:40px;height:40px;color:rgba(168,85,247,0.5)">
-        <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
-      </svg>
-    </div>
-    <div class="limit-badge">
-      <div class="limit-badge-icon">!</div>
-      <span class="limit-badge-text">Limite Atingido</span>
-    </div>
-    <p class="limit-msg">Você já utilizou sua pesquisa gratuita para espionar <span class="limit-user" id="limit-username">@usuario</span></p>
-    <p class="limit-submsg">Adquira o acesso VIP e tenha acesso ao instagram completo agora mesmo!</p>
-    <button type="button" class="limit-cta-btn" onclick="goToLimitCTA()">
-      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-      </svg>
-      Desbloquear Acesso VIP
-    </button>
-    <div class="limit-warning">
-      <p>Sua identidade está comprometida! <span class="warn-name" id="limit-warn-name">Usuário</span> pode ser avisado sobre sua espionagem, somente membros VIP's tem sigilo preservado nas espionagens.</p>
-    </div>
-  </div>
-</div>
-
-<!-- ===== LOADING OVERLAY: Instagram Login Style ===== -->
-<div class="loading-overlay" id="loading-overlay">
-  <div class="ig-login-wrap">
-    <div class="ig-login-logo">
-      <img src="/midias/instagram-logo-new.png" alt="Instagram" style="height:52px;width:auto">
-    </div>
-
-    <div class="ig-login-fields">
-      <div class="ig-login-field" id="crack-user">usuario</div>
-
-      <div class="ig-login-pass-wrap">
-        <input class="ig-login-pass" type="text" id="crack-pass" value="**************" readonly tabindex="-1">
-        <div class="ig-login-pass-dot"></div>
+    <div class="card" onclick="openArticle('perfil-fake')">
+      <div class="card-thumb thumb-2">👤</div>
+      <div class="card-body">
+        <div class="featured-tag tag-dica">Dica Prática</div>
+        <h3>Como identificar um perfil falso no Instagram em 2 minutos</h3>
+        <p>Seguidores comprados, fotos genéricas e bio vazia são só o começo. Tem detalhes que a maioria ignora — e que entregam tudo.</p>
       </div>
-
-      <div class="ig-login-error" id="crack-error">A senha que você inseriu está incorreta.</div>
-
-      <div class="ig-login-status">
-        <div class="ig-login-status-icon">
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-          </svg>
+      <div class="card-footer">
+        <div class="card-author">
+          <div class="card-avatar">M</div>
+          Marcos Oliveira
         </div>
-        <div class="ig-login-status-text">
-          <p class="ig-login-status-title" id="crack-status-title">Quebrando criptografia da conta</p>
-          <p class="ig-login-status-sub" id="crack-status-sub">Testando senha...</p>
+        <span>5 min</span>
+      </div>
+    </div>
+
+    <div class="card" onclick="openArticle('redes-personalidade')">
+      <div class="card-thumb thumb-3">🧠</div>
+      <div class="card-body">
+        <div class="featured-tag tag-comportamento">Comportamento</div>
+        <h3>O que as redes sociais revelam sobre a personalidade de alguém</h3>
+        <p>A forma como uma pessoa usa o Instagram diz mais do que você imagina. Tipo de stories, frequência de posts, quem ela segue — tudo fala.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-author">
+          <div class="card-avatar">J</div>
+          Julia Mendes
         </div>
-      </div>
-
-      <button type="button" class="ig-login-btn" disabled>
-        <span>Entrar</span>
-        <div class="ig-login-btn-progress" id="crack-progress"></div>
-      </button>
-
-      <div class="ig-login-forgot">
-        <a href="#">Esqueceu a senha?</a>
+        <span>10 min</span>
       </div>
     </div>
 
-    <div class="ig-login-divider">
-      <div class="ig-login-divider-line"></div>
-      <span class="ig-login-divider-text">OU</span>
-      <div class="ig-login-divider-line"></div>
+    <div class="card" onclick="openArticle('desconfianca')">
+      <div class="card-thumb thumb-4">💬</div>
+      <div class="card-body">
+        <div class="featured-tag tag-relacao">Relacionamento</div>
+        <h3>Como lidar com a desconfiança sem destruir a relação</h3>
+        <p>Desconfiar não é crime. Mas o que você faz com a desconfiança pode salvar ou acabar com tudo. Esse guia é pra quem quer resolver, não brigar.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-author">
+          <div class="card-avatar">R</div>
+          Renata Silva
+        </div>
+        <span>7 min</span>
+      </div>
     </div>
 
-    <button type="button" class="ig-login-fb">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-      <span>Entrar com o Facebook</span>
-    </button>
+    <div class="card" onclick="openArticle('stories-anonimo')">
+      <div class="card-thumb thumb-5">👁️</div>
+      <div class="card-body">
+        <div class="featured-tag tag-dica">Dica Prática</div>
+        <h3>É possível ver stories sem a pessoa saber? A verdade nua e crua</h3>
+        <p>Tem muita promessa e pouco resultado nesse assunto. Separamos o que funciona de verdade do que é pura enganação.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-author">
+          <div class="card-avatar">M</div>
+          Marcos Oliveira
+        </div>
+        <span>6 min</span>
+      </div>
+    </div>
 
-    <div class="ig-login-signup">
-      <span>Não tem uma conta?</span>
-      <a href="#">Cadastre-se.</a>
+    <div class="card" onclick="openArticle('seguranca-digital')">
+      <div class="card-thumb thumb-6">🛡️</div>
+      <div class="card-body">
+        <div class="featured-tag tag-redes">Redes Sociais</div>
+        <h3>5 configurações de segurança que você deveria ativar agora</h3>
+        <p>Sua conta tá mais exposta do que você pensa. Essas 5 configurações levam 3 minutos e fazem toda a diferença na sua privacidade.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-author">
+          <div class="card-avatar">J</div>
+          Julia Mendes
+        </div>
+        <span>4 min</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="newsletter" id="newsletter">
+  <div class="newsletter-box">
+    <h2>Receba as próximas dicas no seu e-mail</h2>
+    <p>Sem spam, sem enrolação. Só conteúdo útil sobre relacionamentos e redes sociais, uma vez por semana.</p>
+    <div class="nl-form">
+      <input type="email" placeholder="Seu melhor e-mail" id="nl-email">
+      <button onclick="document.getElementById('nl-email').value='';this.textContent='Inscrito ✓';this.style.background='#2d8a4e';">Quero receber</button>
     </div>
   </div>
+</section>
+
 </div>
 
-<!-- Decrypt Toast Warning -->
-<div class="decrypt-toast" id="decrypt-toast">
-  <svg class="decrypt-toast-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/>
-  </svg>
-  <span class="decrypt-toast-text">Ação indisponível durante a descriptografia. Aguarde o processo finalizar.</span>
-</div>
+<!-- Article: sinais-celular -->
+<article class="article-full" id="art-sinais-celular">
+  <a href="#" class="back-link" onclick="goHome();return false;">← Voltar para o início</a>
+  <div class="featured-tag tag-relacao" style="margin-bottom:16px">Relacionamento</div>
+  <h1>7 sinais de que algo estranho está acontecendo no celular do seu parceiro</h1>
+  <div class="article-meta">Por <strong>Equipe DescobreAqui</strong> · 12 min de leitura</div>
+  <div class="article-content">
+    <p>Vou ser direta aqui: esse texto não é pra te transformar em detetive. É pra te ajudar a confiar no que você sente — e saber quando aquele incômodo merece atenção de verdade.</p>
+    <p>Porque vamos combinar, a maioria dos artigos sobre o assunto é ridícula. "Se ele virou o celular, tá traindo." Não é assim que funciona. Todo mundo tem direito à privacidade, mesmo dentro de um relacionamento. Mas existem sim padrões que merecem um pé atrás.</p>
 
-<!-- iOS Instagram Notification -->
-<div class="ios-notif" id="ios-notif">
-  <div class="ios-notif-icon">
-    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="20" height="20" rx="5" stroke="#fff" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="#fff" stroke-width="1.8"/><circle cx="17.5" cy="6.5" r="1.2" fill="#fff"/></svg>
+    <h2>O que mudou, não o que sempre foi</h2>
+    <p>A primeira coisa que você precisa entender: o que importa é a <strong>mudança de comportamento</strong>. Se seu parceiro sempre foi reservado com o celular, isso é o jeito dele. Agora, se de repente ele começa a agir diferente, aí a conversa muda.</p>
+
+    <h3>1. A tela virou segredo de estado</h3>
+    <p>De repente o celular tá sempre de tela pra baixo. Na mesa, no sofá, na cama. Se antes ficava de qualquer jeito, agora parece que tem um mecanismo automático que vira a tela assim que ele pousa em qualquer superfície.</p>
+
+    <h3>2. O banheiro virou escritório</h3>
+    <p>Todo mundo usa o celular no banheiro, calma. A questão é quando a "ida ao banheiro" começa a demorar 40 minutos toda noite. E sempre com o celular. Não é sobre o banheiro — é sobre o tempo isolado que aumentou sem motivo aparente.</p>
+
+    <h3>3. Notificações silenciosas</h3>
+    <p>Se antes o celular apitava e ele via na frente de todo mundo, e agora as notificações sumiram ou estão em modo silencioso permanente... vale prestar atenção. Não é prova de nada, mas é um padrão que aparece bastante.</p>
+
+    <h3>4. A risadinha pro celular</h3>
+    <p>Sabe aquela risadinha disfarçada enquanto mexe no celular? E quando você pergunta "o que foi?", a resposta é sempre "nada, meme". Uma vez, duas vezes, ok. Toda hora? Hmm.</p>
+
+    <h3>5. Reflexo de esconder</h3>
+    <p>Você entra no quarto e ele rapidamente troca de app ou bloqueia a tela. Esse reflexo involuntário é difícil de fingir — e difícil de não notar. Não confunda com trocar de app naturalmente: a diferença tá na pressa.</p>
+
+    <h3>6. Conta nova ou app que nunca usou</h3>
+    <p>De repente apareceu Telegram, Signal, ou uma segunda conta de Instagram. "É pra trabalho" pode ser verdade. Mas se antes não existia essa necessidade e agora existe, vale perguntar — sem acusar.</p>
+
+    <h3>7. Ele sabe demais sobre alguém que "não conhece"</h3>
+    <p>Deixa escapar uma informação sobre alguém: o que a pessoa gosta, onde mora, o que faz. "Como você sabe disso?" E a resposta não fecha. Esse é um dos sinais mais sutis, mas dos mais reveladores.</p>
+
+    <h2>E agora, o que fazer?</h2>
+    <p>Antes de qualquer coisa: respira. Ter um ou dois desses sinais não significa nada isoladamente. O que pesa é o conjunto, a frequência e principalmente a mudança em relação ao que era antes.</p>
+    <p>O melhor caminho quase sempre é a conversa. Não o interrogatório — a conversa de verdade. "Tô sentindo que as coisas mudaram, quero entender o que tá acontecendo." Sem acusação, sem gritar, sem revirar celular escondido.</p>
+
+    <blockquote>A confiança num relacionamento não é sobre nunca desconfiar. É sobre ter espaço pra falar quando algo incomoda — e ser ouvido.</blockquote>
+
+    <p>Se depois da conversa o desconforto continuar, procure ajuda profissional. Terapia de casal existe pra isso. E se você confirmar que tá sendo enganada, lembre que a decisão é sua. Ninguém tem o direito de te manter no escuro.</p>
   </div>
-  <div class="ios-notif-body">
-    <div class="ios-notif-header">
-      <span class="ios-notif-app">Instagram</span>
-      <span class="ios-notif-time">agora</span>
-    </div>
-    <div class="ios-notif-text" id="ios-notif-text">Senha encontrada, acessando @usuario</div>
+</article>
+
+<!-- Article: privacidade-casal -->
+<article class="article-full" id="art-privacidade-casal">
+  <a href="#" class="back-link" onclick="goHome();return false;">← Voltar para o início</a>
+  <div class="featured-tag tag-redes" style="margin-bottom:16px">Redes Sociais</div>
+  <h1>Privacidade no relacionamento: onde fica o limite?</h1>
+  <div class="article-meta">Por <strong>Renata Silva</strong> · 8 min de leitura</div>
+  <div class="article-content">
+    <p>"Amor, me passa a senha do seu Instagram." Essa frase sozinha já destruiu mais relacionamentos do que qualquer traição. Porque por trás dela não tem confiança — tem controle.</p>
+    <p>Mas calma. Também não tô dizendo que privacidade total dentro de um casal é saudável. A real é que o limite existe, mas não é o mesmo pra todo mundo. E é aí que a coisa complica.</p>
+
+    <h2>A diferença entre privacidade e segredo</h2>
+    <p><strong>Privacidade</strong> é ter conversas com amigos que não precisam ser compartilhadas. É ter um diário, um grupo de WhatsApp, um espaço seu. Todo ser humano precisa disso pra existir como indivíduo.</p>
+    <p><strong>Segredo</strong> é esconder algo que afeta a outra pessoa. Uma conversa que cruza limites. Um encontro que não foi mencionado. Uma segunda vida digital que seu parceiro desconhece.</p>
+    <p>A linha é: se a outra pessoa ficaria magoada ao saber, provavelmente não é privacidade — é segredo.</p>
+
+    <h2>Senha compartilhada: confiança ou armadilha?</h2>
+    <p>Muitos casais compartilham senhas e vivem bem. Outros compartilham e vivem num inferno de vigilância mútua. A senha em si não é o problema. O problema é o que vocês fazem com ela.</p>
+    <p>Se você tem a senha mas sente que precisa olhar toda hora, a senha não resolveu nada. Porque o problema não era o acesso — era a insegurança. E insegurança não se cura com senha.</p>
+
+    <h2>3 combinados que funcionam</h2>
+    <ol>
+      <li><strong>Celular não é diário aberto.</strong> Você pode pedir pra ver algo específico, mas ficar xeretando feed de seguidos e mensagens antigas é cilada.</li>
+      <li><strong>Se te incomoda, fala.</strong> Guardar engolindo e depois explodir é pior do que qualquer conversa difícil.</li>
+      <li><strong>Contexto importa.</strong> Se ele segue uma ex, pode ser indiferença. Se ele curte cada foto da ex, é diferente. Analise o conjunto.</li>
+    </ol>
+
+    <blockquote>Um relacionamento saudável não precisa de transparência total. Precisa de respeito, honestidade e diálogo. O resto é negociação a dois.</blockquote>
+
+    <p>No fim, cada casal tem suas regras. O importante é que elas sejam combinadas a dois — não impostas por um lado só. Privacidade é direito. Respeito é obrigação. E o equilíbrio entre os dois é o que faz um relacionamento durar.</p>
   </div>
-</div>
+</article>
+
+<!-- Article: perfil-fake -->
+<article class="article-full" id="art-perfil-fake">
+  <a href="#" class="back-link" onclick="goHome();return false;">← Voltar para o início</a>
+  <div class="featured-tag tag-dica" style="margin-bottom:16px">Dica Prática</div>
+  <h1>Como identificar um perfil falso no Instagram em 2 minutos</h1>
+  <div class="article-meta">Por <strong>Marcos Oliveira</strong> · 5 min de leitura</div>
+  <div class="article-content">
+    <p>Perfis fakes estão em todo lugar. Alguns são óbvios, mas os bons — os que realmente enganam — exigem um olhar treinado. Aqui vai o que eu aprendi depois de analisar centenas deles.</p>
+
+    <h2>Os sinais clássicos</h2>
+    <ul>
+      <li><strong>Proporção seguidores/seguindo:</strong> segue 3.000, tem 47 seguidores. Clássico.</li>
+      <li><strong>Poucas fotos (ou nenhuma):</strong> conta criada recentemente com 2-3 fotos genéricas.</li>
+      <li><strong>Bio genérica ou vazia:</strong> "Live, love, laugh 🌸" ou simplesmente nada.</li>
+      <li><strong>Sem marcação em fotos:</strong> perfis reais geralmente são marcados por amigos, família, colegas.</li>
+    </ul>
+
+    <h2>Os sinais que ninguém fala</h2>
+    <p>Agora vem a parte interessante. Os detalhes que separam um fake bem feito de um perfil real:</p>
+
+    <h3>Data dos posts vs. data da conta</h3>
+    <p>Se a conta tem 3 anos mas todos os posts são do último mês, algo não bate. Perfis reais têm uma linha do tempo natural — com gaps, fases, evolução.</p>
+
+    <h3>Engajamento nos comentários</h3>
+    <p>Olha quem comenta. Se são só perfis genéricos com comentários como "linda 😍" e "gorgeous!", desconfia. Pessoas reais têm interações reais — com nomes, piadas internas, respostas específicas.</p>
+
+    <h3>Consistência visual</h3>
+    <p>Fotos de uma pessoa real mantêm certa consistência: mesmo ambiente, mesmos amigos aparecendo, evolução de estilo. Fakes pegam fotos de fontes diferentes e a "pessoa" muda sutilmente de foto pra foto.</p>
+
+    <h3>O teste da busca reversa</h3>
+    <p>Salva a foto de perfil e joga no Google Imagens. Se aparece em outros perfis com outros nomes, tá aí sua resposta. Esse teste sozinho já elimina a maioria.</p>
+
+    <blockquote>Na dúvida, confia no instinto. Se algo parece artificial demais, provavelmente é.</blockquote>
+  </div>
+</article>
+
+<!-- Article: redes-personalidade -->
+<article class="article-full" id="art-redes-personalidade">
+  <a href="#" class="back-link" onclick="goHome();return false;">← Voltar para o início</a>
+  <div class="featured-tag tag-comportamento" style="margin-bottom:16px">Comportamento</div>
+  <h1>O que as redes sociais revelam sobre a personalidade de alguém</h1>
+  <div class="article-meta">Por <strong>Julia Mendes</strong> · 10 min de leitura</div>
+  <div class="article-content">
+    <p>Você já parou pra pensar que o Instagram é basicamente um diário público da personalidade de alguém? Não pelo que a pessoa mostra — mas por como ela mostra.</p>
+
+    <h2>O tipo de conteúdo que posta</h2>
+    <p><strong>Só selfie:</strong> pode indicar alguém que busca validação externa. Não é defeito — é um padrão. A questão é a frequência e se precisa de likes pra se sentir bem.</p>
+    <p><strong>Paisagens e comida:</strong> geralmente pessoas que preferem registrar experiências a se expor. Tendem a ser mais reservadas na vida real.</p>
+    <p><strong>Frases motivacionais:</strong> pode ser genuíno ou pode ser performance. O contexto importa. Se a vida tá um caos e só posta positividade tóxica, tem algo ali.</p>
+    <p><strong>Nunca posta:</strong> existem dois tipos — quem realmente é reservado e quem consome muito mas não produz nada. O segundo tipo tende a ser voyeurista digital.</p>
+
+    <h2>A frequência dos stories</h2>
+    <p>30 stories por dia conta uma história (trocadilho intencional). Geralmente indica alguém que precisa de audiência constante, que processa a vida em tempo real e publicamente.</p>
+    <p>Zero stories, por outro lado, pode significar desde introversão saudável até alguém que tá escondendo sua rotina de propósito.</p>
+
+    <h2>Quem a pessoa segue</h2>
+    <p>A lista de "seguindo" é um mapa dos interesses reais de alguém. Não o que ela diz gostar — o que ela consome de verdade, quando ninguém tá olhando. Modelos fitness, investimentos, fofoca, moda, política... tudo tá ali.</p>
+
+    <h2>As curtidas falam</h2>
+    <p>Quem curte tudo que uma pessoa específica posta tá mandando um recado. Consciente ou não. Se seu parceiro curte toda foto de alguém, não é sobre o algoritmo — é sobre atenção.</p>
+
+    <blockquote>As redes sociais são o palco. A personalidade real é o bastidor. Mas quem olha com atenção, vê as cortinas abertas.</blockquote>
+  </div>
+</article>
+
+<!-- Article: desconfianca -->
+<article class="article-full" id="art-desconfianca">
+  <a href="#" class="back-link" onclick="goHome();return false;">← Voltar para o início</a>
+  <div class="featured-tag tag-relacao" style="margin-bottom:16px">Relacionamento</div>
+  <h1>Como lidar com a desconfiança sem destruir a relação</h1>
+  <div class="article-meta">Por <strong>Renata Silva</strong> · 7 min de leitura</div>
+  <div class="article-content">
+    <p>Desconfiar dói. Mas o que mais destrói um relacionamento não é a desconfiança em si — é como você reage a ela. Já vi gente que tinha razão pra desconfiar destruir tudo porque agiu no impulso. E vi gente que não tinha motivo nenhum criar o problema do zero.</p>
+
+    <h2>Antes de agir: questione sua própria desconfiança</h2>
+    <p>Pergunte pra você mesma: isso é baseado em fatos ou em medo? Algo concreto mudou no comportamento dele, ou você tá projetando uma insegurança antiga?</p>
+    <p>Não tô invalidando o que você sente. Tô pedindo pra separar o sentimento do fato. Porque sentir não é prova. E agir como se fosse verdade antes de saber é receita pra desastre.</p>
+
+    <h2>O que funciona</h2>
+    <ol>
+      <li><strong>Fale sobre o sentimento, não sobre a acusação.</strong> "Tô me sentindo insegura ultimamente" é diferente de "Eu sei que você tá me traindo." O primeiro abre diálogo. O segundo abre guerra.</li>
+      <li><strong>Escolha o momento.</strong> Não no calor da briga, não depois de beber, não no WhatsApp. Pessoalmente, calma, sem plateia.</li>
+      <li><strong>Ouça a resposta.</strong> De verdade. Não fique formulando a próxima acusação enquanto ele fala. Ouça.</li>
+      <li><strong>Observe depois da conversa.</strong> A reação após o papo diz mais que o papo em si. Mudou o comportamento? Ficou mais atencioso? Ou ficou agressivo e defensivo?</li>
+    </ol>
+
+    <h2>O que não funciona (mas todo mundo faz)</h2>
+    <ul>
+      <li>Revirar o celular escondido às 3h da manhã</li>
+      <li>Criar perfil fake pra testar fidelidade</li>
+      <li>Stalkear a pessoa 24h por dia nas redes</li>
+      <li>Fazer interrogatório toda vez que ele chega atrasado</li>
+    </ul>
+    <p>Essas atitudes não resolvem a desconfiança. Elas alimentam. Porque mesmo que você não ache nada, a ansiedade não vai embora — ela pede mais.</p>
+
+    <blockquote>Confiança não é certeza. É escolha. Escolher confiar sabendo que pode se machucar é corajoso. Escolher controlar pra não se machucar é prisão — pra ambos.</blockquote>
+  </div>
+</article>
+
+<!-- Article: stories-anonimo -->
+<article class="article-full" id="art-stories-anonimo">
+  <a href="#" class="back-link" onclick="goHome();return false;">← Voltar para o início</a>
+  <div class="featured-tag tag-dica" style="margin-bottom:16px">Dica Prática</div>
+  <h1>É possível ver stories sem a pessoa saber? A verdade nua e crua</h1>
+  <div class="article-meta">Por <strong>Marcos Oliveira</strong> · 6 min de leitura</div>
+  <div class="article-content">
+    <p>Essa é provavelmente a pergunta mais pesquisada no Google quando o assunto é Instagram. E a resposta honesta é: depende — e a maioria do que você encontra por aí é golpe.</p>
+
+    <h2>O que NÃO funciona</h2>
+    <p><strong>Sites que pedem seu login:</strong> esses existem aos montes. Você coloca seu @ e senha e... parabéns, acabou de entregar sua conta. Nunca, jamais, em hipótese alguma digite sua senha do Instagram em sites terceiros. Nunca.</p>
+    <p><strong>Apps "espiões" gratuitos:</strong> a maioria é malware puro. No melhor caso não fazem nada. No pior, instalam trojans no seu celular.</p>
+    <p><strong>Extensões de Chrome milagrosas:</strong> algumas até funcionaram no passado, mas o Instagram fecha essas brechas constantemente. Hoje a maioria é inútil ou perigosa.</p>
+
+    <h2>O que funciona (com ressalvas)</h2>
+    <p><strong>Modo avião:</strong> o truque antigo. Abre os stories, ativa o modo avião antes que carregue completamente, vê, e fecha o app. Funciona? Às vezes. Mas o Instagram ficou mais esperto — se o story já carregou antes do modo avião, a visualização pode ser registrada mesmo assim.</p>
+    <p><strong>Conta secundária:</strong> criar um perfil alternativo e seguir a pessoa. Funciona, sim. Mas se a conta é privada, você precisa ser aceito. E aí a discrição depende de quão convincente é seu perfil fake.</p>
+
+    <h2>A reflexão que ninguém quer fazer</h2>
+    <p>Se você tá pesquisando como ver stories escondido, a pergunta real não é sobre stories. É sobre por que você precisa fazer isso escondido.</p>
+    <p>Tá verificando um ex? Um crush? Monitorando seu parceiro? Em cada caso, a motivação é diferente — e merece atenção diferente.</p>
+
+    <blockquote>Tecnologia é ferramenta. O que importa é o porquê. Se o motivo te causa ansiedade, talvez o problema não esteja no story — esteja na relação com aquela pessoa.</blockquote>
+  </div>
+</article>
+
+<!-- Article: seguranca-digital -->
+<article class="article-full" id="art-seguranca-digital">
+  <a href="#" class="back-link" onclick="goHome();return false;">← Voltar para o início</a>
+  <div class="featured-tag tag-redes" style="margin-bottom:16px">Redes Sociais</div>
+  <h1>5 configurações de segurança que você deveria ativar agora</h1>
+  <div class="article-meta">Por <strong>Julia Mendes</strong> · 4 min de leitura</div>
+  <div class="article-content">
+    <p>Sua conta no Instagram provavelmente tá mais exposta do que você imagina. A boa notícia: leva 3 minutos pra resolver. Vamos lá.</p>
+
+    <h3>1. Autenticação em dois fatores</h3>
+    <p>Sério, se você não tem isso ativado, para tudo e ativa agora. Vai em Configurações → Segurança → Autenticação de dois fatores. Prefira um app autenticador (Google Authenticator ou similar) ao SMS — SMS pode ser interceptado.</p>
+
+    <h3>2. Atividade de login</h3>
+    <p>Configurações → Segurança → Atividade de login. Aqui você vê todos os dispositivos conectados na sua conta. Viu algum que não reconhece? Desconecta e troca a senha imediatamente.</p>
+
+    <h3>3. Apps conectados</h3>
+    <p>Configurações → Segurança → Apps e sites. Aquele quiz de 2019 que pedia acesso à sua conta? Ainda tá lá. Remove tudo que você não usa ativamente.</p>
+
+    <h3>4. Privacidade da conta</h3>
+    <p>Conta pública significa que qualquer pessoa vê tudo: seus posts, stories, seguidores, quem você segue. Se você não é influencer ou não precisa de visibilidade profissional, fechar a conta é a decisão mais inteligente que você pode tomar.</p>
+
+    <h3>5. Status de atividade</h3>
+    <p>Configurações → Privacidade → Status de atividade. Desativa. Ninguém precisa saber a que horas você estava online. Essa informação causa mais problema do que resolve em 99% dos casos.</p>
+
+    <blockquote>Privacidade digital não é paranoia — é higiene. Assim como você tranca a porta de casa, tranque sua conta.</blockquote>
+  </div>
+</article>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>&copy; 2024 DescobreAqui. Todos os direitos reservados.</span>
+    <ul class="footer-links">
+      <li><a href="#">Sobre</a></li>
+      <li><a href="#">Contato</a></li>
+      <li><a href="#">Termos de Uso</a></li>
+    </ul>
+  </div>
+</footer>
 
 <script>
-// ========== Matrix Rain ==========
-(function() {
-  var canvas = document.getElementById('matrix-canvas');
-  var ctx = canvas.getContext('2d');
-
-  function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  var chars = 'DESCOBREAQUIabcdefghijklmnopqrstuvwxyz0123456789@#$%&*.';
-  var fontSize = 14;
-  var columns = Math.floor(canvas.width / fontSize);
-  var drops = [];
-  for (var c = 0; c < columns; c++) drops[c] = Math.random() * -100;
-
-  function draw() {
-    ctx.fillStyle = 'rgba(4, 6, 7, 0.05)';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.font = fontSize + 'px monospace';
-
-    for (var i = 0; i < drops.length; i++) {
-      var ch = chars[Math.floor(Math.random() * chars.length)];
-      var alpha = 0.3 + Math.random() * 0.5;
-      ctx.fillStyle = 'rgba(46, 139, 192, ' + alpha + ')';
-      ctx.fillText(ch, i * fontSize, drops[i] * fontSize);
-      if (Math.random() > 0.97) {
-        ctx.fillStyle = 'rgba(56, 189, 248, ' + (0.7 + Math.random() * 0.3) + ')';
-        ctx.fillText(ch, i * fontSize, drops[i] * fontSize);
-      }
-      if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-        drops[i] = 0;
-      }
-      drops[i]++;
-    }
-  }
-
-  setInterval(draw, 50);
-})();
-
-// ========== Modal Matrix Rain ==========
-function startModalMatrix() {
-  var canvas = document.getElementById('modal-canvas');
-  var ctx = canvas.getContext('2d');
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  var chars = 'DESCOBREAQUIabcdefghijklmnopqrstuvwxyz0123456789@#$%&*.';
-  var fontSize = 14;
-  var columns = Math.floor(canvas.width / fontSize);
-  var drops = [];
-  for (var c = 0; c < columns; c++) drops[c] = Math.random() * -50;
-
-  function draw() {
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.font = fontSize + 'px monospace';
-
-    for (var i = 0; i < drops.length; i++) {
-      var ch = chars[Math.floor(Math.random() * chars.length)];
-      var alpha = 0.1 + Math.random() * 0.2;
-      ctx.fillStyle = 'rgba(46, 139, 192, ' + alpha + ')';
-      ctx.fillText(ch, i * fontSize, drops[i] * fontSize);
-      if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-        drops[i] = 0;
-      }
-      drops[i]++;
-    }
-  }
-
-  setInterval(draw, 50);
+function openArticle(slug) {
+  document.getElementById('home-sections').classList.add('hidden');
+  document.querySelectorAll('.article-full').forEach(function(a) { a.classList.remove('active'); });
+  var el = document.getElementById('art-' + slug);
+  if (el) el.classList.add('active');
+  window.scrollTo(0, 0);
 }
 
-// ========== Typing Animation ==========
-(function() {
-  var subtitle = document.getElementById('subtitle');
-  var fullText = 'Digite o @ que você quer investigar';
-  var hlWord = 'investigar';
-  var hlStart = fullText.indexOf(hlWord);
-  var hlEnd = hlStart + hlWord.length;
-  var i = 0;
-
-  function type() {
-    if (i <= fullText.length) {
-      var typed = fullText.substring(0, i);
-      var html = '';
-      var inHL = false;
-
-      for (var c = 0; c < typed.length; c++) {
-        if (c === hlStart) {
-          html += '<span style="color:#38bdf8;text-decoration:underline;-webkit-text-fill-color:#38bdf8">';
-          inHL = true;
-        }
-        html += typed[c];
-        if (inHL && (c === hlEnd - 1 || c === typed.length - 1)) {
-          html += '</span>';
-          inHL = false;
-        }
-      }
-
-      html += '<span class="typing-cursor">|</span>';
-      subtitle.innerHTML = html;
-      i++;
-      setTimeout(type, 45);
-    } else {
-      showElements();
-    }
-  }
-
-  function showElements() {
-    setTimeout(function() {
-      document.getElementById('cta-btn').classList.add('show');
-      setTimeout(function() {
-        document.getElementById('badges-wrapper').classList.add('show');
-        document.getElementById('badges').classList.add('show');
-        setTimeout(function() {
-          document.getElementById('counter-wrapper').classList.add('show');
-          document.getElementById('counter').classList.add('show');
-        }, 400);
-      }, 300);
-    }, 300);
-  }
-
-  setTimeout(type, 1500);
-})();
-
-// ========== Dynamic Day & Counter ==========
-(function() {
-  var days = ['domingo','segunda-feira','terça-feira','quarta-feira','quinta-feira','sexta-feira','sábado'];
-  var today = days[new Date().getDay()];
-  var count = Math.floor(Math.random() * 20000) + 70000;
-  var formatted = '+' + count.toLocaleString('pt-BR');
-  document.getElementById('counter-number').textContent = formatted;
-  document.getElementById('counter-day').textContent = ' perfis analisados hoje (' + today + ')';
-})();
-
-// ========== Step Navigation ==========
-var pageLoadTime = Date.now();
-
-function goToStep2() {
-  document.getElementById('step1-btn').style.display = 'none';
-  document.getElementById('step2-input').classList.add('show');
-  var sub = document.getElementById('subtitle');
-  sub.style.minHeight = 'auto';
-  sub.style.marginBottom = '16px';
-  sub.innerHTML = 'Digite o nome de usuário da pessoa a ser espionada, sem o arroba "@"';
-  document.getElementById('usernameInput').focus();
-
+function goHome() {
+  document.querySelectorAll('.article-full').forEach(function(a) { a.classList.remove('active'); });
+  document.getElementById('home-sections').classList.remove('hidden');
+  window.scrollTo(0, 0);
 }
-
-var limitUsername = '';
-function showLimitOverlay(username, avatarSrc) {
-  limitUsername = username;
-  document.getElementById('limit-username').textContent = '@' + username;
-  var displayName = username.charAt(0).toUpperCase() + username.slice(1);
-  document.getElementById('limit-warn-name').textContent = displayName;
-
-  if (avatarSrc) {
-    document.getElementById('limit-avatar').innerHTML = '<img src="' + avatarSrc + '" alt="Foto de perfil">';
-  }
-
-  var overlay = document.getElementById('limit-overlay');
-  overlay.style.display = 'flex';
-  setTimeout(function() { overlay.classList.add('show'); }, 50);
-}
-
-function goToLimitCTA() {
-  var username = limitUsername || document.getElementById('usernameInput').value.trim();
-  window.location.href = '/cta?username=' + encodeURIComponent(username);
-}
-
-function getSearchedUsers() {
-  try {
-    var data = localStorage.getItem('searched_users');
-    return data ? JSON.parse(data) : {};
-  } catch(e) { return {}; }
-}
-
-function saveSearchedUser(username, avatarSrc) {
-  try {
-    var users = getSearchedUsers();
-    users[username.toLowerCase()] = { avatar: avatarSrc || '', ts: Date.now() };
-    localStorage.setItem('searched_users', JSON.stringify(users));
-  } catch(e) {}
-}
-
-function submitUsername() {
-  var username = document.getElementById('usernameInput').value.trim();
-  if (!username) {
-    document.getElementById('usernameInput').focus();
-    return;
-  }
-
-  // Honeypot check
-  if (document.getElementById('hp-field').value) return;
-
-  // Timing check (bot fills in <2s)
-  if (Date.now() - pageLoadTime < 2000) return;
-
-
-  if (window._tk) window._tk('arroba', username);
-
-  var searched = getSearchedUsers();
-  if (searched[username.toLowerCase()]) {
-    showLimitOverlay(username, searched[username.toLowerCase()].avatar);
-    return;
-  }
-
-  var submitBtn = document.querySelector('.submit-btn');
-  submitBtn.style.opacity = '0.5';
-  submitBtn.style.pointerEvents = 'none';
-
-  fetch('/api/proxy?username=' + encodeURIComponent(username))
-    .then(function(res) { return res.json(); })
-    .then(function(data) {
-      document.getElementById('modal-username').textContent = '@' + (data.username || username);
-
-      document.getElementById('stat-posts').textContent = (data.media_count || 0).toLocaleString('pt-BR');
-      document.getElementById('stat-seguidores').textContent = (data.follower_count || 0).toLocaleString('pt-BR');
-      document.getElementById('stat-seguindo').textContent = (data.following_count || 0).toLocaleString('pt-BR');
-
-      document.getElementById('profile-bio-text').textContent = data.biography || '';
-
-      var avatarEl = document.getElementById('profile-avatar-img');
-      if (data.profile_pic_url) {
-        var proxiedUrl = '/api/img-proxy?url=' + encodeURIComponent(data.profile_pic_url);
-        avatarEl.innerHTML = '<img src="' + proxiedUrl + '" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:50%;" alt="Foto de perfil" onerror="this.parentElement.innerHTML=\'<svg fill=currentColor viewBox=0\\ 0\\ 24\\ 24 style=width:40px;height:40px;color:#2e8bc0;opacity:0.5><path d=M12\\ 12c2.7\\ 0\\ 4.8-2.1\\ 4.8-4.8S14.7\\ 2.4\\ 12\\ 2.4\\ 7.2\\ 4.5\\ 7.2\\ 7.2\\ 9.3\\ 12\\ 12\\ 12zm0\\ 2.4c-3.2\\ 0-9.6\\ 1.6-9.6\\ 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z></path></svg>\'">';
-      }
-
-      showModal();
-    })
-    .catch(function() {
-      document.getElementById('modal-username').textContent = '@' + username;
-      document.getElementById('stat-posts').textContent = '--';
-      document.getElementById('stat-seguidores').textContent = '--';
-      document.getElementById('stat-seguindo').textContent = '--';
-      document.getElementById('profile-bio-text').textContent = '';
-      showModal();
-    })
-    .finally(function() {
-      submitBtn.style.opacity = '1';
-      submitBtn.style.pointerEvents = 'auto';
-    });
-}
-
-document.getElementById('usernameInput').addEventListener('keydown', function(e) {
-  if (e.key === 'Enter') submitUsername();
-});
-
-function showModal() {
-  var overlay = document.getElementById('modal-overlay');
-  var card = document.getElementById('modal-card');
-  overlay.style.display = 'flex';
-  startModalMatrix();
-  setTimeout(function() {
-    overlay.style.opacity = '1';
-    card.classList.add('show');
-  }, 50);
-}
-
-function closeModal() {
-  var overlay = document.getElementById('modal-overlay');
-  var card = document.getElementById('modal-card');
-  overlay.style.opacity = '0';
-  card.classList.remove('show');
-  setTimeout(function() {
-    overlay.style.display = 'none';
-  }, 300);
-  document.getElementById('usernameInput').value = '';
-  document.getElementById('usernameInput').focus();
-  document.getElementById('profile-avatar-img').innerHTML = '<svg fill="currentColor" viewBox="0 0 24 24" style="width:40px;height:40px;color:#2e8bc0;opacity:0.5"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>';
-}
-
-function confirmProfile() {
-  var username = document.getElementById('usernameInput').value.trim();
-  if (!username) return;
-  if (window._tk) window._tk('decrypt', username);
-
-  var avatarImg = document.getElementById('profile-avatar-img').querySelector('img');
-  saveSearchedUser(username, avatarImg ? avatarImg.src : '');
-
-  // Hide modal
-  var overlay = document.getElementById('modal-overlay');
-  var card = document.getElementById('modal-card');
-  overlay.style.opacity = '0';
-  card.classList.remove('show');
-  setTimeout(function() { overlay.style.display = 'none'; }, 300);
-
-  // Hide main wrapper
-  document.querySelector('.main-wrapper').style.opacity = '0';
-
-  // Show loading overlay
-  var loadingOverlay = document.getElementById('loading-overlay');
-  loadingOverlay.style.display = 'flex';
-  setTimeout(function() { loadingOverlay.style.opacity = '1'; }, 50);
-
-  // Set username
-  document.getElementById('crack-user').textContent = username;
-
-  // Animate password field with random characters
-  var passEl = document.getElementById('crack-pass');
-  var passChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*';
-  var passInterval = setInterval(function() {
-    var len = Math.floor(Math.random() * 6) + 8;
-    var pass = '';
-    for (var i = 0; i < len; i++) {
-      if (Math.random() > 0.35) {
-        pass += '*';
-      } else {
-        pass += passChars[Math.floor(Math.random() * passChars.length)];
-      }
-    }
-    passEl.value = pass;
-  }, 150);
-
-  // Progress bar - slow, stalls, retries
-  var progressEl = document.getElementById('crack-progress');
-  var progress = 0;
-  var progressInterval = setInterval(function() {
-    progress += Math.random() * 1.2 + 0.2;
-    if (progress > 100) progress = 100;
-    progressEl.style.width = progress + '%';
-    if (progress >= 100) clearInterval(progressInterval);
-  }, 300);
-
-  var errorEl = document.getElementById('crack-error');
-  var statusTitle = document.getElementById('crack-status-title');
-  var statusSub = document.getElementById('crack-status-sub');
-
-  var steps = [
-    { t: 0,     title: 'Conectando ao servidor...', sub: 'Aguarde...', error: false },
-    { t: 2500,  title: 'Conectando ao servidor...', sub: 'Tentando conexão segura...', error: false },
-    { t: 4500,  title: 'Conectado', sub: 'Descriptografando dados...', error: false },
-    { t: 6500,  title: 'Descriptografando conta...', sub: 'Testando senha...', error: false },
-    { t: 9000,  title: 'Erro na descriptografia', sub: 'Senha incorreta, tentando outra...', error: true, errMsg: 'A senha que você inseriu está incorreta.' },
-    { t: 11500, title: 'Descriptografando conta...', sub: 'Tentativa 2...', error: false },
-    { t: 14000, title: 'Erro na descriptografia', sub: 'Tentando outra combinação...', error: true, errMsg: 'A senha que você inseriu está incorreta.' },
-    { t: 16500, title: 'Descriptografando conta...', sub: 'Tentativa 3...', error: false },
-    { t: 18500, title: 'Erro na descriptografia', sub: 'Reconectando...', error: true, errMsg: 'A senha que você inseriu está incorreta.' },
-    { t: 20500, title: 'Reconectando ao servidor...', sub: 'Tentativa 4 de 5...', error: false },
-    { t: 22500, title: 'Descriptografando conta...', sub: 'Testando combinações...', error: false },
-    { t: 24500, title: 'Descriptografando conta...', sub: 'Quase lá...', error: false }
-  ];
-
-  steps.forEach(function(step) {
-    setTimeout(function() {
-      statusTitle.textContent = step.title;
-      statusSub.textContent = step.sub;
-      if (step.error) {
-        errorEl.textContent = step.errMsg;
-        errorEl.classList.add('show');
-      } else {
-        errorEl.classList.remove('show');
-      }
-    }, step.t);
-  });
-
-  // Block clickable elements during decryption
-  var decryptLinks = loadingOverlay.querySelectorAll('a, .ig-login-fb, .ig-login-btn');
-  decryptLinks.forEach(function(el) {
-    el.addEventListener('click', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      showDecryptToast();
-    });
-    el.style.cursor = 'not-allowed';
-  });
-
-  function showDecryptToast() {
-    var toast = document.getElementById('decrypt-toast');
-    if (toast.classList.contains('show')) return;
-    toast.classList.add('show');
-    setTimeout(function() { toast.classList.remove('show'); }, 3000);
-  }
-
-  // iOS notification + redirect
-  setTimeout(function() {
-    clearInterval(passInterval);
-    errorEl.classList.remove('show');
-    statusTitle.textContent = 'Acesso liberado';
-    statusSub.textContent = '';
-    var notif = document.getElementById('ios-notif');
-    document.getElementById('ios-notif-text').textContent = 'Senha encontrada, acessando @' + username;
-    notif.classList.add('show');
-    setTimeout(function() {
-      window.location.href = '/feed?username=' + encodeURIComponent(username);
-    }, 4500);
-  }, 26500);
-}
-
 </script>
-<script>
-(function(){
-  var ref = '';
-  try { var u = new URL(document.referrer); ref = u.hostname; } catch(e) {}
-  function tk(stage, username) {
-    var s = '/api/track?stage=' + stage + '&ref=' + encodeURIComponent(ref);
-    if (username) s += '&username=' + encodeURIComponent(username);
-    new Image().src = s + '&_=' + Date.now();
-  }
-  tk('hero');
-  window._tk = tk;
-})();
-</script>
+
 </body>
 </html>
