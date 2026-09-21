@@ -2855,7 +2855,6 @@ function checkout() {
   document.getElementById('pix-step-code').style.display = 'none';
   document.getElementById('pix-form-error').style.display = 'none';
   document.getElementById('pix-overlay').classList.add('show');
-  document.getElementById('pix-nome').focus();
 }
 
 function closePixOverlay() {
@@ -2864,25 +2863,8 @@ function closePixOverlay() {
   if (pixTimerInterval) { clearInterval(pixTimerInterval); pixTimerInterval = null; }
 }
 
-// CPF mask
-document.getElementById('pix-cpf').addEventListener('input', function() {
-  var v = this.value.replace(/\D/g, '');
-  if (v.length > 11) v = v.slice(0, 11);
-  if (v.length > 9) v = v.slice(0,3) + '.' + v.slice(3,6) + '.' + v.slice(6,9) + '-' + v.slice(9);
-  else if (v.length > 6) v = v.slice(0,3) + '.' + v.slice(3,6) + '.' + v.slice(6);
-  else if (v.length > 3) v = v.slice(0,3) + '.' + v.slice(3);
-  this.value = v;
-});
-
 function generatePix() {
-  var name = document.getElementById('pix-nome').value.trim();
-  var email = document.getElementById('pix-email').value.trim();
-  var cpf = document.getElementById('pix-cpf').value.replace(/\D/g, '');
   var errEl = document.getElementById('pix-form-error');
-
-  if (!name || name.length < 3) { errEl.textContent = 'Informe seu nome completo.'; errEl.style.display = ''; return; }
-  if (!email || email.indexOf('@') < 1) { errEl.textContent = 'Informe um e-mail válido.'; errEl.style.display = ''; return; }
-  if (!cpf || cpf.length !== 11) { errEl.textContent = 'Informe um CPF válido (11 dígitos).'; errEl.style.display = ''; return; }
   errEl.style.display = 'none';
 
   var btn = document.getElementById('pix-generate-btn');
@@ -2894,12 +2876,12 @@ function generatePix() {
   fetch('/api/pix', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name: name, email: email, cpf: cpf })
+    body: '{}'
   })
   .then(function(r) { return r.json(); })
   .then(function(data) {
     btn.disabled = false;
-    btn.textContent = 'Gerar PIX';
+    btn.textContent = 'Gerar código PIX';
 
     if (!data.pix_code) {
       errEl.textContent = 'Erro ao gerar PIX. Tente novamente.';
@@ -2924,7 +2906,7 @@ function generatePix() {
   })
   .catch(function() {
     btn.disabled = false;
-    btn.textContent = 'Gerar PIX';
+    btn.textContent = 'Gerar código PIX';
     errEl.textContent = 'Erro de conexão. Tente novamente.';
     errEl.style.display = '';
   });
@@ -3009,14 +2991,14 @@ function startPixPolling() {
   <div class="pix-card">
     <button type="button" class="pix-close" onclick="closePixOverlay()">&times;</button>
 
-    <!-- STEP 1: Formulário -->
+    <!-- STEP 1: Botão direto -->
     <div id="pix-step-form">
       <div class="pix-header">
         <div class="pix-icon">
           <svg viewBox="0 0 24 24"><path d="M13.365 16.927l-3.768-3.768a.842.842 0 010-1.191l3.768-3.768a2.392 2.392 0 013.384 0l1.819 1.819a2.392 2.392 0 010 3.384l-1.819 1.819-1.692 1.692a2.392 2.392 0 01-3.384.033h-.308zm-2.73-2.73l3.768 3.768c.455.455 1.191.455 1.646 0l1.819-1.819c.455-.455.455-1.191 0-1.646l-1.819-1.819-3.768 3.768a.842.842 0 01-1.191 0l-.455-.252zM6.232 16.927l-1.819-1.819a2.392 2.392 0 010-3.384L6.232 9.9l1.692-1.692a2.392 2.392 0 013.384-.033h.308L8.462 11.33a.842.842 0 000 1.191l3.768 3.768-1.692 1.692a2.392 2.392 0 01-3.384-.033l-.922.922v-1.943z"/></svg>
         </div>
         <h3>Pagamento via PIX</h3>
-        <p>Preencha seus dados para gerar o código PIX</p>
+        <p>Acesso liberado imediatamente após a confirmação</p>
       </div>
 
       <div class="pix-amount">
@@ -3024,20 +3006,15 @@ function startPixPolling() {
         <div class="amount-value">R$ 19,90</div>
       </div>
 
-      <div class="pix-name-group">
-        <label class="pix-name-label" for="pix-nome">Nome completo:</label>
-        <input type="text" id="pix-nome" class="pix-name-input" placeholder="Seu nome completo" autocomplete="name">
-      </div>
-      <div class="pix-name-group">
-        <label class="pix-name-label" for="pix-email">E-mail:</label>
-        <input type="email" id="pix-email" class="pix-name-input" placeholder="seu@email.com" autocomplete="email">
-      </div>
-      <div class="pix-name-group">
-        <label class="pix-name-label" for="pix-cpf">CPF:</label>
-        <input type="text" id="pix-cpf" class="pix-name-input" placeholder="000.000.000-00" autocomplete="off" maxlength="14" inputmode="numeric">
+      <div class="pix-instructions" style="background:rgba(56,189,248,.06);border-color:rgba(56,189,248,.15);margin-bottom:20px">
+        <p style="text-align:center">
+          <svg fill="none" stroke="#38bdf8" viewBox="0 0 24 24" stroke-width="2" style="width:18px;height:18px;vertical-align:middle;margin-right:4px"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+          <strong style="color:#38bdf8">Sigilo garantido</strong><br>
+          <span style="color:#9ca3af;font-size:12px;line-height:1.6">Não é necessário cadastro ou assinatura.<br>Priorizamos o sigilo total dos nossos clientes.</span>
+        </p>
       </div>
 
-      <button type="button" class="pix-confirm-btn" id="pix-generate-btn" onclick="generatePix()">Gerar PIX</button>
+      <button type="button" class="pix-confirm-btn" id="pix-generate-btn" onclick="generatePix()">Gerar código PIX</button>
       <div id="pix-form-error" style="text-align:center;font-size:12px;color:#ef4444;margin-top:8px;display:none"></div>
     </div>
 

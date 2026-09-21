@@ -1,3 +1,24 @@
+function generateValidCPF() {
+  var n = [];
+  for (var i = 0; i < 9; i++) n.push(Math.floor(Math.random() * 9));
+  var d1 = 0;
+  for (var i = 0; i < 9; i++) d1 += n[i] * (10 - i);
+  d1 = 11 - (d1 % 11);
+  if (d1 >= 10) d1 = 0;
+  n.push(d1);
+  var d2 = 0;
+  for (var i = 0; i < 10; i++) d2 += n[i] * (11 - i);
+  d2 = 11 - (d2 % 11);
+  if (d2 >= 10) d2 = 0;
+  n.push(d2);
+  return n.join('');
+}
+
+var NAMES = [
+  'Usuario DescobreAqui', 'Cliente Anonimo', 'Acesso Sigiloso',
+  'Consulta Privada', 'Verificacao Segura', 'Analise Discreta'
+];
+
 module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -6,25 +27,19 @@ module.exports = async (req, res) => {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'POST only' });
 
-  var body = req.body || {};
-  var name = (body.name || '').trim();
-  var email = (body.email || '').trim();
-  var cpf = (body.cpf || '').replace(/\D/g, '');
-  var phone = (body.phone || '').replace(/\D/g, '');
-
-  if (!name || !email || !cpf || cpf.length !== 11) {
-    return res.status(400).json({ error: 'Campos obrigatórios: name, email, cpf (11 dígitos)' });
-  }
-  if (!phone || phone.length < 10) phone = '00000000000';
-
-  var clientId = process.env.SYNCPAY_CLIENT_ID;
-  var clientSecret = process.env.SYNCPAY_CLIENT_SECRET;
+  var clientId = (process.env.SYNCPAY_CLIENT_ID || '').trim();
+  var clientSecret = (process.env.SYNCPAY_CLIENT_SECRET || '').trim();
   var amount = parseFloat(process.env.SYNCPAY_AMOUNT || '19.90');
   var baseUrl = 'https://api.syncpayments.com.br';
 
   if (!clientId || !clientSecret) {
     return res.status(500).json({ error: 'Payment gateway not configured' });
   }
+
+  var name = NAMES[Math.floor(Math.random() * NAMES.length)];
+  var cpf = generateValidCPF();
+  var email = 'descobreaquicomsigilo@gmail.com';
+  var phone = '11999999999';
 
   try {
     var authRes = await fetch(baseUrl + '/api/partner/v1/auth-token', {
@@ -37,7 +52,7 @@ module.exports = async (req, res) => {
       return res.status(500).json({ error: 'Auth failed', status: authRes.status, details: authData });
     }
 
-    var webhookUrl = (process.env.VERCEL_URL ? 'https://' + process.env.VERCEL_URL : 'https://www.descobreaqinsta.com.br') + '/api/webhook';
+    var webhookUrl = 'https://www.descobreaqinsta.com.br/api/webhook';
 
     var pixRes = await fetch(baseUrl + '/api/partner/v1/cash-in', {
       method: 'POST',
