@@ -162,8 +162,8 @@ button { font-family: inherit; }
 }
 
 .story-img-wrap img.blurred {
-  filter: blur(4px) brightness(.6);
-  transform: scale(1.15);
+  filter: none;
+  transform: scale(1);
 }
 
 .story-name {
@@ -230,8 +230,8 @@ button { font-family: inherit; }
   height: 100%;
   object-fit: cover;
   display: block;
-  filter: blur(4px) brightness(.6);
-  transform: scale(1.15);
+  filter: none;
+  transform: scale(1);
 }
 
 .post-info { flex: 1; min-width: 0; }
@@ -282,21 +282,13 @@ button { font-family: inherit; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: blur(18px) brightness(.48) saturate(1.05) !important;
-  transform: scale(1.15) !important;
+  filter: none !important;
+  transform: scale(1) !important;
   transition: filter .35s ease, transform .35s ease;
 }
 
 .post-image-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 7px;
-  background: rgba(0,0,0,.10);
-  z-index: 2;
+  display: none;
 }
 
 .post-image-overlay svg {
@@ -313,41 +305,17 @@ button { font-family: inherit; }
 }
 
 .post-unlock-btn {
-  position: absolute;
-  left: 50%;
-  bottom: 24px;
-  transform: translate(-50%, 10px);
-  opacity: 0;
-  z-index: 5;
-  border: 0;
-  border-radius: 8px;
-  padding: 9px 17px;
-  background: linear-gradient(135deg, #1877d2, #2da9e9);
-  color: white;
-  font-family: inherit;
-  font-size: 12px;
-  font-weight: 700;
-  white-space: nowrap;
-  cursor: pointer;
-  transition: .25s ease;
+  display: none;
 }
 
 @media (hover:hover) {
   .post-image-wrap:hover .post-image-bg {
-    filter: blur(22px) brightness(.42) saturate(1.08) !important;
-    transform: scale(1.18) !important;
-  }
-  .post-image-wrap:hover .post-unlock-btn {
-    opacity: 1;
-    transform: translate(-50%,0);
+    filter: none !important;
+    transform: scale(1.02) !important;
   }
 }
 
 @media (hover:none) {
-  .post-unlock-btn {
-    opacity: 1;
-    transform: translate(-50%,0);
-  }
 }
 
 /* ================= AÇÕES ================= */
@@ -562,29 +530,17 @@ button { font-family: inherit; }
 /* ================= BLUR TEXT ================= */
 
 .blur-text {
-  filter: blur(5px);
-  user-select: none;
-  pointer-events: none;
+  filter: none;
 }
 
 /* ================= UNLOCK POPUP ================= */
 
 .unlock-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.75);
-  z-index: 200;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity .25s ease;
+  display: none !important;
 }
 
 .unlock-overlay.show {
-  opacity: 1;
-  pointer-events: auto;
+  display: none !important;
 }
 
 .unlock-popup {
@@ -653,22 +609,11 @@ button { font-family: inherit; }
 /* ================= UPSELL POPUP ================= */
 
 .upsell-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.85);
-  z-index: 300;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity .3s;
+  display: none !important;
 }
 
 .upsell-overlay.show {
-  opacity: 1;
-  pointer-events: auto;
+  display: none !important;
 }
 
 .upsell-popup {
@@ -831,7 +776,7 @@ button { font-family: inherit; }
 <header class="ig-header">
   <div class="ig-logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 148.36 32.8"><path fill="#fff" d="m 3.656,0 -3.656,0.827 v 23.27 h 3.656 z m 42.22,1.487 -0.09,0.019 -3.353,0.736 v 4.348 H 38.817 v 3.186 h 3.616 v 10.201 c 0,1.828 0.747,2.859 1.594,3.512 0.815,0.629 1.717,0.93 3.178,0.93 1.486,0 2.462,-0.276 3.068,-0.555 0.606,-0.279 0.85,-0.57 0.85,-0.57 l 0.031,-0.037 -1.297,-2.611 -0.071,0.039 c -0.398,0.23 -0.968,0.403 -1.537,0.455 -0.568,0.052 -1.133,-0.018 -1.519,-0.252 -0.321,-0.194 -0.53,-0.49 -0.665,-0.904 -0.134,-0.414 -0.189,-0.946 -0.189,-1.594 v -8.613 h 4.147 v -3.186 h -4.147 z m 86.239,4.718 c -1.897,-0.019 -3.668,0.589 -5.07,2.441 v -2.038 h -3.536 v 17.466 h 3.536 v -9.917 c 0,-3.084 1.332,-4.821 4.162,-4.821 3.53,0 3.015,4.599 3.015,6.071 v 8.665 h 3.595 v -9.917 c 0,-1.774 0.312,-2.942 0.942,-3.683 1.202,-1.416 6.22,-2.666 6.22,3.506 v 10.094 h 3.38 v -11.274 c 0,-2.116 -0.522,-3.737 -1.565,-4.863 -1.044,-1.154 -2.053,-1.73 -4.087,-1.73 -1.125,-0.008 -2.537,0.276 -3.519,0.824 -0.989,0.549 -1.772,1.069 -2.35,2.223 -0.306,-0.984 -0.624,-1.507 -1.467,-2.1 -0.851,-0.632 -1.936,-0.947 -3.255,-0.947 z m -72.978,0.107 c -4.405,0 -7.976,4.066 -7.976,9.093 0,5.027 3.571,9.107 7.976,9.107 h 0.224 0.237 c 2.023,0.004 3.978,-0.785 5.51,-2.211 v 1.778 h 3.531 v -14.33 -3.102 h -3.531 v 1.874 c -1.531,-1.426 -3.487,-2.205 -5.51,-2.203 h -0.12 -0.34 z m 19.969,0 c -4.405,0 -7.976,4.066 -7.976,9.093 0,4.68 2.92,8.52 6.902,9.026 l -0.003,0.002 c -0.975,0.494 -1.735,1.166 -2.267,2.166 -0.839,1.58 -0.47,3.675 1.186,4.983 1.072,0.847 2.767,1.315 4.735,1.208 1.36,-0.074 2.511,-0.4 3.46,-0.922 1.431,-0.788 2.405,-2.023 2.956,-3.523 0.416,-1.133 0.507,-2.285 0.507,-3.74 v -14.86 -3.102 h -3.531 v 1.874 c -1.531,-1.426 -3.487,-2.205 -5.51,-2.203 h -0.12 -0.34 z m 31.803,0 c -4.405,0 -7.976,4.066 -7.976,9.093 0,1.51 0.324,2.934 0.895,4.188 -0.009,0.012 -0.016,0.025 -0.025,0.037 -0.941,1.243 -2.676,1.941 -4.162,1.738 -0.743,-0.101 -1.423,-0.426 -1.918,-1.015 -0.496,-0.59 -0.81,-1.447 -0.81,-2.629 0,-4.733 4.527,-7.91 4.527,-7.91 l 0.055,-0.037 -1.725,-3.211 h -5.406 -3.724 v 0.077 3.185 h 3.725 2.513 c -3.906,5.268 -4.094,9 -2.851,11.408 1.253,2.428 3.912,3.504 5.574,3.504 3.636,0 5.812,-2.672 5.842,-2.709 1.428,1.537 3.351,2.48 5.468,2.477 h 0.224 0.237 c 2.023,0.004 3.978,-0.785 5.51,-2.211 v 1.778 h 3.531 v -14.33 -3.102 h -3.531 v 1.874 c -1.531,-1.426 -3.487,-2.205 -5.51,-2.203 h -0.12 -0.34 z m -95.56,0.019 c -3.962,0 -5.008,2.787 -5.008,2.787 v -2.512 h -3.564 v 17.491 h 3.564 v -8.544 c 0,0 0.304,-4.349 4.154,-4.349 3.85,0 3.893,4.119 3.893,5.325 v 5.19 c 0,2.283 -0.108,4.673 3.79,4.673 1.472,0 2.41,-0.532 3.151,-1.219 1.883,-1.747 4.212,-8.679 5.523,-13.04 0.372,1.389 2.04,2.893 3.519,4.647 0.637,0.756 1.45,1.657 1.762,2.452 0.166,0.425 0.234,0.902 0.202,1.381 -0.101,1.507 -1.211,3.084 -3.324,3.074 -1.474,-0.007 -2.917,-0.77 -3.34,-1.248 l -1.419,2.748 c 1.819,1.063 3.441,1.315 4.911,1.315 4.263,0 5.946,-2.86 6.438,-4.998 0.689,-2.993 -2.089,-5.986 -4.178,-8.248 -2.089,-2.261 -2.798,-4.657 -2.798,-4.657 h -3.677 c 0,0 -0.716,1.951 -1.434,4.265 -0.437,1.408 -1.868,5.514 -3.245,8.148 -0.486,0.93 -0.784,1.798 -1.211,2.178 -0.268,0.238 -0.698,0.21 -0.913,0.115 -0.394,-0.175 -0.332,-1.383 -0.332,-2.653 v -5.381 c 0,-4.091 -2.5,-6.946 -6.463,-6.946 z m 44.569,3.004 a 5.294,6.07 0 0 1 5.294,6.07 5.294,6.07 0 0 1 -5.294,6.069 5.294,6.07 0 0 1 -5.295,-6.069 5.294,6.07 0 0 1 5.295,-6.07 z m 19.969,0 c 2.924,0 5.294,2.718 5.294,6.07 0,3.352 -2.37,6.069 -5.294,6.069 -2.924,0 -5.295,-2.717 -5.295,-6.069 0,-3.352 2.371,-6.07 5.295,-6.07 z m 31.803,0 a 5.294,6.07 0 0 1 5.294,6.07 5.294,6.07 0 0 1 -5.294,6.069 5.294,6.07 0 0 1 -5.295,-6.069 5.294,6.07 0 0 1 5.295,-6.07 z m -26.614,12.961 v 1.462 c 0,0.65 -0.005,1.3 -0.064,1.941 -0.198,2.142 -0.835,2.913 -1.681,3.51 -0.695,0.49 -1.704,0.853 -3.027,0.482 -1.448,-0.407 -1.978,-2.271 -0.804,-3.766 1.149,-1.464 3.704,-2.011 5.575,-3.63 z"/></svg></div>
   <div class="header-icons">
-    <button class="icon-btn" aria-label="Notificações" onclick="showUnlock()">
+    <button class="icon-btn" aria-label="Notificações">
       <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
         <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
       </svg>
@@ -849,7 +794,7 @@ button { font-family: inherit; }
   <div class="stories-scroll">
 
     <!-- Target user story -->
-    <div class="story-item" onclick="showUnlock()" style="cursor:pointer">
+    <div class="story-item" style="cursor:pointer">
       <div class="story-ring">
         <div class="story-img-wrap">
           <img id="target-story-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23555'/%3E%3Ccircle cx='50' cy='37' r='17' fill='rgba(255%2C255%2C255%2C0.75)'/%3E%3Cellipse cx='50' cy='90' rx='31' ry='26' fill='rgba(255%2C255%2C255%2C0.75)'/%3E%3C/svg%3E" alt="">
@@ -881,20 +826,15 @@ button { font-family: inherit; }
     var gender=s%2===0?'women':'men';
     var imgId=Math.floor(Math.random()*70)+1;
     var ring=s<3?'close-friend':'';
-    html+='<div class="story-item" onclick="showUnlock()" style="cursor:pointer"><div class="story-ring '+ring+'"><div class="story-img-wrap"><img class="blurred" src="https://i.pravatar.cc/80?img='+imgId+'" alt=""></div></div><div class="story-name">'+name+'</div></div>';
+    var storyAvatars=['/midias/reviews/m1.jpg','/midias/reviews/m2.jpg','/midias/reviews/m3.jpg','/midias/reviews/m4.jpg','/midias/reviews/m5.jpg','/midias/reviews/m6.jpg','/midias/reviews/h1.jpg','/midias/reviews/h2.jpg','/midias/reviews/h3.jpg','/midias/reviews/h4.jpg','/midias/reviews/h5.jpg','/midias/reviews/h6.jpg'];
+    html+='<div class="story-item" style="cursor:pointer"><div class="story-ring '+ring+'"><div class="story-img-wrap"><img src="'+storyAvatars[s%storyAvatars.length]+'" alt=""></div></div><div class="story-name">'+name+'</div></div>';
   }
   el.innerHTML=html;
 })();
 </script>
 
 <!-- ===== BANNER CTA ===== -->
-<div class="preview-banner" onclick="showUnlock()">
-  <div class="banner-content">
-    <div class="banner-title">🔓 DESBLOQUEIE AGORA O ACESSO COMPLETO</div>
-    <div class="banner-desc">Acompanhe tudo o que @<span class="target-username">usuario</span> faz no Instagram.</div>
-  </div>
-  <button class="vip-btn" onclick="event.stopPropagation(); showUnlock()">Desbloquear</button>
-</div>
+<!-- banner removed for criativo -->
 
 <!-- ===== FEED ===== -->
 <main class="feed-posts">
@@ -912,7 +852,7 @@ button { font-family: inherit; }
     </svg>
   </button>
   <!-- Reels -->
-  <button class="nav-btn" aria-label="Reels" onclick="showUnlock()">
+  <button class="nav-btn" aria-label="Reels">
     <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
       <rect x="2" y="2" width="20" height="20" rx="4"/>
       <polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none"/>
@@ -927,14 +867,14 @@ button { font-family: inherit; }
     <span class="nav-dot"></span>
   </button>
   <!-- Search -->
-  <button class="nav-btn" aria-label="Buscar" onclick="showUnlock()">
+  <button class="nav-btn" aria-label="Buscar">
     <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
       <circle cx="11" cy="11" r="7.5"/>
       <path d="M16.5 16.5L21 21"/>
     </svg>
   </button>
   <!-- Perfil -->
-  <button class="nav-btn" aria-label="Perfil" onclick="showUnlock()">
+  <button class="nav-btn" aria-label="Perfil">
     <img class="nav-profile" id="nav-profile-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23555'/%3E%3Ccircle cx='50' cy='37' r='17' fill='rgba(255%2C255%2C255%2C0.75)'/%3E%3Cellipse cx='50' cy='90' rx='31' ry='26' fill='rgba(255%2C255%2C255%2C0.75)'/%3E%3C/svg%3E" alt="Perfil">
   </button>
 </nav>
@@ -1073,8 +1013,26 @@ button { font-family: inherit; }
     '5 DIAS ATRÁS','6 DIAS ATRÁS','1 SEMANA ATRÁS','2 SEMANAS ATRÁS'
   ];
 
+  var localPhotos = [
+    '/midias/1432edeaf612f33d6e95de8a4afe29ac.jpg',
+    '/midias/2485709--isso-me-deixa-muito-feliz-espero-que-a-580x0-1.jpg',
+    '/midias/321cd88ad51a3c0bb0a8e825275f3592.jpg',
+    '/midias/491d9959838c1a6661771e422cea6316.jpg',
+    '/midias/87fc9b668d46015c003aa69455655894.jpg',
+    '/midias/biquini-ripple-mulher41-e64e394d7cd4e2353416166409470857-1024-1024.webp',
+    '/midias/c3dd574b90ec0e3d901300fb6ca2c95f.jpg',
+    '/midias/cc135023b3f3b2675f702b473726ce64.jpg',
+    '/midias/images.jpeg'
+  ];
+  var localAvatars = [
+    '/midias/reviews/m1.jpg','/midias/reviews/m2.jpg','/midias/reviews/m3.jpg',
+    '/midias/reviews/m4.jpg','/midias/reviews/m5.jpg','/midias/reviews/m6.jpg',
+    '/midias/reviews/h1.jpg','/midias/reviews/h2.jpg','/midias/reviews/h3.jpg',
+    '/midias/reviews/h4.jpg','/midias/reviews/h5.jpg','/midias/reviews/h6.jpg'
+  ];
+
   function blurName(name) {
-    return name.substring(0, 2) + '<span class="blur-text">' + name.substring(2) + '</span>';
+    return name;
   }
 
   function rand(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
@@ -1108,15 +1066,15 @@ button { font-family: inherit; }
 
     var html = '<article class="post">' +
       '<div class="post-header">' +
-        '<div class="post-avatar"><img src="https://i.pravatar.cc/80?img=' + (avatarId % 70 + 1) + '" alt=""></div>' +
+        '<div class="post-avatar"><img src="' + localAvatars[postIndex % localAvatars.length] + '" alt=""></div>' +
         '<div class="post-info">' +
           '<div class="post-username">' + blurName(name) + '</div>' +
           locHtml +
         '</div>' +
         '<button class="post-more" aria-label="Mais opções"><svg fill="currentColor" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg></button>' +
       '</div>' +
-      '<div class="post-image-wrap" onclick="goToCta()">' +
-        '<img class="post-image-bg" src="https://picsum.photos/id/' + picId + '/400/500" alt="">' +
+      '<div class="post-image-wrap">' +
+        '<img class="post-image-bg" src="' + localPhotos[postIndex % localPhotos.length] + '" alt="">' +
         '<div class="post-image-overlay">' +
           '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>' +
           '<span>Conteúdo Bloqueado</span>' +
@@ -1131,7 +1089,7 @@ button { font-family: inherit; }
         '<button class="icon-btn" aria-label="Salvar"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg></button>' +
       '</div>' +
       '<div class="post-likes">' + likesStr + ' curtidas</div>' +
-      '<div class="post-caption"><b>' + blurName(name) + '</b> <span class="blur-text">' + caption + '</span></div>' +
+      '<div class="post-caption"><b>' + blurName(name) + '</b> ' + caption + '</div>' +
       '<div class="post-comments">Ver todos os ' + comments + ' comentários</div>' +
       '<div class="post-time">' + time + '</div>' +
     '</article>';
@@ -1163,14 +1121,7 @@ button { font-family: inherit; }
     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 800) {
       loadBatch();
     }
-    if (!unlockShown && window.scrollY > feedScrollLimit) {
-      unlockShown = true;
-      showUnlock();
-    }
-    if (!upsellTriggered && unlockShown && window.scrollY > upsellScrollLimit && !document.getElementById('unlock-overlay').classList.contains('show')) {
-      upsellTriggered = true;
-      showUpsell();
-    }
+    // disabled for criativo version
     var currentY = window.scrollY;
     if (currentY > lastScrollY && currentY > 100) {
       navEl.classList.add('nav-hidden');
