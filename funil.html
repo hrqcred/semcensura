@@ -14,10 +14,15 @@ t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '962201660256546');
+fbq('init', '2449479782528933');
+fbq('init', '28135193086173963');
 fbq('track', 'PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=962201660256546&ev=PageView&noscript=1"
+src="https://www.facebook.com/tr?id=962201660256546&amp;ev=PageView&amp;noscript=1"
+<img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=28135193086173963&ev=PageView&noscript=1"
+/>
 /></noscript>
 <!-- End Meta Pixel Code -->
 <title>DescobreAqui ® l Site Oficial l Descubra tudo sobre qualquer perfil</title>
@@ -825,6 +830,11 @@ h2 {
   100% { transform: rotate(360deg); }
 }
 
+.avatar-circle img {
+  filter: blur(4px) brightness(.6);
+  transform: scale(1.15);
+}
+
 .avatar-circle svg {
   width: 40px;
   height: 40px;
@@ -1465,6 +1475,8 @@ h2 {
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
+  filter: blur(4px) brightness(.6);
+  transform: scale(1.15);
 }
 
 .limit-badge {
@@ -1621,7 +1633,7 @@ h2 {
 
       <!-- Headline -->
       <div class="text-section">
-        <h1>Descubra tudo o que tem no <span class="gradient-text">perfil dele(a)</span></h1>
+        <h1>Veja tudo o que <span class="gradient-text">ele(a) esconde</span> no Instagram</h1>
         <h2 id="subtitle"><span class="typing-cursor">|</span></h2>
       </div>
 
@@ -1633,7 +1645,7 @@ h2 {
               <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
               <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
             </svg>
-            <span>Verificar Perfil</span>
+            <span>Espiar Perfil Agora</span>
           </span>
         </button>
       </div>
@@ -1642,7 +1654,7 @@ h2 {
       <div class="input-wrapper" id="step2-input">
         <div class="input-group">
           <span class="input-at">@</span>
-          <input id="usernameInput" type="text" placeholder="Digite o @ que você quer investigar" class="input-dark" autocomplete="off">
+          <input id="usernameInput" type="text" placeholder="nome de usuário do Instagram" class="input-dark" autocomplete="off">
           <!-- Honeypot -->
           <input type="text" name="website" id="hp-field" autocomplete="off" tabindex="-1" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;pointer-events:none;">
           <button type="button" class="submit-btn" onclick="submitUsername()">
@@ -1682,8 +1694,8 @@ h2 {
         <div class="counter-section" id="counter">
           <p class="counter-text">
             <span class="live-dot"></span>
-            <span class="counter-number" id="counter-number">+81.455</span>
-            <span id="counter-day"> perfis analisados hoje (quarta-feira)</span>
+            <span class="counter-number" id="online-count">347</span>
+            <span> pessoas investigando agora</span>
           </p>
         </div>
       </div>
@@ -1934,8 +1946,8 @@ function startModalMatrix() {
 // ========== Typing Animation ==========
 (function() {
   var subtitle = document.getElementById('subtitle');
-  var fullText = 'Digite o @ que você quer investigar';
-  var hlWord = 'investigar';
+  var fullText = 'Fotos, DMs, seguidores secretos e mais...';
+  var hlWord = 'seguidores secretos';
   var hlStart = fullText.indexOf(hlWord);
   var hlEnd = hlStart + hlWord.length;
   var i = 0;
@@ -1981,17 +1993,20 @@ function startModalMatrix() {
     }, 300);
   }
 
-  setTimeout(type, 1500);
+  setTimeout(type, 500);
 })();
 
-// ========== Dynamic Day & Counter ==========
+// ========== Online Counter ==========
 (function() {
-  var days = ['domingo','segunda-feira','terça-feira','quarta-feira','quinta-feira','sexta-feira','sábado'];
-  var today = days[new Date().getDay()];
-  var count = Math.floor(Math.random() * 20000) + 70000;
-  var formatted = '+' + count.toLocaleString('pt-BR');
-  document.getElementById('counter-number').textContent = formatted;
-  document.getElementById('counter-day').textContent = ' perfis analisados hoje (' + today + ')';
+  var el = document.getElementById('online-count');
+  var base = Math.floor(Math.random() * 200) + 250;
+  el.textContent = base;
+  setInterval(function() {
+    base += Math.floor(Math.random() * 7) - 3;
+    if (base < 200) base = 200 + Math.floor(Math.random() * 30);
+    if (base > 500) base = 500 - Math.floor(Math.random() * 30);
+    el.textContent = base;
+  }, 4000);
 })();
 
 // ========== Step Navigation ==========
@@ -2003,7 +2018,7 @@ function goToStep2() {
   var sub = document.getElementById('subtitle');
   sub.style.minHeight = 'auto';
   sub.style.marginBottom = '16px';
-  sub.innerHTML = 'Digite o nome de usuário da pessoa a ser espionada, sem o arroba "@"';
+  sub.innerHTML = 'Digite o @ da pessoa que você quer espiar';
   document.getElementById('usernameInput').focus();
 
 }

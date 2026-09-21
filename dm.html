@@ -14,10 +14,15 @@ t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '962201660256546');
+fbq('init', '2449479782528933');
+fbq('init', '28135193086173963');
 fbq('track', 'PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=962201660256546&ev=PageView&noscript=1"
+src="https://www.facebook.com/tr?id=962201660256546&amp;ev=PageView&amp;noscript=1"
+<img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=28135193086173963&ev=PageView&noscript=1"
+/>
 /></noscript>
 <!-- End Meta Pixel Code -->
 <title>DescobreAqui</title>
@@ -249,9 +254,6 @@ button { font-family: inherit; }
   height: 100%;
   object-fit: cover;
   display: block;
-}
-
-.dm-note-avatar img.blurred {
   filter: blur(4px) brightness(.6);
   transform: scale(1.15);
 }
@@ -348,9 +350,6 @@ button { font-family: inherit; }
   height: 100%;
   object-fit: cover;
   display: block;
-}
-
-.dm-avatar img.blurred {
   filter: blur(4px) brightness(.6);
   transform: scale(1.15);
 }
@@ -552,6 +551,8 @@ button { font-family: inherit; }
   object-fit: cover;
   border: 1.5px solid rgba(255,255,255,0.3);
   display: block;
+  filter: blur(3px) brightness(.6);
+  transform: scale(1.15);
 }
 
 .nav-dot {
@@ -857,20 +858,33 @@ button { font-family: inherit; }
     .catch(function () {});
 
   // ===== NOTES ROW =====
-  var noteUsers = [
-    { name: 'Sua nota', img: null, own: true, note: '' },
-    { name: 'Guilherme Fer...', img: 'men/32', note: '(feat. Mc Perera Dj,...' },
-    { name: '_tavares__s', img: 'men/85', note: 'ntfit Valios MC Cebezi...' },
-    { name: 'Hm?', img: 'men/41', note: '' },
-    { name: 'carol.s', img: 'women/29', note: '' },
-    { name: 'bia.oliveira_', img: 'women/67', note: '' },
-    { name: 'rafa.costa_', img: 'men/63', note: '' }
+  var notePool = [
+    { name: 'Guilherme Fer...', note: '(feat. Mc Perera Dj,...' },
+    { name: '_tavares__s', note: 'ntfit Valios MC Cebezi...' },
+    { name: 'Hm?', note: '' },
+    { name: 'carol.s', note: '' },
+    { name: 'bia.oliveira_', note: '' },
+    { name: 'rafa.costa_', note: '' },
+    { name: 'lu_real', note: 'sdd desse dia...' },
+    { name: 'davi_br', note: '' },
+    { name: 'mari_brz', note: 'foco e fé 🙏' },
+    { name: 'thiago_m', note: '' },
+    { name: 'nath.sp', note: 'que semana...' },
+    { name: 'pri_lima', note: '' }
   ];
+  for(var ni=notePool.length-1;ni>0;ni--){var nj=Math.floor(Math.random()*(ni+1));var nt=notePool[ni];notePool[ni]=notePool[nj];notePool[nj]=nt;}
+  var noteUsers = [{ name: 'Sua nota', img: null, own: true, note: '' }];
+  for(var nk=0;nk<6;nk++){
+    var g=nk%2===0?'men':'women';
+    var nid=Math.floor(Math.random()*70)+1;
+    notePool[nk].img=g+'/'+nid;
+    noteUsers.push(notePool[nk]);
+  }
 
   var notesHtml = '';
   noteUsers.forEach(function (u) {
     var ringClass = 'dm-note-ring has-story';
-    var imgSrc = u.img ? 'https://randomuser.me/api/portraits/' + u.img + '.jpg' : 'data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 fill=%27%23555%27/%3E%3C/svg%3E';
+    var imgSrc = u.img ? 'https://i.pravatar.cc/80?img=' + u.img.split('/')[1] : 'data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 fill=%27%23555%27/%3E%3C/svg%3E';
     var imgId = u.own ? 'id="own-note-img"' : '';
     var nameHtml = '<span class="blur-text">' + u.name + '</span>';
 
@@ -1072,13 +1086,21 @@ button { font-family: inherit; }
     }
   ];
 
+  // Shuffle conversations (keep first one fixed, shuffle rest)
+  var first = conversations.shift();
+  for(var ci=conversations.length-1;ci>0;ci--){var cj=Math.floor(Math.random()*(ci+1));var ct=conversations[ci];conversations[ci]=conversations[cj];conversations[cj]=ct;}
+  conversations.unshift(first);
+  // Randomize avatar IDs
+  conversations.forEach(function(c){c._aid=Math.floor(Math.random()*70)+1;});
+
   var listHtml = '';
   conversations.forEach(function (c) {
     var avatarHtml;
+    var imgSrc = 'https://i.pravatar.cc/80?img=' + c._aid;
     if (c.hasReel) {
-      avatarHtml = '<div class="dm-story-ring"><div class="dm-avatar"><img class="blurred" src="https://randomuser.me/api/portraits/' + c.img + '.jpg" alt=""></div></div>';
+      avatarHtml = '<div class="dm-story-ring"><div class="dm-avatar"><img class="blurred" src="' + imgSrc + '" alt=""></div></div>';
     } else {
-      avatarHtml = '<div class="dm-avatar"><img class="blurred" src="https://randomuser.me/api/portraits/' + c.img + '.jpg" alt=""></div>';
+      avatarHtml = '<div class="dm-avatar"><img class="blurred" src="' + imgSrc + '" alt=""></div>';
     }
 
     var nameHtml;
@@ -1111,7 +1133,7 @@ button { font-family: inherit; }
       rightHtml += '<div class="dm-unread-dot"></div>';
     }
     if (c.hasReel) {
-      rightHtml += '<div class="dm-reel-thumb"><img src="https://randomuser.me/api/portraits/' + c.reelImg + '.jpg" alt=""></div>';
+      rightHtml += '<div class="dm-reel-thumb"><img src="https://i.pravatar.cc/80?img=' + (Math.floor(Math.random()*70)+1) + '" alt=""></div>';
     }
     if (!rightHtml && !c.hasReel) {
       rightHtml += '<svg class="dm-camera" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>';

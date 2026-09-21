@@ -156,6 +156,7 @@ body {
 .pill.cta { color:var(--pink); background:var(--pink-dim); }
 .pill.checkout { color:var(--orange); background:var(--orange-dim); }
 .pill.obrigado { color:var(--emerald); background:var(--emerald-dim); }
+.pill.sale { color:var(--emerald); background:var(--emerald-dim); font-weight:700; }
 
 /* Ticket input */
 .ticket-row { display:flex; align-items:center; gap:8px; margin-bottom:20px; font-size:12px; color:var(--text-2); }
@@ -319,9 +320,8 @@ var STAGES = [
   { key:'decrypt', name:'Descriptografando', sub:'esperou animação', color:'var(--warning)', dim:'var(--warning-dim)' },
   { key:'feed', name:'Feed', sub:'viu o perfil', color:'var(--success)', dim:'var(--success-dim)' },
   { key:'cta', name:'CTA', sub:'página de venda', color:'var(--pink)', dim:'var(--pink-dim)' },
-  { key:'checkout_pix', name:'PIX', sub:'abriu pagamento', color:'var(--orange)', dim:'var(--orange-dim)' },
-  { key:'pix_confirm', name:'Confirmou', sub:'clicou já paguei', color:'var(--warning)', dim:'var(--warning-dim)' },
-  { key:'pix_unlock', name:'Comprou', sub:'informou remetente', color:'var(--emerald)', dim:'var(--emerald-dim)' }
+  { key:'checkout', name:'Checkout', sub:'foi pro pagamento', color:'var(--orange)', dim:'var(--orange-dim)' },
+  { key:'sale', name:'Venda', sub:'pagamento confirmado', color:'var(--emerald)', dim:'var(--emerald-dim)' }
 ];
 
 var STAGE_MAP = {};
@@ -346,7 +346,7 @@ function getPeriodData() {
   else days = days.slice(0, 30);
 
   var result = {};
-  var keys = ['hero','arroba','decrypt','feed','cta','checkout_pix','pix_confirm','pix_unlock','device:mobile','device:desktop'];
+  var keys = ['hero','arroba','decrypt','feed','cta','checkout','sale','revenue','device:mobile','device:desktop'];
   keys.forEach(function(k) { result[k] = sumDays(days, k); });
   result._days = days;
   return result;
@@ -361,22 +361,22 @@ function renderKPIs(d) {
   var hero = d.hero || 0;
   var arroba = d.arroba || 0;
   var cta = d.cta || 0;
-  var checkout = d.checkout_pix || 0;
-  var compras = d.pix_unlock || 0;
-  var receita = compras * ticket;
+  var checkout = d.checkout || 0;
   var mob = d['device:mobile'] || 0;
   var desk = d['device:desktop'] || 0;
   var total = mob + desk;
   var mobPct = total > 0 ? Math.round(mob / total * 100) : 0;
 
+  var sales = d.sale || 0;
+  var revenue = (d.revenue || 0) / 100;
+
   var kpis = [
     { lbl:'Visitantes', val:fmt(hero), sub:'abriram o site', cls:'' },
     { lbl:'Buscas (@)', val:fmt(arroba), sub:'digitaram um @', cls:'' },
-    { lbl:'Viram o CTA', val:fmt(cta), sub:'página de venda', cls:'' },
-    { lbl:'Abriram PIX', val:fmt(checkout), sub:'viram o QR code', cls:'' },
-    { lbl:'Vendas', val:fmt(compras), sub: compras === 1 ? 'compra realizada' : 'compras realizadas', cls:'' },
-    { lbl:'Receita', val:fmtMoney(receita), sub: compras + ' vendas × ' + fmtMoney(ticket), cls:'revenue' },
-    { lbl:'Conversão Geral', val:pct(compras, hero) + '%', sub:'visitante → compra', cls:'' },
+    { lbl:'Checkout', val:fmt(checkout), sub:'foram pro pagamento', cls:'' },
+    { lbl:'Vendas', val:fmt(sales), sub:pct(sales, checkout) + '% dos checkouts', cls:'revenue' },
+    { lbl:'Receita', val:fmtMoney(revenue), sub:sales > 0 ? 'ticket médio ' + fmtMoney(revenue / sales) : '-', cls:'revenue' },
+    { lbl:'Conversão', val:pct(sales, hero) + '%', sub:'visitante → venda', cls:'' },
     { lbl:'Mobile', val:mobPct + '%', sub:fmt(mob) + ' cel / ' + fmt(desk) + ' pc', cls:'' }
   ];
 
@@ -416,9 +416,7 @@ function renderConvCards(d) {
     { from:'arroba', to:'decrypt', label:'@ → Decrypt' },
     { from:'decrypt', to:'feed', label:'Decrypt → Feed' },
     { from:'feed', to:'cta', label:'Feed → CTA' },
-    { from:'cta', to:'checkout_pix', label:'CTA → PIX' },
-    { from:'checkout_pix', to:'pix_confirm', label:'PIX → Confirmou' },
-    { from:'pix_confirm', to:'pix_unlock', label:'Confirmou → Comprou' }
+    { from:'cta', to:'checkout', label:'CTA → Checkout' }
   ];
 
   var html = '';

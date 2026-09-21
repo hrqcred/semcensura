@@ -4,7 +4,7 @@
     {
       "name": "stalkear-dev",
       "runtimeExecutable": "node",
-      "runtimeArgs": ["/Users/hrqcred/Desktop/projetos/stalkear namorado/server.js"],
+      "runtimeArgs": ["server.js"],
       "port": 8080,
       "autoPort": true
     }

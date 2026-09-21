@@ -47,6 +47,37 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  if (req.url.startsWith('/api/pix-status')) {
+    res.status = (code) => { res.statusCode = code; return res; };
+    res.json = (data) => { res.setHeader('Content-Type', 'application/json'); res.end(JSON.stringify(data)); };
+    return require('./api/pix-status')(req, res);
+  }
+
+  if (req.url.startsWith('/api/pix') && !req.url.startsWith('/api/pix-')) {
+    var chunks = [];
+    req.on('data', function(c) { chunks.push(c); });
+    req.on('end', function() {
+      try { req.body = JSON.parse(Buffer.concat(chunks).toString()); } catch(e) { req.body = {}; }
+      res.status = (code) => { res.statusCode = code; return res; };
+      res.json = (data) => { res.setHeader('Content-Type', 'application/json'); res.end(JSON.stringify(data)); };
+      res.end = res.end.bind(res);
+      require('./api/pix')(req, res);
+    });
+    return;
+  }
+
+  if (req.url.startsWith('/api/webhook')) {
+    var chunks = [];
+    req.on('data', function(c) { chunks.push(c); });
+    req.on('end', function() {
+      try { req.body = JSON.parse(Buffer.concat(chunks).toString()); } catch(e) { req.body = {}; }
+      res.status = (code) => { res.statusCode = code; return res; };
+      res.json = (data) => { res.setHeader('Content-Type', 'application/json'); res.end(JSON.stringify(data)); };
+      require('./api/webhook')(req, res);
+    });
+    return;
+  }
+
   if (req.url.startsWith('/api/track')) {
     res.status = (code) => { res.statusCode = code; return res; };
     res.json = (data) => { res.setHeader('Content-Type', 'application/json'); res.end(JSON.stringify(data)); };

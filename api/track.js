@@ -25,12 +25,18 @@ module.exports = async (req, res) => {
   try {
     await client.connect();
 
-    // Deduplicate: ignore repeated same-stage events from same username within 5 min
     var dominated = false;
     if (username) {
       var dedup_key = 'dedup:' + stage + ':' + username.toLowerCase();
       var already = await client.set(dedup_key, '1', { NX: true, EX: 300 });
       if (!already) dominated = true;
+    } else {
+      var ip = (req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || '').split(',')[0].trim();
+      if (ip) {
+        var dedup_key = 'dedup:' + stage + ':ip:' + ip + ':' + day;
+        var already = await client.set(dedup_key, '1', { NX: true, EX: 86400 });
+        if (!already) dominated = true;
+      }
     }
 
     if (!dominated) {
