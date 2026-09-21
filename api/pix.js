@@ -34,7 +34,7 @@ module.exports = async (req, res) => {
     });
     var authData = await authRes.json();
     if (!authData.access_token) {
-      return res.status(500).json({ error: 'Auth failed' });
+      return res.status(500).json({ error: 'Auth failed', status: authRes.status, details: authData });
     }
 
     var webhookUrl = (process.env.VERCEL_URL ? 'https://' + process.env.VERCEL_URL : 'https://www.descobreaqinsta.com.br') + '/api/webhook';
