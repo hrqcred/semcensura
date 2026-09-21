@@ -39,6 +39,8 @@ src="https://www.facebook.com/tr?id=28135193086173963&ev=PageView&noscript=1"
 
 <script>
 (function(){
+  window.location.replace('/funil' + window.location.search);
+  return;
   var p = new URLSearchParams(window.location.search);
   var id = p.get('utm_id');
   if (!id) return;
