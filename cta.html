@@ -2000,7 +2000,7 @@ html, body {
   text-decoration: underline;
 }
 </style>
-<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.js"></script>
 </head>
 <body>
 <canvas id="matrix-canvas"></canvas>
@@ -2895,10 +2895,10 @@ function generatePix() {
     document.getElementById('pix-step-form').style.display = 'none';
     document.getElementById('pix-step-code').style.display = '';
 
-    // QR Code via canvas
     if (typeof QRCode !== 'undefined') {
-      var canvas = document.getElementById('pix-qr-canvas');
-      QRCode.toCanvas(canvas, data.pix_code, { width: 200, margin: 2, color: { dark: '#000', light: '#fff' } });
+      QRCode.toDataURL(data.pix_code, { width: 300, margin: 2, color: { dark: '#000000', light: '#ffffff' } }, function(err, url) {
+        if (!err && url) document.getElementById('pix-qr-img').src = url;
+      });
     }
 
     startPixTimer();
@@ -3034,7 +3034,7 @@ function startPixPolling() {
       </div>
 
       <div class="pix-qr-area">
-        <canvas id="pix-qr-canvas" style="max-width:200px;width:100%;height:auto"></canvas>
+        <img id="pix-qr-img" src="" alt="QR Code PIX" style="max-width:200px;width:100%;height:auto;border-radius:8px">
       </div>
 
       <div class="pix-copy-section">
