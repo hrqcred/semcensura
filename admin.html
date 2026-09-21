@@ -155,6 +155,8 @@ body {
 .pill.feed { color:var(--success); background:var(--success-dim); }
 .pill.cta { color:var(--pink); background:var(--pink-dim); }
 .pill.checkout { color:var(--orange); background:var(--orange-dim); }
+.pill.checkout_pix { color:var(--orange); background:var(--orange-dim); }
+.pill.pix_confirmed { color:var(--emerald); background:var(--emerald-dim); font-weight:700; }
 .pill.obrigado { color:var(--emerald); background:var(--emerald-dim); }
 .pill.sale { color:var(--emerald); background:var(--emerald-dim); font-weight:700; }
 
@@ -320,12 +322,16 @@ var STAGES = [
   { key:'decrypt', name:'Descriptografando', sub:'esperou animação', color:'var(--warning)', dim:'var(--warning-dim)' },
   { key:'feed', name:'Feed', sub:'viu o perfil', color:'var(--success)', dim:'var(--success-dim)' },
   { key:'cta', name:'CTA', sub:'página de venda', color:'var(--pink)', dim:'var(--pink-dim)' },
-  { key:'checkout', name:'Checkout', sub:'foi pro pagamento', color:'var(--orange)', dim:'var(--orange-dim)' },
+  { key:'checkout', name:'PIX Gerado', sub:'gerou QR code', color:'var(--orange)', dim:'var(--orange-dim)' },
   { key:'sale', name:'Venda', sub:'pagamento confirmado', color:'var(--emerald)', dim:'var(--emerald-dim)' }
 ];
 
 var STAGE_MAP = {};
 STAGES.forEach(function(s) { STAGE_MAP[s.key] = s.name; });
+STAGE_MAP['checkout_pix'] = 'PIX Gerado';
+STAGE_MAP['pix_confirmed'] = 'Pagamento Confirmado';
+STAGE_MAP['exit_popup_show'] = 'Exit Popup';
+STAGE_MAP['exit_popup_click'] = 'Exit → PIX';
 
 var cachedData = null;
 var currentPeriod = 'hoje';
@@ -373,8 +379,8 @@ function renderKPIs(d) {
   var kpis = [
     { lbl:'Visitantes', val:fmt(hero), sub:'abriram o site', cls:'' },
     { lbl:'Buscas (@)', val:fmt(arroba), sub:'digitaram um @', cls:'' },
-    { lbl:'Checkout', val:fmt(checkout), sub:'foram pro pagamento', cls:'' },
-    { lbl:'Vendas', val:fmt(sales), sub:pct(sales, checkout) + '% dos checkouts', cls:'revenue' },
+    { lbl:'PIX Gerado', val:fmt(checkout), sub:'geraram QR code', cls:'' },
+    { lbl:'Vendas', val:fmt(sales), sub:pct(sales, checkout) + '% dos PIX gerados', cls:'revenue' },
     { lbl:'Receita', val:fmtMoney(revenue), sub:sales > 0 ? 'ticket médio ' + fmtMoney(revenue / sales) : '-', cls:'revenue' },
     { lbl:'Conversão', val:pct(sales, hero) + '%', sub:'visitante → venda', cls:'' },
     { lbl:'Mobile', val:mobPct + '%', sub:fmt(mob) + ' cel / ' + fmt(desk) + ' pc', cls:'' }
@@ -416,7 +422,8 @@ function renderConvCards(d) {
     { from:'arroba', to:'decrypt', label:'@ → Decrypt' },
     { from:'decrypt', to:'feed', label:'Decrypt → Feed' },
     { from:'feed', to:'cta', label:'Feed → CTA' },
-    { from:'cta', to:'checkout', label:'CTA → Checkout' }
+    { from:'cta', to:'checkout', label:'CTA → PIX Gerado' },
+    { from:'checkout', to:'sale', label:'PIX Gerado → Venda' }
   ];
 
   var html = '';
@@ -505,7 +512,7 @@ function renderHeatmap(events) {
 function renderEvents(events) {
   if (!events || events.length === 0) { document.getElementById('events').innerHTML = '<div class="empty">Nenhum evento registrado ainda.</div>'; return; }
 
-  var html = '<table class="tbl"><thead><tr><th>Hora</th><th>Etapa</th><th>@</th><th>Device</th><th>Origem</th></tr></thead><tbody>';
+  var html = '<table class="tbl"><thead><tr><th>Hora</th><th>Etapa</th><th>@</th><th>Device</th><th>Info</th></tr></thead><tbody>';
   events.slice(0, 30).forEach(function(ev) {
     var d = new Date(ev.t);
     var time = (d.getHours()<10?'0':'') + d.getHours() + ':' + (d.getMinutes()<10?'0':'') + d.getMinutes() + ':' + (d.getSeconds()<10?'0':'') + d.getSeconds();

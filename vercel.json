@@ -1,11 +1,32 @@
 {
   "version": 2,
-  "rewrites": [
-    { "source": "/funil", "destination": "/funil.html" },
-    { "source": "/feed", "destination": "/feed.html" },
-    { "source": "/dm", "destination": "/dm.html" },
-    { "source": "/cta", "destination": "/cta.html" },
-    { "source": "/obrigado", "destination": "/obrigado.html" },
-    { "source": "/admin", "destination": "/admin.html" }
+  "builds": [
+    { "src": "api/stats.js", "use": "@vercel/node" },
+    { "src": "api/track.js", "use": "@vercel/node" },
+    { "src": "api/proxy.js", "use": "@vercel/node" },
+    { "src": "api/img-proxy.js", "use": "@vercel/node" },
+    { "src": "api/pix.js", "use": "@vercel/node" },
+    { "src": "api/pix-status.js", "use": "@vercel/node" },
+    { "src": "api/webhook.js", "use": "@vercel/node" },
+    { "src": "api/utm.js", "use": "@vercel/node" },
+    { "src": "*.html", "use": "@vercel/static" },
+    { "src": "midias/**", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/api/stats", "dest": "/api/stats.js" },
+    { "src": "/api/track", "dest": "/api/track.js" },
+    { "src": "/api/proxy", "dest": "/api/proxy.js" },
+    { "src": "/api/img-proxy", "dest": "/api/img-proxy.js" },
+    { "src": "/api/pix", "dest": "/api/pix.js" },
+    { "src": "/api/pix-status", "dest": "/api/pix-status.js" },
+    { "src": "/api/webhook", "dest": "/api/webhook.js" },
+    { "src": "/api/utm", "dest": "/api/utm.js" },
+    { "src": "/funil", "dest": "/funil.html" },
+    { "src": "/feed", "dest": "/feed.html" },
+    { "src": "/dm", "dest": "/dm.html" },
+    { "src": "/cta", "dest": "/cta.html" },
+    { "src": "/obrigado", "dest": "/obrigado.html" },
+    { "src": "/admin", "dest": "/admin.html" },
+    { "src": "/", "dest": "/index.html" }
   ]
 }
